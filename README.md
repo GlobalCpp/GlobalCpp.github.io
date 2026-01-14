@@ -19,6 +19,8 @@ Join us for our weekly online tech presentations Saturdays at 10am CT
 * The Zoom presentation is highly locked down. Please join on the [Chicago C++ Discord Server](https://discord.gg/HVv7Jya37T) to ask questions while we work on a more permanent home for discourse. 
 * [Google Calendar](https://calendar.google.com/calendar/u/0?cid=NDdjMjI1ZTAyYTFkNjdkNWNmZjVhY2EzMDk1YjMzMWEyODRlZDQ4ZTQ4YTlkZDAxMTYyODJhYjEzZGM0MmQ3MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t) for upcoming presentations
 
+Pending volunteer efforts, videos should be available same day at our [YouTube channel](https://www.youtube.com/@GlobalCpp)
+
 
 Please also check out our individual user groups:
 * [Bay Area](https://www.meetup.com/cpp-bay-area/)
