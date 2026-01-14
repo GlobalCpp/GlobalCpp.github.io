@@ -28,6 +28,16 @@ Please also check out our individual user groups:
 * [New York](https://www.meetup.com/new-york-c-c-meetup-group)
 * [Toronto](https://www.meetup.com/cpptoronto/)
 
+# Session Presenters and Topics
+
+## Coming Soon
+
+* 2026/01/17 : Rob Douglas - 2 topics, Conda and Type Erasure
+* 2026/01/24 : Rob Douglas - Combining some C++17 and later features for elegance
+
+## Past Presentations
+
+
 # Upcoming in-person social events near you!
 
 ## Next Week
