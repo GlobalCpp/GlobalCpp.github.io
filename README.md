@@ -6,9 +6,9 @@
 <link rel="manifest" href="/site.webmanifest" />
 
 <center>
-<img src='logos/global_c++.png' width='50%' height='50%'>
+<img src='logos/global_c++.png' width='10%' height='10%'>
 <br>
-<img src='logos/tuple_banner.png' width='50%' height='50%'>
+<img src='logos/tuple_banner_dark.png' width='60%' height='60%'>
 </center>
 
 Welcome to the landing page for GlobalCpp, a collaboration between numerous regional C++ User Groups.
