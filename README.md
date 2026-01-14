@@ -24,8 +24,14 @@ Pending volunteer efforts, videos should be available same day at our [YouTube c
 
 Please also check out our individual user groups:
 * [Bay Area](https://www.meetup.com/cpp-bay-area/)
-* [Chicago](https://www.meetup.com/Chicago-C-CPP-Users-Group)
+* [Chicago Meetup](https://www.meetup.com/Chicago-C-CPP-Users-Group), [Chicago Info Page](https://chicagocpp.github.io/)
 * [New York](https://www.meetup.com/new-york-c-c-meetup-group)
 * [Toronto](https://www.meetup.com/cpptoronto/)
 
+# Upcoming in-person social events near you!
+
+## Next Week
+* Stay tuned
+
+## Soon
 
