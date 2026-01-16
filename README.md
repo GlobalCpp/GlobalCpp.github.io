@@ -32,8 +32,9 @@ Please also check out our individual user groups:
 
 ## Coming Soon
 
-* 2026/01/17 : Rob Douglas - 2 topics, Conda and Type Erasure
-* 2026/01/24 : Rob Douglas - Combining some C++17 and later features for elegance
+* 2026/01/17 : [Rob Douglas](presenters/robert_douglas.md) - 2 topics, Conda and Type Erasure
+* 2026/01/24 : [Rob Douglas](presenters/robert_douglas.md) - Combining some C++17 and later features for elegance
+* 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course)
 
 ## Past Presentations
 
@@ -41,7 +42,8 @@ Please also check out our individual user groups:
 # Upcoming in-person social events near you!
 
 ## Next Week
-* Stay tuned
+
+* 2026/01/20 : Franklin Tap in the Chicago Loop [RSVP](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/?utm_medium=referral&utm_campaign=announce_event&utm_source=link&utm_version=v2&member_id=13296813)
 
 ## Soon
 
