@@ -33,12 +33,13 @@ Please also check out our individual user groups:
 
 ## Coming Soon
 
-* 2026/01/17 : [Rob Douglas](presenters/robert_douglas.md) - 2 topics, Conda and Type Erasure
 * 2026/01/24 : [Rob Douglas](presenters/robert_douglas.md) - Combining some C++17 and later features for elegance
 * 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course)
+* 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus
 
 ## Past Presentations
 
+* 2026/01/17 : [Rob Douglas](presenters/robert_douglas.md) - 2 topics, Conda and Type Erasure
 
 # Upcoming in-person social events near you!
 

@@ -1,6 +1,6 @@
 # Victor Eijkhout
 
-<img src='victor_eijkhout.jpeg'>
+<img src='victor_eijkhout.jpeg' width='40%' height='40%'>
 
 Victor Eijkhout was brought up as a numerical analyst,
 coding in Fortran, and proving theorems
