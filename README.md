@@ -26,6 +26,7 @@ Please also check out our individual user groups:
 * [Bay Area](https://www.meetup.com/cpp-bay-area/)
 * [Chicago Meetup](https://www.meetup.com/Chicago-C-CPP-Users-Group), [Chicago Info Page](https://chicagocpp.github.io/)
 * [New York](https://www.meetup.com/new-york-c-c-meetup-group)
+* [Portland](https://www.meetup.com/pdxcpp/)
 * [Toronto](https://www.meetup.com/cpptoronto/)
 
 # Session Presenters and Topics
@@ -41,9 +42,10 @@ Please also check out our individual user groups:
 
 # Upcoming in-person social events near you!
 
-## Next Week
+## This Week
 
-* 2026/01/20 : Franklin Tap in the Chicago Loop [RSVP](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/?utm_medium=referral&utm_campaign=announce_event&utm_source=link&utm_version=v2&member_id=13296813)
+* 2026/01/20 : Franklin Tap in the Chicago Loop [RSVP](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/)
+* 2026/01/20 : Lucky Labrador Brew Pub, Portland, OR [RSVP](https://www.meetup.com/pdxcpp/events/312454247/)
 
 ## Soon
 
