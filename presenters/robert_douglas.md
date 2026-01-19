@@ -1,6 +1,6 @@
 # Rob Douglas
 
-<img src='robert_douglas.png' width='50%' height='50%'>
+<img src='robert_douglas.png' width='30%' height='30%'>
 
 Rob Douglas is the organizer of the Chicago C/C++ User Group, a 15+ year member of the C++ Standards Committee, currently over-committing himself as he sits out a garden leave, but always excited to help others move forward in their careers.
 

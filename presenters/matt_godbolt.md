@@ -1,6 +1,6 @@
 # Matt Godbolt 
 
-<img src='matt_godbolt.png'  width='70%' height='70%'>
+<img src='matt_godbolt.png'  width='30%' height='30%'>
 
 Matt is a C++ programmer and occasional verb. He loves writing efficient code 
 and sharing his passion about how computers work under the hood. He works on 
