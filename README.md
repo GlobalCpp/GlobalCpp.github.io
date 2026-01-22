@@ -14,8 +14,9 @@
 Welcome to the landing page for GlobalCpp, a collaboration between numerous regional C++ User Groups.
 Very much new and very much under construction. Please join us on this endeavor!
 
-Join us for our weekly online tech presentations Saturdays at 10am CT
+Join us for our weekly online tech presentations Saturdays at 11 am CT, 12 pm ET. This Saturday we will be presenting to Zoom as last week, but will also try streaming directly to YouTube live.
 * [Zoom Link](https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1)
+* [YouTube live](https://www.youtube.com/@GlobalCpp)
 * The Zoom presentation is highly locked down. Please join on the [Chicago C++ Discord Server](https://discord.gg/HVv7Jya37T) to ask questions while we work on a more permanent home for discourse. 
 * [Google Calendar](https://calendar.google.com/calendar/u/0?cid=NDdjMjI1ZTAyYTFkNjdkNWNmZjVhY2EzMDk1YjMzMWEyODRlZDQ4ZTQ4YTlkZDAxMTYyODJhYjEzZGM0MmQ3MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t) for upcoming presentations
 
@@ -50,3 +51,5 @@ Please also check out our individual user groups:
 
 ## Soon
 
+
+## Past Events
