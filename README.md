@@ -30,6 +30,10 @@ Please also check out our individual user groups:
 * [Portland](https://www.meetup.com/pdxcpp/)
 * [Toronto](https://www.meetup.com/cpptoronto/)
 
+And don't forget to check out this year's conferences:
+* [NDC {Toronto}](https://ndctoronto.com/) : May 5-8 Toronto, CA : Check the discord server (in channel more-cpp) for discount code
+* [Cppcon 2026](https://cppcon.org/) : Sept 12-18 Aurora, CO
+
 # Session Presenters and Topics
 
 ## Coming Soon
