@@ -38,22 +38,22 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/01/24 : [Rob Douglas](presenters/robert_douglas.md) - Combining some C++17 and later features for elegance
-* 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course)
+* 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course) - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_31)
 * 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus
 
 ## Past Presentations
 
-* 2026/01/17 : [Rob Douglas](presenters/robert_douglas.md) - 2 topics, Conda and Type Erasure
+* 2026/01/24 : [Rob Douglas](presenters/robert_douglas.md) - Combining some C++17 and later features for elegance - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_24)
+* 2026/01/17 : [Rob Douglas](presenters/robert_douglas.md) - 2 topics, Conda and Type Erasure - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_17)
 
 # Upcoming in-person social events near you!
 
 ## This Week
 
+## Soon
+
+## Past Events
+
 * 2026/01/20 : Franklin Tap in the Chicago Loop [RSVP](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/)
 * 2026/01/20 : Lucky Labrador Brew Pub, Portland, OR [RSVP](https://www.meetup.com/pdxcpp/events/312454247/)
 
-## Soon
-
-
-## Past Events
