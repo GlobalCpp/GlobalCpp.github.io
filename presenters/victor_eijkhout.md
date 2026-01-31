@@ -15,3 +15,6 @@ for almost twenty years,
 supporting research,
 teaching various aspects of high performance computing, and
 flexing his programming muscle on 100,000+ core supercomputers.
+
+[The Art of HPC Book](theartofhpc.com)
+
