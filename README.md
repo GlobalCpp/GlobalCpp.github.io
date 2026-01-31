@@ -29,6 +29,8 @@ Please also check out our individual user groups:
 * [New York](https://www.meetup.com/new-york-c-c-meetup-group)
 * [Portland](https://www.meetup.com/pdxcpp/)
 * [Toronto](https://www.meetup.com/cpptoronto/)
+* [Windsor](http://wccug.org/)
+* [Winnipeg](https://www.linkedin.com/groups/14382138/)
 
 And don't forget to check out this year's conferences:
 * [NDC {Toronto}](https://ndctoronto.com/) : May 5-8 Toronto, CA : Check the discord server (in channel more-cpp) for discount code
@@ -40,6 +42,7 @@ And don't forget to check out this year's conferences:
 
 * 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course) - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_31)
 * 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus
+* 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance
 
 ## Past Presentations
 
