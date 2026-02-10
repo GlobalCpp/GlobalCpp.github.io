@@ -47,6 +47,7 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
+* 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26
 * 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance
 
 ## Past Presentations
@@ -71,3 +72,5 @@ And don't forget to check out this year's conferences:
 
 * NYC++ [New York: Feb 11th](https://www.meetup.com/new-york-c-c-meetup-group/events/313108254){:target="_blank" rel="noopener"}
 * PDXCPP [Portland: Feb 17th](https://www.meetup.com/pdxcpp/events/312937489){:target="_blank" rel="noopener"}
+* Chicago C/C++ User Group [Chicago: Feb 19th](https://www.meetup.com/chicago-c-cpp-users-group/events/313287103){:target="_blank" rel="noopener"}
+
