@@ -14,7 +14,9 @@
 Welcome to the landing page for GlobalCpp, a collaboration between numerous regional C++ User Groups.
 Very much new and very much under construction. Please join us on this endeavor!
 
-Join us for our weekly online tech presentations Saturdays at 11 am CT, 12 pm ET. This Saturday we will be presenting to Zoom as last week, but will also try streaming directly to YouTube live.
+~~Join us for our weekly online tech presentations Saturdays at 11 am CT, 12 pm ET.~~
+**NOTE:** This week, February 14th, we will be starting a bit later than usual: 1pm CT, 2pm ET. The calendar, below, has the updated time. We will resume the regular time the following week.
+
 
 * [Zoom Link](https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1){:target="_blank" rel="noopener"}
 * * NOTE: Not this week: Only Zoom * [YouTube live](https://www.youtube.com/@GlobalCpp)
