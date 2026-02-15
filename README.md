@@ -49,11 +49,12 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26
+* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md){:target="_blank" rel="noopener"} - DPDK - Achieving high network performance on a CPU
 * 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance
 
 ## Past Presentations
 
+* 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26 [Code](https://compiler-explorer.com/z/PWr161GG6) [Video](https://youtu.be/iuI1QXQwD1k)
 * 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus [Video](https://youtu.be/a4vNxt1HEYU)
 * 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course) - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_31) [Video](https://youtu.be/jDNWjcu93Qc)
 * 2026/01/24 : [Rob Douglas](presenters/robert_douglas.md) - Combining some C++17 and later features for elegance - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_24) [Video](https://youtu.be/xXH0BZvAicM)
@@ -62,6 +63,8 @@ And don't forget to check out this year's conferences:
 # Upcoming in-person social events near you!
 
 ## This Week
+
+* 2026/02/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937489/)
 
 ## Soon
 
@@ -72,7 +75,7 @@ And don't forget to check out this year's conferences:
 
 # Upcoming Meetups
 
-* NYC++ [New York: Feb 11th](https://www.meetup.com/new-york-c-c-meetup-group/events/313108254){:target="_blank" rel="noopener"}
 * PDXCPP [Portland: Feb 17th](https://www.meetup.com/pdxcpp/events/312937489){:target="_blank" rel="noopener"}
 * Chicago C/C++ User Group [Chicago: Feb 19th](https://www.meetup.com/chicago-c-cpp-users-group/events/313287103){:target="_blank" rel="noopener"}
+* Prague C++ [Prague: Feb 24th](https://www.meetup.com/prague-cpp/events/313280105/){:target="_blank" rel="noopener"}
 
