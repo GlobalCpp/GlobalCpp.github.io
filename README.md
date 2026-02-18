@@ -37,6 +37,7 @@ Please also check out our individual user groups:
 * [Serbia](https://www.meetup.com/cpp-serbia/){:target="_blank" rel="noopener"}
 * [Tel Aviv](https://www.meetup.com/corecpp/){:target="_blank" rel="noopener"}
 * [Toronto](https://www.meetup.com/cpptoronto/){:target="_blank" rel="noopener"}
+* [Vienna](https://cppusergroupvienna.org/){:target="_blank" rel="noopener"}
 * [Windsor](http://wccug.org/){:target="_blank" rel="noopener"}
 * [Winnipeg](https://www.linkedin.com/groups/14382138/){:target="_blank" rel="noopener"}
 
