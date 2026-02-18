@@ -48,8 +48,12 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md){:target="_blank" rel="noopener"} - DPDK - Achieving high network performance on a CPU
+* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU
 * 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance
+* 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together
+* 2026/03/14 : [Jeff Garland](presenters/jeff_garland.md) - Title TBA
+* 2026/03/21 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware
+
 
 ## Past Presentations
 
