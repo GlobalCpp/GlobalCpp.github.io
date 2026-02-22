@@ -38,6 +38,7 @@ Please also check out our individual user groups:
 * [Tel Aviv](https://www.meetup.com/corecpp/){:target="_blank" rel="noopener"}
 * [Toronto](https://www.meetup.com/cpptoronto/){:target="_blank" rel="noopener"}
 * [Vienna](https://cppusergroupvienna.org/){:target="_blank" rel="noopener"}
+* [Warsaw](https://www.meetup.com/warsaw-cpp-users/){:target="_blank" rel="noopener"}
 * [Windsor](http://wccug.org/){:target="_blank" rel="noopener"}
 * [Winnipeg](https://www.linkedin.com/groups/14382138/){:target="_blank" rel="noopener"}
 
@@ -49,7 +50,6 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU
 * 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance
 * 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together
 * 2026/03/14 : [Jeff Garland](presenters/jeff_garland.md) - Title TBA
@@ -58,6 +58,7 @@ And don't forget to check out this year's conferences:
 
 ## Past Presentations
 
+* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU
 * 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26 [Code](https://compiler-explorer.com/z/PWr161GG6) [Video](https://youtu.be/iuI1QXQwD1k)
 * 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus [Video](https://youtu.be/a4vNxt1HEYU)
 * 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course) - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_31) [Video](https://youtu.be/jDNWjcu93Qc)
