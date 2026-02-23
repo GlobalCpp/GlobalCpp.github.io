@@ -58,7 +58,7 @@ And don't forget to check out this year's conferences:
 
 ## Past Presentations
 
-* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU
+* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU [Video](https://youtu.be/YmMYhcwUvbI)
 * 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26 [Code](https://compiler-explorer.com/z/PWr161GG6) [Video](https://youtu.be/iuI1QXQwD1k)
 * 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus [Video](https://youtu.be/a4vNxt1HEYU)
 * 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course) - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_31) [Video](https://youtu.be/jDNWjcu93Qc)
