@@ -51,7 +51,7 @@ And don't forget to check out this year's conferences:
 ## Coming Soon
 
 * 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together
-* 2026/03/14 : [Jeff Garland](presenters/jeff_garland.md) - Title TBA
+* 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
 * 2026/03/21 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware
 
 
