@@ -50,13 +50,13 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together
 * 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
 * 2026/03/21 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware
 
 
 ## Past Presentations
 
+* 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together [Video](https://youtu.be/aXPTzc9BLps)
 * 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance [Slides](https://github.com/GlobalCpp/sessions/blob/session_2026_02_28/Matmul_in_CUDA.pdf) [Code Repository](https://github.com/ahmadsharif1/cuda_study) [Video](https://youtu.be/TmHcnmCPBkA)
 * 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU [Video](https://youtu.be/YmMYhcwUvbI)
 * 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26 [Code](https://compiler-explorer.com/z/PWr161GG6) [Video](https://youtu.be/iuI1QXQwD1k)
