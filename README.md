@@ -50,12 +50,13 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
-* 2026/03/21 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware
+* 2026/03/21 : [Rob Douglas](presenters/robert_douglas.md) - A Coding Mid-Life Crisis: Are modern programming techniques really better?
+* 2026/03/28 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware
 
 
 ## Past Presentations
 
+* 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
 * 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together [Slides](https://github.com/GlobalCpp/sessions/blob/session_2026_03_07/One_App_Three_Ways_GlobalCpp.pdf) [Video](https://youtu.be/aXPTzc9BLps)
 * 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance [Slides](https://github.com/GlobalCpp/sessions/blob/session_2026_02_28/Matmul_in_CUDA.pdf) [Code Repository](https://github.com/ahmadsharif1/cuda_study) [Video](https://youtu.be/TmHcnmCPBkA)
 * 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU [Video](https://youtu.be/YmMYhcwUvbI)
