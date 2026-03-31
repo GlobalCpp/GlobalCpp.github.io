@@ -50,11 +50,12 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/03/28 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware
+* 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs
 
 
 ## Past Presentations
 
+* 2026/03/28 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware [Video](https://youtu.be/4lUKE1Prypk) [Code](https://github.com/fpikus/LockFree/)
 * 2026/03/21 : [Rob Douglas](presenters/robert_douglas.md) - A Coding Mid-Life Crisis: Are modern programming techniques really better? [Video](https://youtu.be/BNmSMhe8xug)
 * 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
 * 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together [Slides](https://github.com/GlobalCpp/sessions/blob/session_2026_03_07/One_App_Three_Ways_GlobalCpp.pdf) [Video](https://youtu.be/aXPTzc9BLps)
