@@ -50,11 +50,12 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs
-
+* 2026/04/18 : [Jeff Garland](presenters/jeff_garland.md) - Let's write some functions, how hard could it be?
+* 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26
 
 ## Past Presentations
 
+* 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs [Video](https://youtu.be/Yhmj5pPuyDE)
 * 2026/03/28 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware [Video](https://youtu.be/4lUKE1Prypk) [Code](https://github.com/fpikus/LockFree/) [Slides](https://drive.google.com/file/d/1n9DZCP-u_avEuooUv7lYDTq6aVD5Hq15/view?usp=sharing)
 * 2026/03/21 : [Rob Douglas](presenters/robert_douglas.md) - A Coding Mid-Life Crisis: Are modern programming techniques really better? [Video](https://youtu.be/BNmSMhe8xug)
 * 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
@@ -71,12 +72,16 @@ And don't forget to check out this year's conferences:
 
 ## This Week
 
-* 2026/02/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937489/)
+* 2026/04/16 : [Free Times Cafe, Toronto, ON](https://www.meetup.com/cpptoronto/events/313986536)
 
 ## Soon
 
+* 2026/04/21 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937493)
+
 ## Past Events
 
+* 2026/03/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937491)
+* 2026/02/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937489/)
 * 2026/01/20 : [Franklin Tap in the Chicago Loop](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/)
 * 2026/01/20 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312454247/)
 
