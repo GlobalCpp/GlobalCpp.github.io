@@ -35,6 +35,7 @@ Please also check out our individual user groups:
 * [New York](https://www.meetup.com/new-york-c-c-meetup-group){:target="_blank" rel="noopener"}
 * [Portland](https://www.meetup.com/pdxcpp/){:target="_blank" rel="noopener"}
 * [Serbia](https://www.meetup.com/cpp-serbia/){:target="_blank" rel="noopener"}
+* [Stockholm](https://www.meetup.com/stockholmcpp/){:target="_blank" rel="noopener"}
 * [Tel Aviv](https://www.meetup.com/corecpp/){:target="_blank" rel="noopener"}
 * [Toronto](https://www.meetup.com/cpptoronto/){:target="_blank" rel="noopener"}
 * [Vienna](https://cppusergroupvienna.org/){:target="_blank" rel="noopener"}
@@ -50,11 +51,12 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/04/18 : [Jeff Garland](presenters/jeff_garland.md) - Let's write some functions, how hard could it be?
 * 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26
 
 ## Past Presentations
 
+* 2026/04/25 : [Ivica Bogosavljević](presenters/ivica_bogosavljevic.md) - The Hidden Performance Price of C++ Virtual Functions [Video](https://youtu.be/3ux5YEj1c54)
+* 2026/04/18 : [Jeff Garland](presenters/jeff_garland.md) - Let's write some functions, how hard could it be? [Video](https://youtu.be/5VivY8FGkMQ)
 * 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs [Video](https://youtu.be/Yhmj5pPuyDE)
 * 2026/03/28 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware [Video](https://youtu.be/4lUKE1Prypk) [Code](https://github.com/fpikus/LockFree/) [Slides](https://drive.google.com/file/d/1n9DZCP-u_avEuooUv7lYDTq6aVD5Hq15/view?usp=sharing)
 * 2026/03/21 : [Rob Douglas](presenters/robert_douglas.md) - A Coding Mid-Life Crisis: Are modern programming techniques really better? [Video](https://youtu.be/BNmSMhe8xug)
