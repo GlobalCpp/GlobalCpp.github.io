@@ -51,10 +51,12 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26
+* 2026/05/09 : [Daniel Lemire](presenters/daniel_lemire.md) - Algorithms for Modern Processor Architectures
+
 
 ## Past Presentations
 
+* 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26
 * 2026/04/25 : [Ivica Bogosavljević](presenters/ivica_bogosavljevic.md) - The Hidden Performance Price of C++ Virtual Functions [Video](https://youtu.be/3ux5YEj1c54)
 * 2026/04/18 : [Jeff Garland](presenters/jeff_garland.md) - Let's write some functions, how hard could it be? [Video](https://youtu.be/5VivY8FGkMQ)
 * 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs [Video](https://youtu.be/Yhmj5pPuyDE)
