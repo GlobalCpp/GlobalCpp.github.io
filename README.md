@@ -16,10 +16,6 @@ Very much new and very much under construction. Please join us on this endeavor!
 
 Join us for our weekly online tech presentations Saturdays at 11 am CT, 12 pm ET.
 
-> [!Note]
-> This week, Saturday June 13th, we will be starting a couple hours later than usual: 1 pm CT
-
-
 * [Zoom Link](https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1){:target="_blank" rel="noopener"}
 * * NOTE: Not this week: Only Zoom * [YouTube live](https://www.youtube.com/@GlobalCpp)
 * Please join us on the [GlobalCpp Discord Server](https://discord.gg/HVv7Jya37T){:target="_blank" rel="noopener"} to ask questions if you do not wish to have your voice on stream.
@@ -54,15 +50,16 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/06/13 : [Sandor Dargo](presenters/sandor_dargo.md) - The Clocks of C++: Knowing When (and Why) to Use Each One
 * 2026/06/20 : [Mouaz Chamieh](presenters/mouaz_chamieh.md) - std::move pitfalls
+* 2026/06/27 : [Tsung-Wei Huang](presenters/tsung_wei_huang.md) - Programming Dynamic Task Graph using Modern C++ 
 
 ## Past Presentations
 
+* 2026/06/13 : [Sandor Dargo](presenters/sandor_dargo.md) - The Clocks of C++: Knowing When (and Why) to Use Each One [Video](https://youtu.be/L3sOlpgNmiQ)
 * 2026/05/30 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26 p2 [Video](https://youtu.be/R3cF2m_wC9o)
 * 2026/05/23 : [Diego Rodriguez-Losada](presenters/diego_rodriguez_losada.md) - CMake, CPS and Conan: The path to standardized dependency management for C and C++ [Video](https://youtu.be/XPRPdBlTR7o)
-* 2026/05/09 : [Daniel Lemire](presenters/daniel_lemire.md) - Algorithms for Modern Processor Architectures
-* 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26
+* 2026/05/09 : [Daniel Lemire](presenters/daniel_lemire.md) - SIMD-Accelerated Data Processing [Video](https://youtu.be/BBLDgsU7Zn4)
+* 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26 [Video](https://youtu.be/GrPPWk2uDSI)
 * 2026/04/25 : [Ivica Bogosavljević](presenters/ivica_bogosavljevic.md) - The Hidden Performance Price of C++ Virtual Functions [Video](https://youtu.be/3ux5YEj1c54)
 * 2026/04/18 : [Jeff Garland](presenters/jeff_garland.md) - Let's write some functions, how hard could it be? [Video](https://youtu.be/5VivY8FGkMQ)
 * 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs [Video](https://youtu.be/Yhmj5pPuyDE)
