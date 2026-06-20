@@ -50,7 +50,7 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/06/20 : [Mouaz Chamieh](presenters/mouaz_chamieh.md) - std::move pitfalls
+* 2026/06/20 : [Mouaz Chamieh](presenters/mouaz_chamieh.md) - Move Semantic
 * 2026/06/27 : [Tsung-Wei Huang](presenters/tsung_wei_huang.md) - Programming Dynamic Task Graph using Modern C++ 
 
 ## Past Presentations
