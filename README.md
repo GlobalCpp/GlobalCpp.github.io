@@ -53,7 +53,7 @@ And don't forget to check out this year's conferences:
 ## Coming Soon
 
 * 2026/07/04 : [Hassan Sajjad](presenters/hassan_sajjad.md) - HMake: Caching and Correctness 
-* 2026/07/11 : [Andrei Alexandrescu](presenters/andrei_alexandrescu.md) - Adapting to AI-centric Programming (Join live! Video for this presentation will be delayed until the fall)
+* 2026/07/11 : [Andrei Alexandrescu](presenters/andrei_alexandrescu.md) - The Next 20 Weeks of Systems Engineering (Join live! Video for this presentation will be delayed until the fall)
 
 ## Past Presentations
 
