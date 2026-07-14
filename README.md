@@ -84,14 +84,14 @@ And don't forget to check out this year's conferences:
 
 ## This Week
 
-* 2026/04/16 : [Free Times Cafe, Toronto, ON](https://www.meetup.com/cpptoronto/events/313986536)
-
 ## Soon
 
-* 2026/04/21 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937493)
+* 2026/07/22 : [Inceptive, Belgrade, Serbia](https://www.meetup.com/cpp-serbia/events/315664357/)
 
 ## Past Events
 
+* 2026/04/21 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937493)
+* 2026/04/16 : [Free Times Cafe, Toronto, ON](https://www.meetup.com/cpptoronto/events/313986536)
 * 2026/03/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937491)
 * 2026/02/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937489/)
 * 2026/01/20 : [Franklin Tap in the Chicago Loop](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/)
