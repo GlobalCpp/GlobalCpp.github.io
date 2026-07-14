@@ -1,0 +1,52 @@
+name: Sync Meetup events
+
+# Pulls upcoming events from member groups' Meetup.com calendars into the site:
+# online "Global C++" sessions become _events/*.md pages; in-person member-group
+# meetups become links in _data/group_events.yml. Runs weekly (and on demand),
+# then commits any changes back to main so the built-in GitHub Pages build serves
+# them. The bot's commit to _events/** in turn triggers generate-ics.yml, which
+# refreshes events.ics — this workflow itself only runs on schedule/dispatch, so
+# there is no loop.
+#
+# Requires repo secrets (Settings → Secrets and variables → Actions):
+#   MEETUP_CLIENT_KEY      MEETUP_MEMBER_ID
+#   MEETUP_SIGNING_KEY_ID  MEETUP_PRIVATE_KEY   (the RSA private-key PEM contents)
+# and repo Actions write permission (Settings → Actions → Workflow permissions).
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ".ruby-version"
+
+      - name: Sync events from Meetup
+        env:
+          MEETUP_CLIENT_KEY: ${{ secrets.MEETUP_CLIENT_KEY }}
+          MEETUP_MEMBER_ID: ${{ secrets.MEETUP_MEMBER_ID }}
+          MEETUP_SIGNING_KEY_ID: ${{ secrets.MEETUP_SIGNING_KEY_ID }}
+          MEETUP_PRIVATE_KEY: ${{ secrets.MEETUP_PRIVATE_KEY }}
+        run: ruby scripts/sync_meetup.rb
+
+      - name: Commit synced events
+        run: |
+          if [ -n "$(git status --porcelain _events _data/group_events.yml)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add _events _data/group_events.yml
+            git commit -m "Sync Meetup events [skip ci]"
+            git push
+          else
+            echo "No Meetup changes to sync."
+          fi

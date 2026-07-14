@@ -6,3 +6,7 @@ _site/
 vendor/
 .bundle/
 Gemfile.lock
+
+# Meetup sync credentials (never commit) — see scripts/sync_meetup.rb
+.env
+*.pem

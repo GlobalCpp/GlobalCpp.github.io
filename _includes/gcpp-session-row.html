@@ -3,6 +3,8 @@
   Params: event (required) — the session document
           short_date       — "Jul 11" instead of "Jul 11, 2026" (year-grouped lists)
           show_links       — render the [[video]] / [[slides]] / [[code]] attribute chips
+  A [[rsvp]] chip (linking the session's Meetup event) is shown for upcoming
+  sessions that carry a `meetup_url`; past rows show a [[meetup]] chip instead.
 {% endcomment %}
 {%- assign e = include.event -%}
 <li>
@@ -14,12 +16,15 @@
       {%- elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>
       {%- elsif e.presenter_name %}<span>{{ e.presenter_name }}</span>
       {%- endif -%}
-      {%- if include.show_links -%}
+      {%- if include.show_links or e.meetup_url -%}
       <span class="gcpp-attrs">
+        {%- if include.show_links -%}
         {%- if e.kind == 'external' and e.external_url %}<a class="gcpp-attr" href="{{ e.external_url }}" target="_blank" rel="noopener">details</a>{% endif -%}
         {%- if e.video %}<a class="gcpp-attr" href="{{ e.video }}" target="_blank" rel="noopener">video</a>{% endif -%}
         {%- if e.slides %}<a class="gcpp-attr" href="{{ e.slides }}" target="_blank" rel="noopener">slides</a>{% endif -%}
         {%- if e.code %}<a class="gcpp-attr" href="{{ e.code }}" target="_blank" rel="noopener">code</a>{% endif -%}
+        {%- endif -%}
+        {%- if e.meetup_url %}<a class="gcpp-attr" href="{{ e.meetup_url }}" target="_blank" rel="noopener">{% if include.show_links %}meetup{% else %}rsvp{% endif %}</a>{% endif -%}
       </span>
       {%- endif -%}
     </span>

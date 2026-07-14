@@ -37,6 +37,7 @@ bundle exec jekyll serve --livereload   # serves http://127.0.0.1:4000
 - `presenters/` — one Markdown bio file per speaker plus that speaker's headshot image. Rendered as pages (see below).
 - `logos/` — brand/banner images. Root: favicon/PWA assets and `site.webmanifest`.
 - `events.ics` — generated iCal feed (see "iCal calendar feed"). `scripts/generate_ics.rb` builds it; `.github/workflows/generate-ics.yml` regenerates it in CI.
+- `scripts/sync_meetup.rb` — pulls upcoming events from member groups' Meetup.com calendars into `_events/` and `_data/group_events.yml` (see "Meetup event sync"); `.github/workflows/sync-meetup.yml` runs it in CI.
 - `README.md` is **excluded from the build** (`_config.yml` `exclude`); it is repo-facing only.
 
 ## Recurring weekly content workflow
@@ -98,6 +99,20 @@ Reference the image by bare relative filename. Use the theme's `class="align-lef
 - The committed `events.ics` is the served artifact — it is **not** gitignored. `scripts/` is in `_config.yml`'s `exclude` (so the `.rb` isn't published); `.github/` is auto-ignored by Jekyll.
 - Times come straight from each event's `date` (UTC) and `duration` (ISO-8601); all events are UTC, so there is no VTIMEZONE block. The feed lists all sessions, past and upcoming, so its content is deterministic (no time-of-build dependence) — no scheduled/cron run is needed.
 - Requires repo Actions to have write permission (Settings → Actions → Workflow permissions = "Read and write"). If `main` is protected against direct pushes, the bot commit will fail — allow the Actions bot, or switch the workflow to open a PR.
+
+## Meetup event sync
+
+`scripts/sync_meetup.rb` pulls **upcoming** events from each member group's Meetup.com calendar and folds them into the site. Pure Ruby stdlib (no gems) like `generate_ics.rb` — GraphQL is a plain HTTPS POST and RS256 JWT signing uses `openssl`. It **only pulls**; it never writes to Meetup (unlike the sibling `cppserbia/coopkit` / `cppserbia-org-website` tooling, which pushes drafts).
+
+- **What it reads:** every `_data/members/*.yml` whose `meetup:` URL is on `meetup.com`; the last URL path segment (lowercased) is the group urlname. Groups with a non-Meetup URL (LinkedIn, own site) are skipped.
+- **Classification per event:**
+  - Title matches `/global\s*c(\+\+|pp)/i` (e.g. "(GlobalCpp) …") → a full `_events/YYYY-MM-DD-slug.md` page (`venueKey: online`). These are the cross-posted weekly online sessions.
+  - Otherwise `PHYSICAL`/`HYBRID` → a link entry in `_data/group_events.yml`.
+  - Online but not Global C++ → skipped.
+- **Recurring/placeholder in-person meetups collapse to the next occurrence only** (`generic_title?` — "Monthly Meetup", "November Meeting", etc.); events with a real topic title are all kept. This stops a recurring series (e.g. PDXCPP's monthly) from flooding the list.
+- **Additive & idempotent.** Never deletes existing or hand-authored content. `_events` entries are matched by `meetup_url` then by UTC date, and only *missing* fields are filled (hand-authored `presenter`/`video`/etc. are never overwritten); a `meetup_url:` field records provenance. `group_events.yml` entries dedupe by **`group` + `date`** OR normalized URL — Meetup event ids are unstable across recurrences, so date is the reliable key.
+- **Run locally:** set `MEETUP_CLIENT_KEY`, `MEETUP_MEMBER_ID`, `MEETUP_SIGNING_KEY_ID`, and either `MEETUP_PRIVATE_KEY_PATH` (path to the RSA PEM) or `MEETUP_PRIVATE_KEY` (PEM contents) — via a gitignored `.env` (`.env`/`*.pem` are in `.gitignore`) or the environment. Then `ruby scripts/sync_meetup.rb [--dry-run] [urlname ...]`. `--dry-run` prints planned changes without writing; passing urlnames restricts the sync to those groups. The sibling repo's `meetup-private-key.pem` can be reused for local runs.
+- **In CI:** `.github/workflows/sync-meetup.yml` runs weekly (Mon 06:00 UTC) + `workflow_dispatch`, then commits changed `_events/**` and `_data/group_events.yml` back to `main` as `github-actions[bot]` with `[skip ci]`. That commit to `_events/**` triggers `generate-ics.yml` to refresh `events.ics`; the sync workflow itself runs only on schedule/dispatch, so there is no loop. Needs repo secrets `MEETUP_CLIENT_KEY`, `MEETUP_MEMBER_ID`, `MEETUP_SIGNING_KEY_ID`, `MEETUP_PRIVATE_KEY` (PEM contents) and Actions write permission.
 
 ## Coopkit automation (deferred)
 
