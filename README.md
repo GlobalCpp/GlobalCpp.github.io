@@ -52,12 +52,13 @@ And don't forget to check out this year's conferences:
 
 ## Coming Soon
 
-* 2026/07/04 : [Hassan Sajjad](presenters/hassan_sajjad.md) - HMake: Caching and Correctness 
-* 2026/07/11 : [Andrei Alexandrescu](presenters/andrei_alexandrescu.md) - The Next 20 Weeks of Systems Engineering (Join live! Video for this presentation will be delayed until the fall)
+* 2026/07/18 : [Damir Ljubić](presenters/damir_ljubic.md) - Coroutines (wonder)land
 
 ## Past Presentations
 
-* 2026/06/27 : [Tsung-Wei Huang](presenters/tsung_wei_huang.md) - Programming Dynamic Task Graph using Modern C++ [Video](ihttps://youtu.be/zAeGOJYZdHY) 
+* 2026/07/11 : [Andrei Alexandrescu](presenters/andrei_alexandrescu.md) - The Next 20 Weeks of Systems Engineering (Video delayed until the fall)
+* 2026/07/04 : [Hassan Sajjad](presenters/hassan_sajjad.md) - HMake: Caching and Correctness [Video](https://youtu.be/wCyZg6pyOA0)
+* 2026/06/27 : [Tsung-Wei Huang](presenters/tsung_wei_huang.md) - Programming Dynamic Task Graph using Modern C++ [Video](https://youtu.be/zAeGOJYZdHY) 
 * 2026/06/20 : [Mouaz Chamieh](presenters/mouaz_chamieh.md) - Move Semantic [Video](https://youtu.be/Cp_M4cQ0imI)
 * 2026/06/13 : [Sandor Dargo](presenters/sandor_dargo.md) - The Clocks of C++: Knowing When (and Why) to Use Each One [Video](https://youtu.be/L3sOlpgNmiQ)
 * 2026/05/30 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26 p2 [Video](https://youtu.be/R3cF2m_wC9o)
