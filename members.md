@@ -20,9 +20,14 @@ the list below.
 {% for pair in groups %}
   {% assign m = pair[1] %}
   <li>
-    <strong>{{ m.name }}</strong> &mdash; {{ m.city }}, {{ m.country }}
-    {% if m.meetup %} &middot; <a href="{{ m.meetup }}" target="_blank" rel="noopener">Meetup</a>{% endif %}
-    {% if m.website %} &middot; <a href="{{ m.website }}" target="_blank" rel="noopener">Website</a>{% endif %}
+    <span class="gcpp-date">{{ m.country }}</span>
+    <div class="gcpp-body">
+      <span class="gcpp-title"><a href="{{ m.meetup | default: m.website }}" target="_blank" rel="noopener">{{ m.name }}</a></span>
+      <span class="gcpp-meta">
+        {{ m.city }}
+        {% if m.meetup and m.website %}<span class="gcpp-attrs"><a class="gcpp-attr" href="{{ m.website }}" target="_blank" rel="noopener">website</a></span>{% endif %}
+      </span>
+    </div>
   </li>
 {% endfor %}
 </ul>
