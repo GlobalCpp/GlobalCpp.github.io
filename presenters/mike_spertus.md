@@ -1,6 +1,6 @@
 # Mike Spertus
 
-<img src='mike_spertus.jpeg' width='20%' height='20%'>
+<img src="mike_spertus.jpeg" alt="Mike Spertus" class="align-left" width="200">
 
 Michael Spertus is the CTO of Enklu building out AR technologies in Chicago, as well as a Full Adjunct Professor of Computer Science at the University of Chicago.
 

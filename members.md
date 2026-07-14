@@ -3,8 +3,7 @@ layout: single
 title: "Member Groups"
 description: "The regional C++ user groups that make up Global C++ — find a community near you, from the Bay Area and Chicago to Belgrade, Stockholm, Vienna, and Tel Aviv."
 permalink: /members/
-author_profile: false
-classes: wide
+author_profile: true
 ---
 
 Global C++ is a collaboration between independent regional C++ user groups. Each

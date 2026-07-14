@@ -3,10 +3,8 @@ layout: single
 title: "About"
 description: "What Global C++ is: a collaboration between regional C++ user groups running free weekly online talks and connecting local communities worldwide."
 permalink: /about/
-author_profile: false
+author_profile: true
 classes: wide
-toc: true
-toc_label: "On this page"
 ---
 
 **Global C++** is a collaboration between numerous regional C++ user groups. Our

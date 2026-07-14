@@ -1,6 +1,6 @@
 # Daniel Lemire
 
-<img src='daniel_lemire.jpeg' width='100%' height='100%' >
+<!-- img src="daniel_lemire.jpeg" alt="Daniel Lemire" class="align-left" width="200" (image not yet available) -->
 
 Daniel Lemire is a full professor of computer science at the Université du Québec (TELUQ) in Montreal. He specializes in software performance, SIMD vectorization, data indexing, parsing, and high-speed data engineering.
 

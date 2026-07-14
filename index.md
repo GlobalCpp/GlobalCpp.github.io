@@ -3,11 +3,17 @@ layout: splash
 title: "Global C++"
 description: "Global C++ is a collaboration between regional C++ user groups — free weekly online talks on Saturdays, plus in-person meetups worldwide."
 permalink: /
+excerpt: "Free weekly C++ talks, from user groups around the world."
+header:
+  overlay_color: "#00599c"   # ISO C++ brand blue
+  actions:
+    - label: "Join on Zoom"
+      url: "https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1"
+    - label: "Browse talks"
+      url: "/events/"
 ---
 
-<p style="text-align:center;">
-  <img src="/logos/tuple_banner_dark.png" alt="Global C++ banner" style="max-width:70%;height:auto;" />
-</p>
+![Global C++ — a std::tuple of member-group city flags](/logos/tuple_banner_dark.png){: .align-center .gcpp-banner}
 
 Welcome to **Global C++**, a collaboration between regional C++ user groups from
 around the world. We run free online tech talks every week and help our member
@@ -20,7 +26,8 @@ groups connect their local communities. Everyone is welcome — [join us](/about
 <!-- WEEKLY NOTES START — edit this block each week (start time, Zoom/YouTube availability). -->
 Our weekly online tech presentations are on **Saturdays at 11 am CT / 12 pm ET**.
 
-- [Zoom Link](https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1){:target="_blank" rel="noopener"}
+[Join on Zoom](https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1){: .btn .btn--primary target="_blank" rel="noopener"}
+
 - [YouTube live](https://www.youtube.com/@GlobalCpp){:target="_blank" rel="noopener"} (when a volunteer is available to stream)
 - Join the [Global C++ Discord](https://discord.gg/HVv7Jya37T){:target="_blank" rel="noopener"} to ask questions without appearing on stream.
 - Subscribe to our [Google Calendar](https://calendar.google.com/calendar/u/0?cid=NDdjMjI1ZTAyYTFkNjdkNWNmZjVhY2EzMDk1YjMzMWEyODRlZDQ4ZTQ4YTlkZDAxMTYyODJhYjEzZGM0MmQ3MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t){:target="_blank" rel="noopener"} or the [iCal feed](/events.ics) for upcoming presentations.
@@ -37,7 +44,7 @@ Our weekly online tech presentations are on **Saturdays at 11 am CT / 12 pm ET**
   {% if ets >= now %}
     {% assign has_upcoming = true %}
   <li>
-    <span class="gcpp-date">{{ e.date | date: "%b %-d" }}</span>
+    <span class="gcpp-date">{{ e.date | date: "%b %-d, %Y" }}</span>
     {% if e.presenter %}<a href="/presenters/{{ e.presenter }}.html">{{ e.presenter_name }}</a>{% elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>{% elsif e.presenter_name %}{{ e.presenter_name }}{% endif %}
     {% if e.presenter_name %}&mdash; {% endif %}{{ e.title }}
     {% if e.note %}<br><em>{{ e.note }}</em>{% endif %}
@@ -50,6 +57,7 @@ No sessions are on the calendar right now — new talks are announced on our
 [Discord](https://discord.gg/HVv7Jya37T){:target="_blank" rel="noopener"} and
 [Google Calendar](https://calendar.google.com/calendar/u/0?cid=NDdjMjI1ZTAyYTFkNjdkNWNmZjVhY2EzMDk1YjMzMWEyODRlZDQ4ZTQ4YTlkZDAxMTYyODJhYjEzZGM0MmQ3MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t){:target="_blank" rel="noopener"}.
 Browse the [full talk archive](/events/) in the meantime.
+{: .notice--info}
 {% endunless %}
 
 ## Featured events from member groups
@@ -62,7 +70,7 @@ Browse the [full talk archive](/events/) in the meantime.
   {% if ets >= now and shown < 5 %}
     {% assign shown = shown | plus: 1 %}
   <li>
-    <span class="gcpp-date">{{ ev.date | date: "%b %-d" }}</span>
+    <span class="gcpp-date">{{ ev.date | date: "%b %-d, %Y" }}</span>
     <strong>{{ ev.group }}</strong> &mdash;
     <a href="{{ ev.url }}" target="_blank" rel="noopener">{{ ev.title }}</a>, {{ ev.city }}
   </li>
@@ -72,6 +80,7 @@ Browse the [full talk archive](/events/) in the meantime.
 {% if shown == 0 %}
 No in-person meetups are scheduled at the moment. See [all events](/events/) or
 find [your local group](/members/).
+{: .notice--info}
 {% endif %}
 
 ## Where we are

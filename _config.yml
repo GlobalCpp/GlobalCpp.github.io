@@ -17,6 +17,30 @@ locale: "en-US"
 repository: "GlobalCpp/GlobalCpp.github.io"
 logo: "/logos/global_c++.png"        # masthead logo
 
+# NOTE: masthead search is intentionally OFF. The lunr index would list the
+# `_events` docs, but those are `output: false` (no per-event pages), so every
+# result would link to a 404; presenter pages aren't indexed at all. Re-enable
+# only if events get real pages or a custom lunr store is added.
+
+# Identity shown in the theme's author-profile sidebar on interior pages.
+author:
+  name: "Global C++"
+  avatar: "/logos/global_c++.png"
+  bio: "Free weekly C++ talks from user groups around the world."
+  links:
+    - label: "Discord"
+      icon: "fab fa-fw fa-discord"
+      url: "https://discord.gg/HVv7Jya37T"
+    - label: "YouTube"
+      icon: "fab fa-fw fa-youtube"
+      url: "https://www.youtube.com/@GlobalCpp"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/GlobalCpp"
+    - label: "GoodReads"
+      icon: "fas fa-fw fa-book"
+      url: "https://www.goodreads.com/global_cpp"
+
 # --- SEO / social (jekyll-seo-tag is auto-enabled on GitHub Pages) ---
 og_image: "/web-app-manifest-512x512.png"   # default social-share image
 social:
@@ -44,8 +68,7 @@ defaults:
       type: "pages"
     values:
       layout: single
-      author_profile: false
-      classes: wide
+      author_profile: true
 
 titles_from_headings:
   enabled: true

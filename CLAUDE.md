@@ -76,12 +76,12 @@ Create `presenters/<first>_<last>.md` (lowercase, **underscore-separated**) and 
 ```
 # Presenter Name
 
-<img src='<first>_<last>.png' width='20%' height='20%' >
+<img src="<first>_<last>.png" alt="Presenter Name" class="align-left" width="200">
 
 <bio paragraphs>
 ```
 
-Reference the image by bare relative filename. If no image is available yet, comment the `<img>` out (see `presenters/hassan_sajjad.md`). Presenter pages render because the GitHub Pages default plugins turn front-matter-less Markdown into pages, and `_config.yml` sets `layout: single` for everything under `presenters/`; `titles_from_headings` (with `strip_title: true`) turns the `# Name` heading into the page title without showing it twice.
+Reference the image by bare relative filename. Use the theme's `class="align-left"` (float, text wraps beside) with a fixed `width="200"` and an `alt` of the presenter's name — keep every bio on this exact form so they stay visually consistent (do not use inline `width='20%'`-style percentages). If no image is available yet, comment the `<img>` out (see `presenters/hassan_sajjad.md` and `presenters/daniel_lemire.md`). Presenter pages render because the GitHub Pages default plugins turn front-matter-less Markdown into pages, and `_config.yml` sets `layout: single` for everything under `presenters/`; `titles_from_headings` (with `strip_title: true`) turns the `# Name` heading into the page title without showing it twice.
 
 ## Markdown/HTML idioms to preserve
 
