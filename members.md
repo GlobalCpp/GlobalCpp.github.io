@@ -22,10 +22,10 @@ the list below.
   <li>
     <span class="gcpp-date">{{ m.country }}</span>
     <div class="gcpp-body">
-      <span class="gcpp-title"><a href="{{ m.meetup | default: m.website }}" target="_blank" rel="noopener">{{ m.name }}</a></span>
+      <span class="gcpp-title"><a href="{{ m.website | default: m.meetup }}" target="_blank" rel="noopener">{{ m.name }}</a></span>
       <span class="gcpp-meta">
         {{ m.city }}
-        {% if m.meetup and m.website %}<span class="gcpp-attrs"><a class="gcpp-attr" href="{{ m.website }}" target="_blank" rel="noopener">website</a></span>{% endif %}
+        {% if m.meetup and m.website %}<span class="gcpp-attrs"><a class="gcpp-attr" href="{{ m.meetup }}" target="_blank" rel="noopener">meetup</a></span>{% endif %}
       </span>
     </div>
   </li>
