@@ -1,0 +1,28 @@
+{% comment %}
+  One Global C++ online-session row (an _events doc).
+  Params: event (required) — the session document
+          short_date       — "Jul 11" instead of "Jul 11, 2026" (year-grouped lists)
+          show_links       — render the [[video]] / [[slides]] / [[code]] attribute chips
+{% endcomment %}
+{%- assign e = include.event -%}
+<li>
+  <span class="gcpp-date">{% if include.short_date %}{{ e.date | date: "%b %-d" }}{% else %}{{ e.date | date: "%b %-d, %Y" }}{% endif %}</span>
+  <div class="gcpp-body">
+    <span class="gcpp-title">{{ e.title }}</span>
+    <span class="gcpp-meta">
+      {%- if e.presenter %}<a href="/presenters/{{ e.presenter }}.html">{{ e.presenter_name }}</a>
+      {%- elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>
+      {%- elsif e.presenter_name %}<span>{{ e.presenter_name }}</span>
+      {%- endif -%}
+      {%- if include.show_links -%}
+      <span class="gcpp-attrs">
+        {%- if e.kind == 'external' and e.external_url %}<a class="gcpp-attr" href="{{ e.external_url }}" target="_blank" rel="noopener">details</a>{% endif -%}
+        {%- if e.video %}<a class="gcpp-attr" href="{{ e.video }}" target="_blank" rel="noopener">video</a>{% endif -%}
+        {%- if e.slides %}<a class="gcpp-attr" href="{{ e.slides }}" target="_blank" rel="noopener">slides</a>{% endif -%}
+        {%- if e.code %}<a class="gcpp-attr" href="{{ e.code }}" target="_blank" rel="noopener">code</a>{% endif -%}
+      </span>
+      {%- endif -%}
+    </span>
+    {%- if e.note %}<span class="gcpp-note">{{ e.note }}</span>{% endif %}
+  </div>
+</li>

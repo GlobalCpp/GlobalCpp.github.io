@@ -14,17 +14,12 @@ classes: wide
 ## Upcoming online sessions
 
 {% assign has_upcoming = false %}
-<ul class="gcpp-list">
+<ul class="gcpp-list gcpp-list--upcoming">
 {% for e in sessions %}
   {% assign ets = e.date | date: '%s' | plus: 0 %}
   {% if ets >= now %}
     {% assign has_upcoming = true %}
-  <li>
-    <span class="gcpp-date">{{ e.date | date: "%b %-d, %Y" }}</span>
-    {% if e.presenter %}<a href="/presenters/{{ e.presenter }}.html">{{ e.presenter_name }}</a>{% elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>{% elsif e.presenter_name %}{{ e.presenter_name }}{% endif %}
-    {% if e.presenter_name %}&mdash; {% endif %}{{ e.title }}
-    {% if e.note %}<br><em>{{ e.note }}</em>{% endif %}
-  </li>
+  {% include gcpp-session-row.html event=e %}
   {% endif %}
 {% endfor %}
 </ul>
@@ -39,16 +34,12 @@ No sessions are on the calendar right now. New talks are announced on our
 
 {% assign gevents = site.data.group_events | sort: 'date' %}
 {% assign has_gup = false %}
-<ul class="gcpp-list">
+<ul class="gcpp-list gcpp-list--upcoming">
 {% for ev in gevents %}
   {% assign ets = ev.date | date: '%s' | plus: 0 %}
   {% if ets >= now %}
     {% assign has_gup = true %}
-  <li>
-    <span class="gcpp-date">{{ ev.date | date: "%b %-d, %Y" }}</span>
-    <strong>{{ ev.group }}</strong> &mdash;
-    <a href="{{ ev.url }}" target="_blank" rel="noopener">{{ ev.title }}</a>, {{ ev.city }}
-  </li>
+  {% include gcpp-group-event-row.html event=ev %}
   {% endif %}
 {% endfor %}
 </ul>
@@ -59,23 +50,21 @@ No in-person meetups are scheduled right now. Check [your local group](/members/
 
 ## Past presentations
 
-<ul class="gcpp-list">
+{% assign prev_year = "" %}
 {% for e in sessions reversed %}
   {% assign ets = e.date | date: '%s' | plus: 0 %}
   {% if ets < now %}
-  <li>
-    <span class="gcpp-date">{{ e.date | date: "%b %-d, %Y" }}</span>
-    {% if e.presenter %}<a href="/presenters/{{ e.presenter }}.html">{{ e.presenter_name }}</a>{% elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>{% elsif e.presenter_name %}{{ e.presenter_name }}{% endif %}
-    {% if e.presenter_name %}&mdash; {% endif %}{{ e.title }}
-    {% if e.kind == 'external' and e.external_url %} (<a href="{{ e.external_url }}" target="_blank" rel="noopener">details</a>){% endif %}
-    {% if e.video %} <a href="{{ e.video }}" target="_blank" rel="noopener">[Video]</a>{% endif %}
-    {% if e.slides %} <a href="{{ e.slides }}" target="_blank" rel="noopener">[Slides]</a>{% endif %}
-    {% if e.code %} <a href="{{ e.code }}" target="_blank" rel="noopener">[Code]</a>{% endif %}
-    {% if e.note %}<br><em>{{ e.note }}</em>{% endif %}
-  </li>
+    {% capture y %}{{ e.date | date: '%Y' }}{% endcapture %}
+    {% if y != prev_year %}
+      {% unless prev_year == "" %}</ul>{% endunless %}
+<h3 class="gcpp-year">{{ y }}</h3>
+<ul class="gcpp-list">
+      {% assign prev_year = y %}
+    {% endif %}
+  {% include gcpp-session-row.html event=e short_date=true show_links=true %}
   {% endif %}
 {% endfor %}
-</ul>
+{% unless prev_year == "" %}</ul>{% endunless %}
 
 ## Past member-group events
 
@@ -83,11 +72,7 @@ No in-person meetups are scheduled right now. Check [your local group](/members/
 {% for ev in gevents reversed %}
   {% assign ets = ev.date | date: '%s' | plus: 0 %}
   {% if ets < now %}
-  <li>
-    <span class="gcpp-date">{{ ev.date | date: "%b %-d, %Y" }}</span>
-    <strong>{{ ev.group }}</strong> &mdash;
-    <a href="{{ ev.url }}" target="_blank" rel="noopener">{{ ev.title }}</a>, {{ ev.city }}
-  </li>
+  {% include gcpp-group-event-row.html event=ev %}
   {% endif %}
 {% endfor %}
 </ul>
@@ -97,9 +82,12 @@ No in-person meetups are scheduled right now. Check [your local group](/members/
 <ul class="gcpp-list">
 {% for c in site.data.conferences %}
   <li>
-    <a href="{{ c.url }}" target="_blank" rel="noopener"><strong>{{ c.name }}</strong></a>
-    &mdash; {{ c.dates }}, {{ c.location }}
-    {% if c.note %}<br><em>{{ c.note }}</em>{% endif %}
+    <span class="gcpp-date">{{ c.dates }}</span>
+    <div class="gcpp-body">
+      <span class="gcpp-title"><a href="{{ c.url }}" target="_blank" rel="noopener">{{ c.name }}</a></span>
+      <span class="gcpp-meta">{{ c.location }}</span>
+      {% if c.note %}<span class="gcpp-note">{{ c.note }}</span>{% endif %}
+    </div>
   </li>
 {% endfor %}
 </ul>

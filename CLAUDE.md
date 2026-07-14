@@ -32,7 +32,7 @@ bundle exec jekyll serve --livereload   # serves http://127.0.0.1:4000
 - `_data/group_events.yml` — in-person events hosted by member groups (past + upcoming in one list).
 - `_data/conferences.yml` — C++ conferences to highlight.
 - `_data/navigation.yml` — masthead menu. `_data/ui-text.yml` — Minimal Mistakes UI strings (see Gotchas).
-- `_includes/head/custom.html` — favicon/PWA links. `_includes/members-map.html` — Leaflet map. `_includes/events-jsonld.html` — schema.org Event JSON-LD for SEO.
+- `_includes/head/custom.html` — favicon/PWA links. `_includes/members-map.html` — Leaflet map. `_includes/events-jsonld.html` — schema.org Event JSON-LD for SEO. `_includes/gcpp-session-row.html` / `_includes/gcpp-group-event-row.html` — shared event-row markup used by the `index.md` and `events.md` loops (params: `event`, plus `short_date`/`show_links` on the session row).
 - `assets/css/main.scss` — theme skin import + site CSS (map height, list styling).
 - `presenters/` — one Markdown bio file per speaker plus that speaker's headshot image. Rendered as pages (see below).
 - `logos/` — brand/banner images. Root: favicon/PWA assets and `site.webmanifest`.

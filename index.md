@@ -38,17 +38,12 @@ Our weekly online tech presentations are on **Saturdays at 11 am CT / 12 pm ET**
 {% assign now = site.time | date: '%s' | plus: 0 %}
 {% assign sessions = site.events | sort: 'date' %}
 {% assign has_upcoming = false %}
-<ul class="gcpp-list">
+<ul class="gcpp-list gcpp-list--upcoming">
 {% for e in sessions %}
   {% assign ets = e.date | date: '%s' | plus: 0 %}
   {% if ets >= now %}
     {% assign has_upcoming = true %}
-  <li>
-    <span class="gcpp-date">{{ e.date | date: "%b %-d, %Y" }}</span>
-    {% if e.presenter %}<a href="/presenters/{{ e.presenter }}.html">{{ e.presenter_name }}</a>{% elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>{% elsif e.presenter_name %}{{ e.presenter_name }}{% endif %}
-    {% if e.presenter_name %}&mdash; {% endif %}{{ e.title }}
-    {% if e.note %}<br><em>{{ e.note }}</em>{% endif %}
-  </li>
+  {% include gcpp-session-row.html event=e %}
   {% endif %}
 {% endfor %}
 </ul>
@@ -64,16 +59,12 @@ Browse the [full talk archive](/events/) in the meantime.
 
 {% assign gevents = site.data.group_events | sort: 'date' %}
 {% assign shown = 0 %}
-<ul class="gcpp-list">
+<ul class="gcpp-list gcpp-list--upcoming">
 {% for ev in gevents %}
   {% assign ets = ev.date | date: '%s' | plus: 0 %}
   {% if ets >= now and shown < 5 %}
     {% assign shown = shown | plus: 1 %}
-  <li>
-    <span class="gcpp-date">{{ ev.date | date: "%b %-d, %Y" }}</span>
-    <strong>{{ ev.group }}</strong> &mdash;
-    <a href="{{ ev.url }}" target="_blank" rel="noopener">{{ ev.title }}</a>, {{ ev.city }}
-  </li>
+  {% include gcpp-group-event-row.html event=ev %}
   {% endif %}
 {% endfor %}
 </ul>
