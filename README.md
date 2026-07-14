@@ -1,105 +1,25 @@
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="GlobalCpp" />
-<link rel="manifest" href="/site.webmanifest" />
+# Global C++ website
 
-<center>
-<img src='logos/global_c++.png' width='10%' height='10%'>
-<br>
-<img src='logos/tuple_banner_dark.png' width='60%' height='60%'>
-</center>
+Source for the [Global C++](https://globalcpp.github.io) website — a collaboration
+between regional C++ user groups running free weekly online talks and worldwide
+meetups.
 
-Welcome to the landing page for GlobalCpp, a collaboration between numerous regional C++ User Groups.
-Very much new and very much under construction. Please join us on this endeavor!
+The site is built by **GitHub Pages' Jekyll pipeline** using the
+[Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) theme via
+`remote_theme` (no CI). **Publishing = pushing to `main`.**
 
-Join us for our weekly online tech presentations Saturdays at ~~11 am CT, 12 pm ET.~~
+## Local preview
 
-*Note: We will be starting a bit later this week, at 4 pm CT
+Ruby is managed with rbenv (pinned in `.ruby-version`). First time / after Gemfile
+changes run `bundle install`, then:
 
-* [Zoom Link](https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1){:target="_blank" rel="noopener"}
-* * NOTE: Not this week: Only Zoom * [YouTube live](https://www.youtube.com/@GlobalCpp)
-* Please join us on the [GlobalCpp Discord Server](https://discord.gg/HVv7Jya37T){:target="_blank" rel="noopener"} to ask questions if you do not wish to have your voice on stream.
-* [Google Calendar](https://calendar.google.com/calendar/u/0?cid=NDdjMjI1ZTAyYTFkNjdkNWNmZjVhY2EzMDk1YjMzMWEyODRlZDQ4ZTQ4YTlkZDAxMTYyODJhYjEzZGM0MmQ3MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t){:target="_blank" rel="noopener"} for upcoming presentations
+```sh
+bundle exec jekyll serve --livereload   # http://127.0.0.1:4000
+```
 
-More Content!
+Restart the server after editing `_config.yml` (Jekyll does not hot-reload it).
 
-* [YouTube](https://www.youtube.com/@GlobalCpp) for all our videos, usually same-day, pending volunteer effort
-* [GoodReads](https://www.goodreads.com/global_cpp) for member-recommended C++ books
-* [Other C++ Videos](https://youtube.com/playlist?list=PL_Wi-cfj9SQ2396MY61j0WBQDQo-Z0VFr&si=FMg-D0E3iYIgPBol) recommended by our members
+## Editing content
 
-
-Please also check out our individual user groups:
-* [Bay Area](https://www.meetup.com/cpp-bay-area/){:target="_blank" rel="noopener"}
-* [Chicago Meetup](https://www.meetup.com/Chicago-C-CPP-Users-Group){:target="_blank" rel="noopener"}, [Chicago Info Page](https://chicagocpp.github.io/){:target="_blank" rel="noopener"}
-* [New York](https://www.meetup.com/new-york-c-c-meetup-group){:target="_blank" rel="noopener"}
-* [Portland](https://www.meetup.com/pdxcpp/){:target="_blank" rel="noopener"}
-* [Serbia](https://www.meetup.com/cpp-serbia/){:target="_blank" rel="noopener"}
-* [Stockholm](https://www.meetup.com/stockholmcpp/){:target="_blank" rel="noopener"}
-* [Tel Aviv](https://www.meetup.com/corecpp/){:target="_blank" rel="noopener"}
-* [Toronto](https://www.meetup.com/cpptoronto/){:target="_blank" rel="noopener"}
-* [Vienna](https://cppusergroupvienna.org/){:target="_blank" rel="noopener"}
-* [Warsaw](https://www.meetup.com/warsaw-cpp-users/){:target="_blank" rel="noopener"}
-* [Windsor](http://wccug.org/){:target="_blank" rel="noopener"}
-* [Winnipeg](https://www.linkedin.com/groups/14382138/){:target="_blank" rel="noopener"}
-
-And don't forget to check out this year's conferences:
-* [NDC {Toronto}](https://ndctoronto.com/){:target="_blank" rel="noopener"} : May 5-8 Toronto, CA : Check the discord server (in channel more-cpp) for discount code
-* [Cppcon 2026](https://cppcon.org/){:target="_blank" rel="noopener"} : Sept 12-18 Aurora, CO
-
-# Session Presenters and Topics
-
-## Coming Soon
-
-* 2026/07/18 : [Damir Ljubić](presenters/damir_ljubic.md) - Coroutines (wonder)land
-
-## Past Presentations
-
-* 2026/07/11 : [Andrei Alexandrescu](presenters/andrei_alexandrescu.md) - The Next 20 Weeks of Systems Engineering (Video delayed until the fall)
-* 2026/07/04 : [Hassan Sajjad](presenters/hassan_sajjad.md) - HMake: Caching and Correctness [Video](https://youtu.be/wCyZg6pyOA0)
-* 2026/06/27 : [Tsung-Wei Huang](presenters/tsung_wei_huang.md) - Programming Dynamic Task Graph using Modern C++ [Video](https://youtu.be/zAeGOJYZdHY) 
-* 2026/06/20 : [Mouaz Chamieh](presenters/mouaz_chamieh.md) - Move Semantic [Video](https://youtu.be/Cp_M4cQ0imI)
-* 2026/06/13 : [Sandor Dargo](presenters/sandor_dargo.md) - The Clocks of C++: Knowing When (and Why) to Use Each One [Video](https://youtu.be/L3sOlpgNmiQ)
-* 2026/05/30 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26 p2 [Video](https://youtu.be/R3cF2m_wC9o)
-* 2026/05/23 : [Diego Rodriguez-Losada](presenters/diego_rodriguez_losada.md) - CMake, CPS and Conan: The path to standardized dependency management for C and C++ [Video](https://youtu.be/XPRPdBlTR7o)
-* 2026/05/09 : [Daniel Lemire](presenters/daniel_lemire.md) - SIMD-Accelerated Data Processing [Video](https://youtu.be/BBLDgsU7Zn4)
-* 2026/05/02 : [Joshua Berne](presenters/joshua_berne.md) - Contracts for C++26 [Video](https://youtu.be/GrPPWk2uDSI)
-* 2026/04/25 : [Ivica Bogosavljević](presenters/ivica_bogosavljevic.md) - The Hidden Performance Price of C++ Virtual Functions [Video](https://youtu.be/3ux5YEj1c54)
-* 2026/04/18 : [Jeff Garland](presenters/jeff_garland.md) - Let's write some functions, how hard could it be? [Video](https://youtu.be/5VivY8FGkMQ)
-* 2026/04/04 : [Dušan Jovanović](presenters/dusan_jovanovic.md) - It's Time for better APIs [Video](https://youtu.be/Yhmj5pPuyDE)
-* 2026/03/28 : [Fedor Pikus](presenters/fedor_pikus.md) - Lock-Free Programming and Concurrent Data Structures on Modern Hardware [Video](https://youtu.be/4lUKE1Prypk) [Code](https://github.com/fpikus/LockFree/) [Slides](https://drive.google.com/file/d/1n9DZCP-u_avEuooUv7lYDTq6aVD5Hq15/view?usp=sharing)
-* 2026/03/21 : [Rob Douglas](presenters/robert_douglas.md) - A Coding Mid-Life Crisis: Are modern programming techniques really better? [Video](https://youtu.be/BNmSMhe8xug)
-* 2026/03/11 - 2026/03/13 : [C++ Online](https://cpponline.uk/#) We will skip this Saturday and encourage all of our members to check out C++Online
-* 2026/03/07 : [Mike Spertus](presenters/mike_spertus.md) - One C++26 App, Three Ways: By Hand, By AI, and Together [Slides](https://github.com/GlobalCpp/sessions/blob/session_2026_03_07/One_App_Three_Ways_GlobalCpp.pdf) [Video](https://youtu.be/aXPTzc9BLps)
-* 2026/02/28 : [Ahmad Sharif](presenters/ahmad_sharif.md) - Utilizing CUDA for better performance [Slides](https://github.com/GlobalCpp/sessions/blob/session_2026_02_28/Matmul_in_CUDA.pdf) [Code Repository](https://github.com/ahmadsharif1/cuda_study) [Video](https://youtu.be/TmHcnmCPBkA)
-* 2026/02/21 : [Nishanth Shyamkumar](presenters/nishanth_shyamkumar.md) - DPDK - Achieving high network performance on a CPU [Video](https://youtu.be/YmMYhcwUvbI)
-* 2026/02/14 : [Barry Revzin](https://cppcon2025.sched.com/speaker/Barry.Revzin){:target="_blank" rel="noopener"} - Exploring reflection in C++26 [Code](https://compiler-explorer.com/z/PWr161GG6) [Video](https://youtu.be/iuI1QXQwD1k)
-* 2026/02/07 : [Matt Godbolt](presenters/matt_godbolt.md) - Advent of Code Omnibus [Video](https://youtu.be/a4vNxt1HEYU)
-* 2026/01/31 : [Victor Eijkhout](presenters/victor_eijkhout.md) - Parallelism through OpenMP (in C++, of course) - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_31) [Video](https://youtu.be/jDNWjcu93Qc)
-* 2026/01/24 : [Rob Douglas](presenters/robert_douglas.md) - Combining some C++17 and later features for elegance - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_24) [Video](https://youtu.be/xXH0BZvAicM)
-* 2026/01/17 : [Rob Douglas](presenters/robert_douglas.md) - 2 topics, Conda and Type Erasure - [Code Repository](https://github.com/GlobalCpp/sessions/tree/session_2026_01_17) [Video](https://youtu.be/-qj8_zW644o)
-
-# Upcoming in-person social events near you!
-
-## This Week
-
-## Soon
-
-* 2026/07/22 : [Inceptive, Belgrade, Serbia](https://www.meetup.com/cpp-serbia/events/315664357/)
-
-## Past Events
-
-* 2026/04/21 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937493)
-* 2026/04/16 : [Free Times Cafe, Toronto, ON](https://www.meetup.com/cpptoronto/events/313986536)
-* 2026/03/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937491)
-* 2026/02/17 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312937489/)
-* 2026/01/20 : [Franklin Tap in the Chicago Loop](https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/)
-* 2026/01/20 : [Lucky Labrador Brew Pub, Portland, OR](https://www.meetup.com/pdxcpp/events/312454247/)
-
-# Upcoming Meetups
-
-* PDXCPP [Portland: Feb 17th](https://www.meetup.com/pdxcpp/events/312937489){:target="_blank" rel="noopener"}
-* Chicago C/C++ User Group [Chicago: Feb 19th](https://www.meetup.com/chicago-c-cpp-users-group/events/313287103){:target="_blank" rel="noopener"}
-* Prague C++ [Prague: Feb 24th](https://www.meetup.com/prague-cpp/events/313280105/){:target="_blank" rel="noopener"}
-
+Almost all weekly updates are adding an event file or editing a data file — see
+[`CLAUDE.md`](CLAUDE.md) for the full content workflow and repo structure.

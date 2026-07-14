@@ -1,0 +1,35 @@
+---
+# Minimal Mistakes main stylesheet override. The empty front matter block is
+# required so Jekyll processes the SCSS. Imports the selected skin + theme,
+# then adds site-specific tweaks.
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";
+
+/* Member map — Leaflet needs an explicit container height. */
+#members-map {
+  height: 440px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 1.5em 0;
+  z-index: 0; /* keep tiles/controls below the theme masthead */
+}
+
+/* Event / group listing rows */
+.gcpp-list {
+  list-style: none;
+  padding-left: 0;
+}
+.gcpp-list > li {
+  padding: 0.5em 0;
+  border-bottom: 1px solid $border-color;
+}
+.gcpp-date {
+  display: inline-block;
+  min-width: 6.5em;
+  font-family: $monospace;
+  color: $muted-text-color;
+}

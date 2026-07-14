@@ -1,0 +1,30 @@
+<!-- World map of member user groups. Leaflet + OpenStreetMap, client-side only.
+     Include this file only where the map is wanted. Marker data comes from
+     _data/members/*.yml, injected as JSON at build time. -->
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<div id="members-map"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script>
+  (function () {
+    var groups = Object.values({{ site.data.members | jsonify }});
+    var map = L.map('members-map', { scrollWheelZoom: false }).setView([30, -10], 2);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    groups.forEach(function (g) {
+      if (g.lat == null || g.lng == null) { return; }
+      var url = g.meetup || g.website;
+      var popup = '<strong>' + g.name + '</strong><br>' + g.city + ', ' + g.country;
+      if (url) {
+        popup += '<br><a href="' + url + '" target="_blank" rel="noopener">Visit group &rarr;</a>';
+      }
+      L.marker([g.lat, g.lng]).addTo(map).bindPopup(popup);
+    });
+  })();
+</script>

@@ -1,0 +1,35 @@
+{%- comment -%}
+Schema.org Event JSON-LD for upcoming Global C++ online sessions, so they are
+eligible for rich results. One <script> block per upcoming event to keep the
+JSON simple and always valid.
+{%- endcomment -%}
+{%- assign now = site.time | date: '%s' | plus: 0 -%}
+{%- assign upcoming = site.events | sort: 'date' -%}
+{%- for e in upcoming -%}
+  {%- assign ets = e.date | date: '%s' | plus: 0 -%}
+  {%- if ets >= now and e.kind != 'external' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ e.title | jsonify }},
+  "startDate": "{{ e.date | date_to_xmlschema }}",
+  "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "VirtualLocation",
+    "url": "https://www.youtube.com/@GlobalCpp"
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Global C++",
+    "url": "{{ site.url }}"
+  }{% if e.presenter_name %},
+  "performer": {
+    "@type": "Person",
+    "name": {{ e.presenter_name | jsonify }}
+  }{% endif %}
+}
+</script>
+  {%- endif -%}
+{%- endfor -%}

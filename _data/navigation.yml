@@ -1,0 +1,8 @@
+# Masthead navigation for the Minimal Mistakes theme.
+main:
+  - title: "Events"
+    url: /events/
+  - title: "Member Groups"
+    url: /members/
+  - title: "About"
+    url: /about/
