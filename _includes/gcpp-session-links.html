@@ -6,13 +6,17 @@
           hide_meetup      — suppress the rsvp/meetup chip (e.g. the detail page,
                              where the hosting-groups block already links Meetup)
   A [[rsvp]] chip (the session's Meetup event) is shown for upcoming sessions
-  that carry a `meetup_url`; past rows show a [[meetup]] chip instead.
+  that carry a `meetup_url`; past rows show a [[meetup]] chip instead. A [[join]]
+  chip (the session's `zoom` link) shows on upcoming rows only.
 {% endcomment %}
 {%- assign e = include.event -%}
 {%- assign show_meetup = false -%}
 {%- if e.meetup_url and include.hide_meetup != true %}{% assign show_meetup = true %}{% endif -%}
-{%- if include.show_links or show_meetup -%}
+{%- assign show_join = false -%}
+{%- if e.zoom and include.show_links != true %}{% assign show_join = true %}{% endif -%}
+{%- if include.show_links or show_meetup or show_join -%}
 <span class="gcpp-attrs">
+  {%- if show_join %}<a class="gcpp-attr gcpp-attr--join" href="{{ e.zoom }}" target="_blank" rel="noopener">join</a>{% endif -%}
   {%- if include.show_links -%}
   {%- if e.kind == 'external' and e.external_url %}<a class="gcpp-attr" href="{{ e.external_url }}" target="_blank" rel="noopener">details</a>{% endif -%}
   {%- if e.video %}<a class="gcpp-attr" href="{{ e.video }}" target="_blank" rel="noopener">video</a>{% endif -%}

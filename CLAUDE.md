@@ -57,6 +57,7 @@ Almost every weekly change is adding one event file or editing one data file. No
   presenter: andrei_alexandrescu           # slug → links to /presenters/<slug>.html
   presenter_name: "Andrei Alexandrescu"
   # presenter_url: "https://…"             # use instead of `presenter` for speakers without a bio page
+  # zoom: "https://zoom.us/j/…"            # renders a "Join on Zoom" CTA — upcoming sessions only (never synced; see Gotchas)
   # video: "https://youtu.be/…"            # add after the talk airs
   # slides: "https://…"
   # code: "https://…"
@@ -137,3 +138,4 @@ This is not wired up yet — coopkit is early (v0.1.1) and it needs a Meetup Pro
 - **Restart `jekyll serve` after `_config.yml`/`_data` edits.** Data changes in particular are not always picked up live on Jekyll 3.
 - **Map needs coordinates.** A member group with no `lat`/`lng` is silently skipped on the map (still listed on the Members page).
 - **`presenters/tsung_wei_huang.md`** uses the underscore convention (a previous hyphenated filename caused a broken link — keep it underscored to match the `presenter:` slug in `_events/2026-06-27-tsung-wei-huang.md`).
+- **The `zoom:` field is hand-added, never synced.** The sync deliberately drops Meetup's `howToFindUs` (it embeds the Zoom password), so the join link is added manually only where wanted. The "Join on Zoom" CTA (page button + `[[join]]` row chip) is gated to *upcoming* sessions and computed at build time, so it only disappears after the next push once the talk has passed — like everything else "upcoming vs past" here.

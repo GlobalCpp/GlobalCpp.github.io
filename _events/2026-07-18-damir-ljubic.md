@@ -13,6 +13,7 @@ groups:
   - name: "C++ Toronto"
     url: "https://www.meetup.com/cpptoronto/events/315679944/"
 meetup_url: "https://www.meetup.com/cpp-serbia/events/315679943/"
+zoom: "https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1"
 description: "Damir Ljubić gives a practical example of using coroutines in socket-based communication, with custom allocators to control coroutine memory."
 ---
 
