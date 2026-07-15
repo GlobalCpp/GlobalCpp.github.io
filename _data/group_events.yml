@@ -1,6 +1,12 @@
 # In-person events hosted by individual member groups.
 # Past vs upcoming is derived from `date` at build time — no manual moving.
 # Fields: group, title, city, date (YYYY-MM-DD), url
+- group: "C++ Serbia"
+  title: "Documentary: The Story of C++"
+  city: "Belgrade"
+  date: 2026-07-22
+  url: "https://www.meetup.com/cpp-serbia/events/315664357/"
+
 - group: "C++ Toronto"
   title: "Meetup at Free Times Cafe"
   city: "Toronto, ON"
