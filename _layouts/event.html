@@ -17,10 +17,8 @@ layout: single
   {%- endif -%}
 </p>
 
-{%- comment -%} "Join on Zoom" CTA — only while the session is still upcoming. {%- endcomment -%}
-{%- assign gcpp_now = site.time | date: '%s' | plus: 0 -%}
-{%- assign gcpp_ets = page.date | date: '%s' | plus: 0 -%}
-{% if page.zoom and gcpp_ets >= gcpp_now %}<p class="gcpp-event-join"><a class="btn btn--success" href="{{ page.zoom }}" target="_blank" rel="noopener">Join on Zoom</a></p>{% endif %}
+{%- comment -%} "Join on Zoom" CTA — revealed by JS only during the live window (see head/custom.html). {%- endcomment -%}
+{% if page.zoom %}<p class="gcpp-event-join" hidden data-gcpp-join data-start="{{ page.date | date_to_xmlschema }}" data-duration="{{ page.duration }}"><a class="gcpp-join-btn" href="{{ page.zoom }}" target="_blank" rel="noopener">Join on Zoom</a></p>{% endif %}
 
 {% capture gcpp_links %}{% include gcpp-session-links.html event=page show_links=true hide_meetup=true %}{% endcapture %}
 {% if gcpp_links contains "<a class=" %}<p class="gcpp-event-links">{{ gcpp_links }}</p>{% endif %}

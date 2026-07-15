@@ -117,22 +117,39 @@ $link-color: #00599c;
   border-color: rgba(0, 89, 156, 0.45);
   text-decoration: none;
 }
-/* [[join]] — the Zoom link on upcoming sessions, accented to stand out */
+/* [[join]] — the Zoom link during a live session, filled brand blue to read as a CTA */
 .gcpp-attr--join {
-  background: #e6f5ec;
-  border-color: rgba(30, 132, 73, 0.35);
-  color: #1e8449;
+  background: #00599c;
+  border-color: #00599c;
+  color: #fff;
   font-weight: 600;
 }
 .gcpp-attr--join:hover,
 .gcpp-attr--join:focus {
-  background: #d6efe0;
-  border-color: rgba(30, 132, 73, 0.6);
+  background: #00467c;
+  border-color: #00467c;
+  color: #fff;
 }
 
-/* "Join on Zoom" CTA on the event detail page */
+/* "Join on Zoom" CTA button on the event detail page */
 .gcpp-event-join {
   margin: 0.6em 0 0.2em;
+}
+.gcpp-join-btn {
+  display: inline-block;
+  padding: 0.4em 1em;
+  border-radius: 4px;
+  background: #00599c;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.gcpp-join-btn:hover,
+.gcpp-join-btn:focus {
+  background: #00467c;
+  color: #fff;
+  text-decoration: none;
 }
 
 /* Narrow screens: stack the date above the row content */

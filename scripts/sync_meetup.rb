@@ -130,6 +130,13 @@ def host_name(node)
   h.is_a?(Hash) ? (h["name"] || h[:name]) : nil
 end
 
+# The join URL from a Meetup event's `howToFindUs`, if it is actually a URL
+# (the field is free text; online sessions put the Zoom link there). nil otherwise.
+def zoom_from(node)
+  v = node["howToFindUs"].to_s.strip
+  v =~ %r{\Ahttps?://} ? v : nil
+end
+
 # Many Meetup events are created from a template whose description is never
 # filled in (a literal "**Description**" placeholder) or is trivially short.
 # Treat those as no description so we never write junk bodies/summaries.
@@ -270,6 +277,7 @@ UPCOMING_QUERY = <<~GQL
           duration
           eventType
           description
+          howToFindUs
           eventHosts { name }
           venue { name city state country }
         } }
@@ -303,7 +311,7 @@ end
 EVENT_BY_ID_QUERY = <<~GQL
   query EventById($id: ID!) {
     event(id: $id) {
-      id title eventUrl dateTime duration description eventHosts { name }
+      id title eventUrl dateTime duration description howToFindUs eventHosts { name }
     }
   }
 GQL
@@ -328,7 +336,7 @@ PAST_QUERY = <<~GQL
       events(filter: { status: PAST, afterDateTime: $afterDate }, first: $first, after: $after, sort: DESC) {
         pageInfo { hasNextPage endCursor }
         edges { node {
-          id title eventUrl dateTime duration eventType description eventHosts { name }
+          id title eventUrl dateTime duration eventType description howToFindUs eventHosts { name }
         } }
       }
     }
@@ -420,7 +428,7 @@ end
 
 EVENT_FIELD_ORDER = %w[
   id title date duration venueKey presenter presenter_name presenter_url
-  video slides code note host groups meetup_url description
+  video slides code note host groups meetup_url zoom description
 ].freeze
 
 # Wrap a description body in a Liquid raw block so arbitrary Meetup text
@@ -502,6 +510,7 @@ def sync_global_cpp_session(store, date_key, postings)
   title = clean_title(rep["title"])
   presenter_name = presenter_from_title(rep["title"])
   host = host_name(rep)
+  zoom = zoom_from(rep)
   groups = build_groups(postings)
   primary_url = groups.first && groups.first["url"]
   desc_body = clean_description(rep["description"])
@@ -520,6 +529,7 @@ def sync_global_cpp_session(store, date_key, postings)
     additions["meetup_url"]     = primary_url    if fm["meetup_url"].to_s.empty? && primary_url
     additions["presenter_name"] = presenter_name if fm["presenter_name"].to_s.empty? && presenter_name
     additions["host"]           = host           if fm["host"].to_s.empty? && host
+    additions["zoom"]           = zoom           if fm["zoom"].to_s.empty? && zoom
     additions["description"]    = desc_short     if fm["description"].to_s.empty? && !desc_short.empty?
     add_groups = fm.key?("groups") ? nil : (groups.empty? ? nil : groups)
     add_body   = (!has_body?(entry[:raw]) && !desc_body.empty?) ? desc_body : nil
@@ -555,6 +565,7 @@ def sync_global_cpp_session(store, date_key, postings)
   fields["host"] = host if host
   fields["groups"] = groups unless groups.empty?
   fields["meetup_url"] = primary_url if primary_url
+  fields["zoom"] = zoom if zoom
   fields["description"] = desc_short unless desc_short.empty?
 
   log("  + #{File.basename(path)} (new#{desc_body.empty? ? '' : ' +description'}, #{groups.size} group(s))")
@@ -575,6 +586,7 @@ def backfill_from_node(store, path, entry, node, postings = nil)
   additions = {}
   additions["meetup_url"]  = node["eventUrl"] if fm["meetup_url"].to_s.empty? && node["eventUrl"]
   additions["host"]        = host_name(node)  if fm["host"].to_s.empty? && host_name(node)
+  additions["zoom"]        = zoom_from(node)  if fm["zoom"].to_s.empty? && zoom_from(node)
   additions["description"] = truncate_desc(desc_body) if fm["description"].to_s.empty?
   add_groups = (!fm.key?("groups") && postings) ? build_groups(postings) : nil
   add_body   = has_body?(entry[:raw]) ? nil : desc_body

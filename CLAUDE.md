@@ -57,7 +57,7 @@ Almost every weekly change is adding one event file or editing one data file. No
   presenter: andrei_alexandrescu           # slug → links to /presenters/<slug>.html
   presenter_name: "Andrei Alexandrescu"
   # presenter_url: "https://…"             # use instead of `presenter` for speakers without a bio page
-  # zoom: "https://zoom.us/j/…"            # renders a "Join on Zoom" CTA — upcoming sessions only (never synced; see Gotchas)
+  # zoom: "https://zoom.us/j/…"            # synced from Meetup's howToFindUs; renders a "Join on Zoom" CTA during the live window (see Gotchas)
   # video: "https://youtu.be/…"            # add after the talk airs
   # slides: "https://…"
   # code: "https://…"
@@ -113,7 +113,7 @@ Reference the image by bare relative filename. Use the theme's `class="align-lef
   - Online but not Global C++ → skipped.
 - **One page per session, with details.** A session is cross-posted to several groups' calendars; the sync **aggregates by UTC date** and writes a single `_events` page. It fills `presenter_name` (parsed from the title), `host` (Meetup organizer), a `groups:` list (`{name, url}` per hosting group — rendered as the RSVP links on the page), a short `description:` (SEO summary), and the **Meetup event description as the Markdown body** (the page content). `meetup_url:` = the first group's URL, for the row's rsvp chip.
 - **Descriptions are filtered.** `clean_description`/`meaningful_description?` strip the "**Description**" template header and drop placeholder/too-short text, so pages never get junk bodies.
-- **Never sync `howToFindUs`** — it holds the Zoom link *with an embedded password*; it must not be published.
+- **`howToFindUs` → `zoom`.** When it's a URL, the event's `howToFindUs` (the Zoom join link for online sessions) is synced into the `zoom:` field, which drives the "Join on Zoom" CTA. Fill-missing only, like every other field.
 - **Recurring/placeholder in-person meetups collapse to the next occurrence only** (`generic_title?` — "Monthly Meetup", "November Meeting", etc.); events with a real topic title are all kept. This stops a recurring series (e.g. PDXCPP's monthly) from flooding the list.
 - **Additive & idempotent.** Never deletes existing or hand-authored content. `_events` entries are matched by `meetup_url` then by UTC date, and only *missing* fields are filled (hand-authored `presenter`/`video`/etc. and an existing body are never overwritten). `group_events.yml` entries dedupe by **`group` + `date`** OR normalized URL — Meetup event ids are unstable across recurrences, so date is the reliable key.
 - **Backfill:** `--backfill` fills descriptions onto existing session pages that have no body — via `event(id:)` when a `meetup_url` is present, else best-effort discovery scanning groups' PAST Global C++ events (since `BACKFILL_SINCE`) matched by UTC date. Runs as its own pass (skips the normal upcoming sync).
@@ -138,4 +138,4 @@ This is not wired up yet — coopkit is early (v0.1.1) and it needs a Meetup Pro
 - **Restart `jekyll serve` after `_config.yml`/`_data` edits.** Data changes in particular are not always picked up live on Jekyll 3.
 - **Map needs coordinates.** A member group with no `lat`/`lng` is silently skipped on the map (still listed on the Members page).
 - **`presenters/tsung_wei_huang.md`** uses the underscore convention (a previous hyphenated filename caused a broken link — keep it underscored to match the `presenter:` slug in `_events/2026-06-27-tsung-wei-huang.md`).
-- **The `zoom:` field is hand-added, never synced.** The sync deliberately drops Meetup's `howToFindUs` (it embeds the Zoom password), so the join link is added manually only where wanted. The "Join on Zoom" CTA (page button + `[[join]]` row chip) is gated to *upcoming* sessions and computed at build time, so it only disappears after the next push once the talk has passed — like everything else "upcoming vs past" here.
+- **The "Join on Zoom" CTA is gated client-side to the live window.** The `zoom:` field (synced from Meetup's `howToFindUs`, or set by hand) drives a page button + `[[join]]` row chip that a script in `_includes/head/custom.html` reveals only while `date` ≤ now ≤ `date` + `duration`, checked against the visitor's own clock. Times are passed to JS as ISO-8601 with an explicit offset (`date_to_xmlschema`), never epoch/`date: '%s'` (which depends on the site timezone), so the check is locale-safe and the CTA appears/disappears without a rebuild.

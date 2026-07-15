@@ -5,3 +5,34 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="GlobalCpp" />
 <link rel="manifest" href="/site.webmanifest" />
+
+<!--
+  Reveal "Join on Zoom" CTAs only during the live session window, checked against
+  the visitor's own clock. Each [data-gcpp-join] element carries an ISO-8601
+  data-start (with offset) and an ISO-8601 data-duration; times are absolute
+  instants, so this is timezone-safe. No-ops on pages with no such elements.
+-->
+<script>
+  (function () {
+    function durMs(s) {
+      var m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(s || "");
+      if (!m) return 0;
+      return ((+m[1] || 0) * 3600 + (+m[2] || 0) * 60 + (+m[3] || 0)) * 1000;
+    }
+    function update() {
+      var now = Date.now();
+      var els = document.querySelectorAll("[data-gcpp-join]");
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        var start = new Date(el.getAttribute("data-start")).getTime();
+        if (isNaN(start)) { el.hidden = true; continue; }
+        var end = start + durMs(el.getAttribute("data-duration"));
+        el.hidden = !(now >= start && now <= end);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      update();
+      setInterval(update, 30000);
+    });
+  })();
+</script>
