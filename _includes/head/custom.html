@@ -36,3 +36,28 @@
     });
   })();
 </script>
+
+<!--
+  Show event times in the visitor's own timezone. Each [data-gcpp-localtime]
+  element renders its UTC time server-side (the no-JS fallback) and carries the
+  absolute instant in `datetime` (ISO-8601 with offset); this reformats it to the
+  local locale/timezone. No-ops on pages without such elements.
+-->
+<script>
+  (function () {
+    function localize() {
+      var els = document.querySelectorAll("[data-gcpp-localtime]");
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        var d = new Date(el.getAttribute("datetime"));
+        if (isNaN(d.getTime())) continue;
+        try {
+          var date = d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+          var time = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
+          el.textContent = date + " · " + time;
+        } catch (e) { /* leave the UTC fallback in place */ }
+      }
+    }
+    document.addEventListener("DOMContentLoaded", localize);
+  })();
+</script>

@@ -10,7 +10,7 @@ layout: single
 {% include event-jsonld-single.html event=page %}
 
 <p class="gcpp-event-meta">
-  <span class="gcpp-date">{{ page.date | date: "%B %-d, %Y" }} · {{ page.date | date: "%-H:%M" }} UTC</span>
+  <time class="gcpp-date" datetime="{{ page.date | date_to_xmlschema }}" data-gcpp-localtime>{{ page.date | date: "%B %-d, %Y" }} · {{ page.date | date: "%-H:%M" }} UTC</time>
   {%- if page.presenter %} · <a href="/presenters/{{ page.presenter }}.html">{{ page.presenter_name }}</a>
   {%- elsif page.presenter_url %} · <a href="{{ page.presenter_url }}" target="_blank" rel="noopener">{{ page.presenter_name }}</a>
   {%- elsif page.presenter_name %} · {{ page.presenter_name }}
