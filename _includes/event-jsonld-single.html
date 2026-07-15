@@ -1,0 +1,49 @@
+{%- comment -%}
+Schema.org Event JSON-LD for a single Global C++ session page. Adds url,
+endDate (start + ISO-8601 `duration`) and description on top of the fields in
+the list-page include (_includes/events-jsonld.html).
+Param: event (required) — normally `page`.
+{%- endcomment -%}
+{%- assign e = include.event -%}
+{%- comment -%} Parse duration "PT#H#M" → seconds, default 90 min. {%- endcomment -%}
+{%- assign dur = e.duration | default: "PT1H30M" -%}
+{%- assign hrs = 0 -%}{%- assign mins = 0 -%}
+{%- if dur contains "H" -%}
+  {%- assign hrs = dur | split: "H" | first | remove: "PT" | plus: 0 -%}
+  {%- assign afterH = dur | split: "H" | last -%}
+{%- else -%}
+  {%- assign afterH = dur | remove: "PT" -%}
+{%- endif -%}
+{%- if afterH contains "M" -%}
+  {%- assign mins = afterH | split: "M" | first | plus: 0 -%}
+{%- endif -%}
+{%- assign startsec = e.date | date: "%s" | plus: 0 -%}
+{%- assign dursec = hrs | times: 3600 -%}
+{%- assign minsec = mins | times: 60 -%}
+{%- assign endsec = startsec | plus: dursec | plus: minsec -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ e.title | jsonify }},
+  "url": "{{ e.url | absolute_url }}",
+  "startDate": "{{ e.date | date_to_xmlschema }}",
+  "endDate": "{{ endsec | date: '%Y-%m-%dT%H:%M:%S%:z' }}",
+  "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "VirtualLocation",
+    "url": "https://www.youtube.com/@GlobalCpp"
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Global C++",
+    "url": "{{ site.url }}"
+  }{% if e.description %},
+  "description": {{ e.description | jsonify }}{% endif %}{% if e.presenter_name %},
+  "performer": {
+    "@type": "Person",
+    "name": {{ e.presenter_name | jsonify }}
+  }{% endif %}
+}
+</script>

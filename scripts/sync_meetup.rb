@@ -51,7 +51,11 @@ GLOBAL_CPP_RE = /global\s*c(?:\+\+|pp)/i
 DEFAULT_DURATION = "PT1H30M"
 
 DRY_RUN     = ARGV.delete("--dry-run") ? true : false
+BACKFILL    = ARGV.delete("--backfill") ? true : false
 ONLY_GROUPS = ARGV.reject { |a| a.start_with?("--") }.map(&:downcase)
+
+# Earliest date the backfill discovery pass scans a group's PAST events from.
+BACKFILL_SINCE = "2023-01-01T00:00:00Z"
 
 # ---------------------------------------------------------------------------
 # Small helpers
@@ -112,6 +116,54 @@ end
 
 def normalize_url(url)
   url.to_s.split("?").first.to_s.sub(%r{/\z}, "")
+end
+
+# Last path segment of a Meetup event URL — its event id (used by event(id:)).
+def event_id_from_url(url)
+  normalize_url(url).split("/").last.to_s
+end
+
+# First host name from a Meetup event node (`eventHosts` is a list of {name}).
+def host_name(node)
+  h = node["eventHosts"]
+  h = h.first if h.is_a?(Array)
+  h.is_a?(Hash) ? (h["name"] || h[:name]) : nil
+end
+
+# Many Meetup events are created from a template whose description is never
+# filled in (a literal "**Description**" placeholder) or is trivially short.
+# Treat those as no description so we never write junk bodies/summaries.
+def meaningful_description?(text)
+  stripped = text.to_s.gsub(/[*_#`>~\-]/, "").gsub(/\s+/, " ").strip
+  return false if stripped.length < 40
+  return false if stripped =~ /\A(?:description|tbd|tba|n\/?a|coming soon|details? to follow)\z/i
+
+  true
+end
+
+# The description to use, or "" when it is a placeholder / too short. Strips a
+# leading "**Description**" template header (Meetup events are created from a
+# template that prefixes the real text with that heading).
+def clean_description(text)
+  t = text.to_s.strip
+  t = t.sub(/\A\*{2}\s*description\s*\*{2}\s*/i, "")   # "**Description**" header
+  t = t.sub(/\A\s*description\s*:?\s*\n+/i, "")         # bare "Description" line
+  t = t.strip
+  meaningful_description?(t) ? t : ""
+end
+
+# A short one-line SEO summary: first paragraph, collapsed and truncated.
+def truncate_desc(text, max = 160)
+  s = text.to_s.strip.split(/\n\s*\n/).first.to_s.gsub(/\s+/, " ").strip
+  return s if s.length <= max
+
+  "#{s[0, max].sub(/\s+\S*\z/, '').rstrip}…"
+end
+
+# True if a raw _events file has non-blank body content after its front matter.
+def has_body?(raw)
+  m = raw.match(/\A---\s*\n.*?\n---\s*\n?(.*)\z/m)
+  m ? !m[1].to_s.strip.empty? : false
 end
 
 # A "generic" in-person event is a placeholder/recurring meetup with no specific
@@ -217,6 +269,8 @@ UPCOMING_QUERY = <<~GQL
           dateTime
           duration
           eventType
+          description
+          eventHosts { name }
           venue { name city state country }
         } }
       }
@@ -242,6 +296,78 @@ def fetch_upcoming_events(token, urlname)
     after = page["endCursor"]
   end
   events
+end
+
+# --- Backfill queries (fetch details for existing/past sessions) ------------
+
+EVENT_BY_ID_QUERY = <<~GQL
+  query EventById($id: ID!) {
+    event(id: $id) {
+      id title eventUrl dateTime duration description eventHosts { name }
+    }
+  }
+GQL
+
+# Fetch a single event's details by the id embedded in its Meetup URL. nil on miss.
+def fetch_event_by_url(token, url)
+  id = event_id_from_url(url)
+  return nil if id.empty?
+
+  data = begin
+    graphql(token, EVENT_BY_ID_QUERY, id: id)
+  rescue StandardError
+    nil
+  end
+  data && data["event"]
+end
+
+PAST_QUERY = <<~GQL
+  query GroupPast($urlname: String!, $first: Int!, $after: String, $afterDate: DateTime) {
+    groupByUrlname(urlname: $urlname) {
+      name
+      events(filter: { status: PAST, afterDateTime: $afterDate }, first: $first, after: $after, sort: DESC) {
+        pageInfo { hasNextPage endCursor }
+        edges { node {
+          id title eventUrl dateTime duration eventType description eventHosts { name }
+        } }
+      }
+    }
+  }
+GQL
+
+# Scan groups' PAST Global C++ events (since BACKFILL_SINCE) → date => [{group, node}].
+# Used to discover Meetup postings for existing session pages that lack a meetup_url.
+def discover_past_gcpp(token, groups)
+  by_date = Hash.new { |h, k| h[k] = [] }
+  groups.each do |urlname, info|
+    after = nil
+    pages = 0
+    loop do
+      data = begin
+        graphql(token, PAST_QUERY, urlname: urlname, first: 30, after: after, afterDate: BACKFILL_SINCE)
+      rescue StandardError => e
+        log("  ! #{info[:name]}: #{e.message}")
+        break
+      end
+      group = data["groupByUrlname"]
+      break if group.nil?
+
+      conn = group["events"] || {}
+      (conn["edges"] || []).each do |edge|
+        node = edge["node"]
+        next unless node && node["title"].to_s =~ GLOBAL_CPP_RE
+
+        by_date[Time.parse(node["dateTime"]).utc.to_date] << { group: info[:name], node: node }
+      end
+
+      page = conn["pageInfo"] || {}
+      pages += 1
+      break unless page["hasNextPage"] && page["endCursor"] && pages < 20
+
+      after = page["endCursor"]
+    end
+  end
+  by_date
 end
 
 # ---------------------------------------------------------------------------
@@ -294,71 +420,221 @@ end
 
 EVENT_FIELD_ORDER = %w[
   id title date duration venueKey presenter presenter_name presenter_url
-  video slides code note meetup_url
+  video slides code note host groups meetup_url description
 ].freeze
 
-def render_event_fm(fields)
+# Wrap a description body in a Liquid raw block so arbitrary Meetup text
+# (which may contain `{{` / `{%`) can't break the Jekyll build; Kramdown still
+# formats the Markdown inside.
+def wrap_body(text)
+  "{% raw %}\n#{text.strip}\n{% endraw %}"
+end
+
+# YAML lines for a `groups:` list of {name, url} hashes (string or symbol keys).
+def render_groups_block(groups)
+  lines = ["groups:"]
+  Array(groups).each do |g|
+    lines << "  - name: #{yq(g['name'] || g[:name])}"
+    lines << "    url: #{yq(g['url'] || g[:url])}"
+  end
+  lines
+end
+
+# Render an _events file: front matter (in EVENT_FIELD_ORDER) plus an optional
+# Markdown body (the Meetup description).
+def render_event_fm(fields, body = nil)
   lines = ["---"]
   EVENT_FIELD_ORDER.each do |k|
     next unless fields.key?(k)
 
     v = fields[k]
-    # `date` stays an unquoted ISO scalar; everything else is a quoted string.
-    lines << (k == "date" ? "#{k}: #{v}" : "#{k}: #{yq(v)}")
+    if k == "date"
+      lines << "#{k}: #{v}"          # unquoted ISO scalar
+    elsif k == "groups"
+      lines.concat(render_groups_block(v))
+    else
+      lines << "#{k}: #{yq(v)}"      # quoted string
+    end
   end
   lines << "---"
-  "#{lines.join("\n")}\n"
+  out = "#{lines.join("\n")}\n"
+  out += "\n#{wrap_body(body)}\n" if body && !body.strip.empty?
+  out
 end
 
-def sync_global_cpp_event(store, node)
-  date_utc = Time.parse(node["dateTime"]).utc
-  meetup_url = node["eventUrl"]
-  title = clean_title(node["title"])
-  presenter_name = presenter_from_title(node["title"])
+# Deduped [{name, url}] list of the groups cross-posting a session.
+def build_groups(postings)
+  seen = {}
+  postings.each do |p|
+    url = p[:node]["eventUrl"]
+    key = normalize_url(url)
+    next if key.empty? || seen.key?(key)
 
-  existing = find_existing_event(store, meetup_url, date_utc.to_date)
+    seen[key] = { "name" => p[:group], "url" => url }
+  end
+  seen.values
+end
+
+# Re-parse a file's front matter into the store after we rewrite it, so later
+# lookups in the same run see the updated fields.
+def restore_store_entry(store, path, raw)
+  fm = YAML.safe_load(raw[/\A---\s*\n(.*?)\n---/m, 1].to_s, permitted_classes: [Time, Date], aliases: true) || {}
+  store[path] = { fm: fm, raw: raw }
+end
+
+# Inject missing front-matter keys (incl. a `groups:` block) and/or append a
+# Markdown body to an existing file, preserving everything already there.
+def apply_event_updates(path, raw, additions, add_groups, add_body)
+  inject = additions.map { |k, v| "#{k}: #{yq(v)}" }
+  inject.concat(render_groups_block(add_groups)) if add_groups && !add_groups.empty?
+  raw = raw.sub(/\n---(\s*\n)/m, "\n#{inject.join("\n")}\n---\\1") unless inject.empty?
+  raw = "#{raw.rstrip}\n\n#{wrap_body(add_body)}\n" if add_body && !add_body.strip.empty?
+  raw
+end
+
+# Write/refresh the single page for one Global C++ session (which may be
+# cross-posted to several groups on the same UTC date). `postings` is a list of
+# { group:, node: }. Fills only missing fields; never overwrites hand-authored
+# content or an existing body.
+def sync_global_cpp_session(store, date_key, postings)
+  rep = postings.first[:node]
+  dt = Time.parse(rep["dateTime"]).utc
+  title = clean_title(rep["title"])
+  presenter_name = presenter_from_title(rep["title"])
+  host = host_name(rep)
+  groups = build_groups(postings)
+  primary_url = groups.first && groups.first["url"]
+  desc_body = clean_description(rep["description"])
+  desc_short = truncate_desc(desc_body)
+
+  existing = nil
+  postings.each do |p|
+    existing = find_existing_event(store, p[:node]["eventUrl"], date_key)
+    break if existing
+  end
 
   if existing
     path, entry = existing
+    fm = entry[:fm]
     additions = {}
-    additions["meetup_url"] = meetup_url if entry[:fm]["meetup_url"].to_s.empty? && meetup_url
-    additions["presenter_name"] = presenter_name if entry[:fm]["presenter_name"].to_s.empty? && presenter_name
-    if additions.empty?
-      log("  = _events (up to date): #{File.basename(path)}")
+    additions["meetup_url"]     = primary_url    if fm["meetup_url"].to_s.empty? && primary_url
+    additions["presenter_name"] = presenter_name if fm["presenter_name"].to_s.empty? && presenter_name
+    additions["host"]           = host           if fm["host"].to_s.empty? && host
+    additions["description"]    = desc_short     if fm["description"].to_s.empty? && !desc_short.empty?
+    add_groups = fm.key?("groups") ? nil : (groups.empty? ? nil : groups)
+    add_body   = (!has_body?(entry[:raw]) && !desc_body.empty?) ? desc_body : nil
+
+    changes = additions.keys + (add_groups ? ["groups"] : []) + (add_body ? ["body"] : [])
+    if changes.empty?
+      log("  = #{File.basename(path)} (up to date)")
       return
     end
 
-    log("  ~ _events (fill #{additions.keys.join(', ')}): #{File.basename(path)}")
+    log("  ~ #{File.basename(path)} (fill #{changes.join(', ')})")
     return if DRY_RUN
 
-    # Append only the missing keys just before the closing `---`, leaving all
-    # hand-authored lines untouched.
-    add_lines = additions.map { |k, v| "#{k}: #{yq(v)}" }.join("\n")
-    updated = entry[:raw].sub(/\n---(\s*\n)/m, "\n#{add_lines}\n---\\1")
-    File.write(path, updated)
+    raw = apply_event_updates(path, entry[:raw], additions, add_groups, add_body)
+    File.write(path, raw)
+    restore_store_entry(store, path, raw)
     return
   end
 
   slug = slugify(presenter_name || title)
   slug = "session" if slug.empty?
-  id = "#{date_utc.strftime('%Y-%m-%d')}-#{slug}"
+  id = "#{dt.strftime('%Y-%m-%d')}-#{slug}"
   path = File.join(EVENTS_DIR, "#{id}.md")
 
   fields = {
     "id" => id,
     "title" => title,
-    "date" => iso_utc(date_utc),
-    "duration" => iso_duration(node["duration"]),
-    "venueKey" => "online",
-    "meetup_url" => meetup_url
+    "date" => iso_utc(dt),
+    "duration" => iso_duration(rep["duration"]),
+    "venueKey" => "online"
   }
   fields["presenter_name"] = presenter_name if presenter_name
+  fields["host"] = host if host
+  fields["groups"] = groups unless groups.empty?
+  fields["meetup_url"] = primary_url if primary_url
+  fields["description"] = desc_short unless desc_short.empty?
 
-  log("  + _events (new): #{File.basename(path)}")
+  log("  + #{File.basename(path)} (new#{desc_body.empty? ? '' : ' +description'}, #{groups.size} group(s))")
   return if DRY_RUN
 
-  File.write(path, render_event_fm(fields))
-  store[path] = { fm: fields, raw: File.read(path) }
+  content = render_event_fm(fields, desc_body)
+  File.write(path, content)
+  restore_store_entry(store, path, content)
+end
+
+# Fill a description body (and missing host/meetup_url/description) onto an
+# existing session page from a fetched Meetup node. Returns a symbol for stats.
+def backfill_from_node(store, path, entry, node, postings = nil)
+  desc_body = clean_description(node["description"])
+  return :nodesc if desc_body.empty?
+
+  fm = entry[:fm]
+  additions = {}
+  additions["meetup_url"]  = node["eventUrl"] if fm["meetup_url"].to_s.empty? && node["eventUrl"]
+  additions["host"]        = host_name(node)  if fm["host"].to_s.empty? && host_name(node)
+  additions["description"] = truncate_desc(desc_body) if fm["description"].to_s.empty?
+  add_groups = (!fm.key?("groups") && postings) ? build_groups(postings) : nil
+  add_body   = has_body?(entry[:raw]) ? nil : desc_body
+
+  changes = additions.keys + (add_groups ? ["groups"] : []) + (add_body ? ["body"] : [])
+  if changes.empty?
+    log("  = #{File.basename(path)} (up to date)")
+    return :uptodate
+  end
+
+  log("  ~ #{File.basename(path)} (fill #{changes.join(', ')})")
+  return :filled if DRY_RUN
+
+  raw = apply_event_updates(path, entry[:raw], additions, add_groups, add_body)
+  File.write(path, raw)
+  restore_store_entry(store, path, raw)
+  :filled
+end
+
+# Backfill descriptions onto existing Global C++ session pages that have no body,
+# via event(id:) (when a meetup_url is present) or best-effort PAST-event discovery.
+def backfill_descriptions(token, store, groups)
+  log("Backfilling session descriptions#{DRY_RUN ? ' [dry run]' : ''}...")
+
+  candidates = store.select do |_path, e|
+    fm = e[:fm]
+    fm["venueKey"].to_s == "online" && fm["kind"].to_s != "external" && !has_body?(e[:raw])
+  end
+  log("#{candidates.size} session page(s) without a description body.\n")
+
+  discovered = nil
+  stats = Hash.new(0)
+
+  candidates.each do |path, entry|
+    fm = entry[:fm]
+    node = nil
+    postings = nil
+
+    node = fetch_event_by_url(token, fm["meetup_url"]) unless fm["meetup_url"].to_s.empty?
+
+    if node.nil?
+      discovered ||= (log("Discovering past Global C++ events across groups..."); discover_past_gcpp(token, groups))
+      date = fm["date"] && (fm["date"].is_a?(Time) ? fm["date"] : Time.parse(fm["date"].to_s)).utc.to_date
+      postings = date && discovered[date]
+      node = postings&.first&.dig(:node)
+    end
+
+    if node.nil?
+      log("  ? #{File.basename(path)} (no Meetup event found)")
+      stats[:unresolved] += 1
+      next
+    end
+
+    result = backfill_from_node(store, path, entry, node, postings)
+    stats[result] += 1
+  end
+
+  log("\nBackfill done. filled: #{stats[:filled]}, up-to-date: #{stats[:uptodate]}, " \
+      "no description: #{stats[:nodesc]}, unresolved: #{stats[:unresolved]}.")
+  log("(dry run — no files written)") if DRY_RUN
 end
 
 # ---------------------------------------------------------------------------
@@ -405,11 +681,15 @@ if groups.empty?
   abort "No queryable member groups found#{ONLY_GROUPS.empty? ? '' : " matching #{ONLY_GROUPS.join(', ')}"}."
 end
 
-log("Syncing #{groups.size} member group(s)#{DRY_RUN ? ' [dry run]' : ''}...")
-
 token = fetch_access_token
-
 events_store = existing_events
+
+if BACKFILL
+  backfill_descriptions(token, events_store, groups)
+  return
+end
+
+log("Syncing #{groups.size} member group(s)#{DRY_RUN ? ' [dry run]' : ''}...")
 
 # Existing group_events entries. Dedup is by (group + date) OR by normalized URL:
 # Meetup event ids are unstable (recurring events get fresh ids each occurrence),
@@ -418,6 +698,10 @@ events_store = existing_events
 group_events = (YAML.safe_load(File.read(GROUP_EVENTS), permitted_classes: [Date]) || [])
 
 stats = Hash.new(0)
+
+# Global C++ online sessions are cross-posted to several groups' calendars; we
+# collect them by UTC date across all groups, then write one page per session.
+gcpp_by_date = Hash.new { |h, k| h[k] = [] }
 
 groups.each do |urlname, info|
   log("\n#{info[:name]} (#{urlname})")
@@ -438,8 +722,9 @@ groups.each do |urlname, info|
   nodes.each do |node|
     title = node["title"].to_s
     if title =~ GLOBAL_CPP_RE
-      sync_global_cpp_event(events_store, node)
-      stats[:global] += 1
+      date = Time.parse(node["dateTime"]).utc.to_date
+      gcpp_by_date[date] << { group: info[:name], node: node }
+      log("  → Global C++ session #{date} (page written below)")
     elsif %w[PHYSICAL HYBRID].include?(node["eventType"])
       in_person << node
     else
@@ -482,11 +767,19 @@ groups.each do |urlname, info|
   end
 end
 
+unless gcpp_by_date.empty?
+  log("\nGlobal C++ online sessions (one page per session)")
+  gcpp_by_date.keys.sort.each do |date|
+    sync_global_cpp_session(events_store, date, gcpp_by_date[date])
+    stats[:global] += 1
+  end
+end
+
 unless DRY_RUN
   File.write(GROUP_EVENTS, render_group_events(group_events)) unless group_events.empty?
 end
 
-log("\nDone. Global C++ pages: #{stats[:global]}, group links: #{stats[:link]}, " \
+log("\nDone. Global C++ sessions: #{stats[:global]}, group links: #{stats[:link]}, " \
     "skipped: #{stats[:skipped]}, group errors: #{stats[:errors]}.")
 log("(dry run — no files written)") if DRY_RUN
 end
