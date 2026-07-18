@@ -1,0 +1,267 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Global C++//Sessions//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Global C++ Sessions
+X-WR-CALDESC:Weekly online C++ talks hosted by Global C++
+BEGIN:VEVENT
+UID:2026-01-17-robert-douglas@globalcpp.github.io
+DTSTAMP:20260117T170000Z
+DTSTART:20260117T170000Z
+DTEND:20260117T183000Z
+SUMMARY:Global C++: 2 topics\, Conda and Type Erasure
+DESCRIPTION:Presented by Rob Douglas. Recording: https://youtu.be/-qj8_zW64
+ 4o Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/-qj8_zW644o
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-01-24-robert-douglas@globalcpp.github.io
+DTSTAMP:20260124T170000Z
+DTSTART:20260124T170000Z
+DTEND:20260124T183000Z
+SUMMARY:Global C++: Combining some C++17 and later features for elegance
+DESCRIPTION:Presented by Rob Douglas. Recording: https://youtu.be/xXH0BZvAi
+ cM Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/xXH0BZvAicM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-01-31-victor-eijkhout@globalcpp.github.io
+DTSTAMP:20260131T170000Z
+DTSTART:20260131T170000Z
+DTEND:20260131T183000Z
+SUMMARY:Global C++: Parallelism through OpenMP (in C++\, of course)
+DESCRIPTION:Presented by Victor Eijkhout. Recording: https://youtu.be/jDNWj
+ cu93Qc Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/jDNWjcu93Qc
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-02-07-matt-godbolt@globalcpp.github.io
+DTSTAMP:20260207T170000Z
+DTSTART:20260207T170000Z
+DTEND:20260207T183000Z
+SUMMARY:Global C++: Advent of Code Omnibus
+DESCRIPTION:Presented by Matt Godbolt. Recording: https://youtu.be/a4vNxt1H
+ EYU Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/a4vNxt1HEYU
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-02-14-barry-revzin@globalcpp.github.io
+DTSTAMP:20260214T170000Z
+DTSTART:20260214T170000Z
+DTEND:20260214T183000Z
+SUMMARY:Global C++: Exploring reflection in C++26
+DESCRIPTION:Presented by Barry Revzin. Recording: https://youtu.be/iuI1QXQw
+ D1k Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/iuI1QXQwD1k
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-02-21-nishanth-shyamkumar@globalcpp.github.io
+DTSTAMP:20260221T170000Z
+DTSTART:20260221T170000Z
+DTEND:20260221T183000Z
+SUMMARY:Global C++: DPDK — Achieving high network performance on a CPU
+DESCRIPTION:Presented by Nishanth Shyamkumar. Recording: https://youtu.be/Y
+ mMYhcwUvbI Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/YmMYhcwUvbI
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-02-28-ahmad-sharif@globalcpp.github.io
+DTSTAMP:20260228T170000Z
+DTSTART:20260228T170000Z
+DTEND:20260228T183000Z
+SUMMARY:Global C++: Utilizing CUDA for better performance
+DESCRIPTION:Presented by Ahmad Sharif. Recording: https://youtu.be/TmHcnmCP
+ BkA Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/TmHcnmCPBkA
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-03-07-mike-spertus@globalcpp.github.io
+DTSTAMP:20260307T170000Z
+DTSTART:20260307T170000Z
+DTEND:20260307T183000Z
+SUMMARY:Global C++: One C++26 App\, Three Ways: By Hand\, By AI\, and Toget
+ her
+DESCRIPTION:Presented by Mike Spertus. Recording: https://youtu.be/aXPTzc9B
+ Lps Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/aXPTzc9BLps
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-03-11-cpp-online@globalcpp.github.io
+DTSTAMP:20260311T170000Z
+DTSTART:20260311T170000Z
+DTEND:20260311T183000Z
+SUMMARY:Global C++: C++ Online (no Global C++ session this week)
+DESCRIPTION:We skipped this Saturday and encouraged members to attend C++ O
+ nline (March 11–13). Details: https://globalcpp.github.io/events/
+LOCATION:https://cpponline.uk/
+URL:https://cpponline.uk/
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-03-21-robert-douglas@globalcpp.github.io
+DTSTAMP:20260321T170000Z
+DTSTART:20260321T170000Z
+DTEND:20260321T183000Z
+SUMMARY:Global C++: A Coding Mid-Life Crisis: Are modern programming techni
+ ques really better?
+DESCRIPTION:Presented by Rob Douglas. Recording: https://youtu.be/BNmSMhe8x
+ ug Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/BNmSMhe8xug
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-03-28-fedor-pikus@globalcpp.github.io
+DTSTAMP:20260328T170000Z
+DTSTART:20260328T170000Z
+DTEND:20260328T183000Z
+SUMMARY:Global C++: Lock-Free Programming and Concurrent Data Structures on
+  Modern Hardware
+DESCRIPTION:Presented by Fedor Pikus. Recording: https://youtu.be/4lUKE1Pry
+ pk Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/4lUKE1Prypk
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-04-04-dusan-jovanovic@globalcpp.github.io
+DTSTAMP:20260404T170000Z
+DTSTART:20260404T170000Z
+DTEND:20260404T183000Z
+SUMMARY:Global C++: It's Time for better APIs
+DESCRIPTION:Presented by Dušan Jovanović. Recording: https://youtu.be/Yhm
+ j5pPuyDE Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/Yhmj5pPuyDE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-04-18-jeff-garland@globalcpp.github.io
+DTSTAMP:20260418T170000Z
+DTSTART:20260418T170000Z
+DTEND:20260418T183000Z
+SUMMARY:Global C++: Let's write some functions\, how hard could it be?
+DESCRIPTION:Presented by Jeff Garland. Recording: https://youtu.be/5VivY8FG
+ kMQ Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/5VivY8FGkMQ
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-04-25-ivica-bogosavljevic@globalcpp.github.io
+DTSTAMP:20260425T170000Z
+DTSTART:20260425T170000Z
+DTEND:20260425T183000Z
+SUMMARY:Global C++: The Hidden Performance Price of C++ Virtual Functions
+DESCRIPTION:Presented by Ivica Bogosavljević. Recording: https://youtu.be/
+ 3ux5YEj1c54 Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/3ux5YEj1c54
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-05-02-joshua-berne@globalcpp.github.io
+DTSTAMP:20260502T170000Z
+DTSTART:20260502T170000Z
+DTEND:20260502T183000Z
+SUMMARY:Global C++: Contracts for C++26
+DESCRIPTION:Presented by Joshua Berne. Recording: https://youtu.be/GrPPWk2u
+ DSI Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/GrPPWk2uDSI
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-05-09-daniel-lemire@globalcpp.github.io
+DTSTAMP:20260509T170000Z
+DTSTART:20260509T170000Z
+DTEND:20260509T183000Z
+SUMMARY:Global C++: SIMD-Accelerated Data Processing
+DESCRIPTION:Presented by Daniel Lemire. Recording: https://youtu.be/BBLDgsU
+ 7Zn4 Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/BBLDgsU7Zn4
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-05-23-diego-rodriguez-losada@globalcpp.github.io
+DTSTAMP:20260523T170000Z
+DTSTART:20260523T170000Z
+DTEND:20260523T183000Z
+SUMMARY:Global C++: CMake\, CPS and Conan: The path to standardized depende
+ ncy management for C and C++
+DESCRIPTION:Presented by Diego Rodriguez-Losada. Recording: https://youtu.b
+ e/XPRPdBlTR7o Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/XPRPdBlTR7o
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-05-30-joshua-berne@globalcpp.github.io
+DTSTAMP:20260530T170000Z
+DTSTART:20260530T170000Z
+DTEND:20260530T183000Z
+SUMMARY:Global C++: Contracts for C++26 (part 2)
+DESCRIPTION:Presented by Joshua Berne. Recording: https://youtu.be/R3cF2m_w
+ C9o Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/R3cF2m_wC9o
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-13-sandor-dargo@globalcpp.github.io
+DTSTAMP:20260613T170000Z
+DTSTART:20260613T170000Z
+DTEND:20260613T183000Z
+SUMMARY:Global C++: The Clocks of C++: Knowing When (and Why) to Use Each O
+ ne
+DESCRIPTION:Presented by Sandor Dargo. Recording: https://youtu.be/L3sOlpgN
+ miQ Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/L3sOlpgNmiQ
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-20-mouaz-chamieh@globalcpp.github.io
+DTSTAMP:20260620T170000Z
+DTSTART:20260620T170000Z
+DTEND:20260620T183000Z
+SUMMARY:Global C++: Move Semantics
+DESCRIPTION:Presented by Mouaz Chamieh. Recording: https://youtu.be/Cp_M4cQ
+ 0imI Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/Cp_M4cQ0imI
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-27-tsung-wei-huang@globalcpp.github.io
+DTSTAMP:20260627T170000Z
+DTSTART:20260627T170000Z
+DTEND:20260627T183000Z
+SUMMARY:Global C++: Programming Dynamic Task Graph using Modern C++
+DESCRIPTION:Presented by Tsung-Wei Huang. Recording: https://youtu.be/zAeGO
+ JYZdHY Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/zAeGOJYZdHY
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-04-hassan-sajjad@globalcpp.github.io
+DTSTAMP:20260704T170000Z
+DTSTART:20260704T170000Z
+DTEND:20260704T183000Z
+SUMMARY:Global C++: HMake: Caching and Correctness
+DESCRIPTION:Presented by Hassan Sajjad. Details: https://globalcpp.github.i
+ o/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-11-andrei-alexandrescu@globalcpp.github.io
+DTSTAMP:20260711T210000Z
+DTSTART:20260711T210000Z
+DTEND:20260711T223000Z
+SUMMARY:Global C++: The Next 20 Weeks of Systems Engineering
+DESCRIPTION:Presented by Andrei Alexandrescu. Video for this presentation w
+ ill be delayed until the fall. Details: https://globalcpp.github.io/events
+ /
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
+END:VCALENDAR

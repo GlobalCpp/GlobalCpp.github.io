@@ -1,6 +1,6 @@
 # Bryce Adelstein Lelbach
 
-<img src='bryce_adelstein_lelbach.jpg' width='20%' height='20%'>
+<img src="bryce_adelstein_lelbach.jpg" alt="Bryce Adelstein Lelbach" class="align-left" width="200">
 
 Bryce Adelstein Lelbach has spent over a decade developing programming languages, compilers, and libraries. He is passionate about parallel programming and strives to make it more accessible for everyone.
 

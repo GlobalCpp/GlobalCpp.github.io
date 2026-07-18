@@ -1,0 +1,24 @@
+{% comment %}
+  One Global C++ online-session row (an _events doc).
+  Params: event (required) — the session document
+          short_date       — "Jul 11" instead of "Jul 11, 2026" (year-grouped lists)
+          show_links       — render the [[video]] / [[slides]] / [[code]] attribute chips
+  The title links to the session's own detail page (/events/<slug>/); external
+  "no session this week" entries stay plain text (they use the details chip).
+  Attribute chips (incl. rsvp/meetup) come from _includes/gcpp-session-links.html.
+{% endcomment %}
+{%- assign e = include.event -%}
+<li>
+  <span class="gcpp-date">{% if include.short_date %}{{ e.date | date: "%b %-d" }}{% else %}{{ e.date | date: "%b %-d, %Y" }}{% endif %}</span>
+  <div class="gcpp-body">
+    <span class="gcpp-title">{% if e.kind == 'external' %}{{ e.title }}{% else %}<a href="{{ e.url }}">{{ e.title }}</a>{% endif %}</span>
+    <span class="gcpp-meta">
+      {%- if e.presenter %}<a href="/presenters/{{ e.presenter }}.html">{{ e.presenter_name }}</a>
+      {%- elsif e.presenter_url %}<a href="{{ e.presenter_url }}" target="_blank" rel="noopener">{{ e.presenter_name }}</a>
+      {%- elsif e.presenter_name %}<span>{{ e.presenter_name }}</span>
+      {%- endif -%}
+      {% include gcpp-session-links.html event=e show_links=include.show_links %}
+    </span>
+    {%- if e.note %}<span class="gcpp-note">{{ e.note }}</span>{% endif %}
+  </div>
+</li>

@@ -1,0 +1,12 @@
+# Jekyll local build artifacts / dependencies
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+vendor/
+.bundle/
+Gemfile.lock
+
+# Meetup sync credentials (never commit) — see scripts/sync_meetup.rb
+.env
+*.pem

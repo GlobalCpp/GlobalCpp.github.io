@@ -1,0 +1,12 @@
+{% comment %}
+  One member-group in-person event row (an entry from _data/group_events.yml).
+  Params: event (required) — the group_events entry (group, title, city, date, url)
+{% endcomment %}
+{%- assign ev = include.event -%}
+<li>
+  <span class="gcpp-date">{{ ev.date | date: "%b %-d, %Y" }}</span>
+  <div class="gcpp-body">
+    <span class="gcpp-title"><a href="{{ ev.url }}" target="_blank" rel="noopener">{{ ev.title }}</a></span>
+    <span class="gcpp-meta">{{ ev.group }} &middot; {{ ev.city }}</span>
+  </div>
+</li>

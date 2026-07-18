@@ -1,0 +1,11 @@
+# C++ conferences worth checking out. Fields: name, url, dates, location, note
+- name: "NDC { Toronto }"
+  url: "https://ndctoronto.com/"
+  dates: "May 5–8"
+  location: "Toronto, Canada"
+  note: "Check the Discord server (#more-cpp) for a discount code."
+
+- name: "CppCon 2026"
+  url: "https://cppcon.org/"
+  dates: "Sept 12–18"
+  location: "Aurora, CO, USA"

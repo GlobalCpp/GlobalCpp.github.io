@@ -1,0 +1,167 @@
+---
+# Minimal Mistakes main stylesheet override. The empty front matter block is
+# required so Jekyll processes the SCSS. Imports the selected skin + theme,
+# then adds site-specific tweaks.
+---
+
+@charset "utf-8";
+
+// Brand accent (ISO C++ blue). Set before the imports so these win over the
+// theme's !default variables. Skin stays "default"; this only recolors links,
+// buttons, and masthead accents.
+$primary-color: #00599c;
+$link-color: #00599c;
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";
+
+/* Homepage banner — cap width and center (replaces old inline styles). */
+.gcpp-banner {
+  max-width: min(640px, 100%);
+}
+
+/* Member map — Leaflet needs an explicit container height. */
+#members-map {
+  height: 440px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 1.5em 0;
+  z-index: 0; /* keep tiles/controls below the theme masthead */
+}
+
+/* Event / group listing rows — two-column schedule grid.
+   The date lives in its own grid column so wrapped titles stay aligned. */
+.gcpp-list {
+  list-style: none;
+  padding-left: 0;
+}
+.gcpp-list > li {
+  display: grid;
+  grid-template-columns: 7em minmax(0, 1fr);
+  column-gap: 1em;
+  padding: 0.7em 0;
+  border-bottom: 1px solid $border-color;
+}
+.gcpp-date {
+  font-family: $monospace;
+  font-size: 0.8em;
+  line-height: 2.1; /* optically match the title's first baseline */
+  color: $muted-text-color;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.gcpp-title {
+  display: block;
+  font-weight: 600;
+  color: #1b1f24;
+}
+.gcpp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25em 1em;
+  font-size: 0.9em;
+}
+.gcpp-note {
+  display: block;
+  margin-top: 0.15em;
+  font-size: 0.85em;
+  font-style: italic;
+  color: $muted-text-color;
+}
+
+/* Year marker between groups of past presentations */
+.gcpp-year {
+  font-family: $monospace;
+  font-size: 0.85em;
+  letter-spacing: 0.2em;
+  color: $muted-text-color;
+  margin: 1.75em 0 0.25em;
+}
+
+/* Upcoming rows get the brand-blue edge + a light wash */
+.gcpp-list--upcoming > li {
+  border-left: 3px solid $primary-color;
+  background: #f6fafd;
+  padding-left: 0.9em;
+}
+
+/* Resource links as C++ attribute chips: [[video]] [[slides]] [[code]] */
+.gcpp-attrs {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.gcpp-attr {
+  font-family: $monospace;
+  font-size: 0.8rem;
+  padding: 0 0.4em;
+  border-radius: 3px;
+  background: #f0f5fa;
+  border: 1px solid rgba(0, 89, 156, 0.18);
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.gcpp-attr::before {
+  content: "[[";
+  opacity: 0.55;
+}
+.gcpp-attr::after {
+  content: "]]";
+  opacity: 0.55;
+}
+.gcpp-attr:hover,
+.gcpp-attr:focus {
+  background: #e2eef8;
+  border-color: rgba(0, 89, 156, 0.45);
+  text-decoration: none;
+}
+/* [[join]] — the Zoom link during a live session, filled brand blue to read as a CTA */
+.gcpp-attr--join {
+  background: #00599c;
+  border-color: #00599c;
+  color: #fff;
+  font-weight: 600;
+}
+.gcpp-attr--join:hover,
+.gcpp-attr--join:focus {
+  background: #00467c;
+  border-color: #00467c;
+  color: #fff;
+}
+
+/* "Join on Zoom" CTA button on the event detail page */
+.gcpp-event-join {
+  margin: 0.6em 0 0.2em;
+}
+.gcpp-join-btn {
+  display: inline-block;
+  padding: 0.4em 1em;
+  border-radius: 4px;
+  background: #00599c;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.gcpp-join-btn:hover,
+.gcpp-join-btn:focus {
+  background: #00467c;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Narrow screens: stack the date above the row content */
+@media (max-width: 37.5em) {
+  .gcpp-list > li {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.1em;
+  }
+  .gcpp-date {
+    line-height: inherit;
+  }
+  .gcpp-attrs {
+    margin-left: 0;
+  }
+}

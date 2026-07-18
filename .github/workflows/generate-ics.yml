@@ -1,0 +1,43 @@
+name: Generate iCal feed
+
+# Regenerates events.ics from _events/*.md and commits it back to main, so the
+# built-in GitHub Pages Jekyll build serves the updated calendar. The path
+# filter deliberately excludes events.ics itself, so the bot's own commit does
+# not re-trigger this workflow (belt-and-suspenders with the [skip ci] message).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_events/**"
+      - "scripts/generate_ics.rb"
+      - ".github/workflows/generate-ics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ".ruby-version"
+
+      - name: Generate events.ics
+        run: ruby scripts/generate_ics.rb
+
+      - name: Commit updated feed
+        run: |
+          if [ -n "$(git status --porcelain events.ics)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add events.ics
+            git commit -m "Regenerate events.ics [skip ci]"
+            git push
+          else
+            echo "events.ics is already up to date."
+          fi

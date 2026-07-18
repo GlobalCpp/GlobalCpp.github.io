@@ -1,0 +1,29 @@
+{% comment %}
+  Attribute-link chips for one Global C++ session, shared by the list row
+  (_includes/gcpp-session-row.html) and the event page (_layouts/event.html).
+  Params: event (required) — the session (an _events doc or `page`)
+          show_links       — render the video / slides / code chips
+          hide_meetup      — suppress the rsvp/meetup chip (e.g. the detail page,
+                             where the hosting-groups block already links Meetup)
+  A [[rsvp]] chip (the session's Meetup event) is shown for upcoming sessions
+  that carry a `meetup_url`; past rows show a [[meetup]] chip instead. A [[join]]
+  chip (the session's `zoom` link) is emitted on upcoming rows but revealed by JS
+  only during the live session window (see _includes/head/custom.html).
+{% endcomment %}
+{%- assign e = include.event -%}
+{%- assign show_meetup = false -%}
+{%- if e.meetup_url and include.hide_meetup != true %}{% assign show_meetup = true %}{% endif -%}
+{%- assign show_join = false -%}
+{%- if e.zoom and include.show_links != true %}{% assign show_join = true %}{% endif -%}
+{%- if include.show_links or show_meetup or show_join -%}
+<span class="gcpp-attrs">
+  {%- if show_join %}<a class="gcpp-attr gcpp-attr--join" hidden data-gcpp-join data-start="{{ e.date | date_to_xmlschema }}" data-duration="{{ e.duration }}" href="{{ e.zoom }}" target="_blank" rel="noopener">join</a>{% endif -%}
+  {%- if include.show_links -%}
+  {%- if e.kind == 'external' and e.external_url %}<a class="gcpp-attr" href="{{ e.external_url }}" target="_blank" rel="noopener">details</a>{% endif -%}
+  {%- if e.video %}<a class="gcpp-attr" href="{{ e.video }}" target="_blank" rel="noopener">video</a>{% endif -%}
+  {%- if e.slides %}<a class="gcpp-attr" href="{{ e.slides }}" target="_blank" rel="noopener">slides</a>{% endif -%}
+  {%- if e.code %}<a class="gcpp-attr" href="{{ e.code }}" target="_blank" rel="noopener">code</a>{% endif -%}
+  {%- endif -%}
+  {%- if show_meetup %}<a class="gcpp-attr" href="{{ e.meetup_url }}" target="_blank" rel="noopener">{% if include.show_links %}meetup{% else %}rsvp{% endif %}</a>{% endif -%}
+</span>
+{%- endif -%}

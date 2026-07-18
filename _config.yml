@@ -1,0 +1,115 @@
+# Global C++ site configuration.
+#
+# Served by GitHub Pages' built-in Jekyll (no CI). The site uses the
+# Minimal Mistakes theme via remote_theme — both jekyll-remote-theme and
+# jekyll-include-cache are on the GitHub Pages plugin whitelist, so no
+# GitHub Actions build is needed. Publishing = pushing to `main`.
+#
+# NOTE: Jekyll does not hot-reload this file — restart `jekyll serve` after edits.
+
+remote_theme: "mmistakes/minimal-mistakes@4.28.0"
+minimal_mistakes_skin: "default"     # light skin — the logos are drawn for light backgrounds
+
+title: "Global C++"
+description: "A collaboration between regional C++ user groups — weekly online sessions, talks, and meetups."
+timezone: "Etc/UTC"                   # all event `date`s are UTC (…Z); render them in UTC everywhere
+future: true                          # publish upcoming (future-dated) session pages, not just past ones
+url: "https://globalcpp.github.io"
+locale: "en-US"
+repository: "GlobalCpp/GlobalCpp.github.io"
+logo: "/logos/global_c++.png"        # masthead logo
+
+# NOTE: masthead search is intentionally OFF (off by omission — no `search:` key).
+# Event docs now have real pages (`collections.events.output: true`), so the old
+# blocker (lunr results 404-ing) is gone; enabling `search: true` is safe if
+# wanted. Presenter pages still aren't indexed — a separate consideration.
+
+# Identity shown in the theme's author-profile sidebar on interior pages.
+author:
+  name: "Global C++"
+  avatar: "/logos/global_c++.png"
+  bio: "Free weekly C++ talks from user groups around the world."
+  links:
+    - label: "Discord"
+      icon: "fab fa-fw fa-discord"
+      url: "https://discord.gg/HVv7Jya37T"
+    - label: "YouTube"
+      icon: "fab fa-fw fa-youtube"
+      url: "https://www.youtube.com/@GlobalCpp"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/GlobalCpp"
+    - label: "GoodReads"
+      icon: "fas fa-fw fa-book"
+      url: "https://www.goodreads.com/global_cpp"
+
+# --- SEO / social (jekyll-seo-tag is auto-enabled on GitHub Pages) ---
+og_image: "/web-app-manifest-512x512.png"   # default social-share image
+social:
+  type: Organization
+  name: "Global C++"
+  links:
+    - "https://www.youtube.com/@GlobalCpp"
+    - "https://github.com/GlobalCpp"
+# google_site_verification: ""       # add token when registering Search Console
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-include-cache             # required by Minimal Mistakes
+  - jekyll-seo-tag                   # GitHub Pages default; listed so local build matches prod
+  - jekyll-sitemap
+  - jekyll-feed                      # generates /feed.xml (the footer FEED link)
+
+collections:
+  events:
+    output: true                     # each session gets a page at /events/<slug>/
+    permalink: /events/:name/        # :name = filename stem (already date-prefixed)
+
+defaults:
+  - scope:
+      path: "presenters"
+      type: "pages"
+    values:
+      layout: single
+      author_profile: true
+  - scope:
+      path: ""
+      type: "events"
+    values:
+      layout: event                  # _layouts/event.html (renders session details)
+      author_profile: true
+      classes: wide
+      excerpt_separator: ""          # body is a {% raw %} block; skip excerpt splitting (SEO uses `description`)
+
+titles_from_headings:
+  enabled: true
+  strip_title: true                  # bios keep their '# Name' heading; strip it so it isn't shown twice
+
+footer:
+  links:
+    - label: "YouTube"
+      icon: "fab fa-fw fa-youtube"
+      url: "https://www.youtube.com/@GlobalCpp"
+    - label: "Discord"
+      icon: "fab fa-fw fa-discord"
+      url: "https://discord.gg/HVv7Jya37T"
+    - label: "GoodReads"
+      icon: "fas fa-fw fa-book"
+      url: "https://www.goodreads.com/global_cpp"
+
+# Jekyll REPLACES its default exclude list when one is set here, so the
+# defaults (Gemfile, vendor/, caches) must be repeated or those files get
+# published. README.md is excluded so it is not published at /README.html
+# once index.md serves as the homepage.
+exclude:
+  - CLAUDE.md
+  - README.md
+  - scripts
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - .sass-cache
+  - .jekyll-cache
+  - gemfiles
+  - node_modules

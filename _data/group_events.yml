@@ -1,0 +1,50 @@
+# In-person events hosted by individual member groups.
+# Past vs upcoming is derived from `date` at build time — no manual moving.
+# Fields: group, title, city, date (YYYY-MM-DD), url
+- group: "C++ Serbia"
+  title: "Documentary: The Story of C++"
+  city: "Belgrade"
+  date: 2026-07-22
+  url: "https://www.meetup.com/cpp-serbia/events/315664357/"
+
+- group: "C++ Toronto"
+  title: "Meetup at Free Times Cafe"
+  city: "Toronto, ON"
+  date: 2026-04-16
+  url: "https://www.meetup.com/cpptoronto/events/313986536"
+
+- group: "PDXCPP"
+  title: "Meetup at Lucky Labrador Brew Pub"
+  city: "Portland, OR"
+  date: 2026-04-21
+  url: "https://www.meetup.com/pdxcpp/events/312937493"
+
+- group: "PDXCPP"
+  title: "Meetup at Lucky Labrador Brew Pub"
+  city: "Portland, OR"
+  date: 2026-03-17
+  url: "https://www.meetup.com/pdxcpp/events/312937491"
+
+- group: "PDXCPP"
+  title: "Meetup at Lucky Labrador Brew Pub"
+  city: "Portland, OR"
+  date: 2026-02-17
+  url: "https://www.meetup.com/pdxcpp/events/312937489"
+
+- group: "Chicago C/C++ Users Group"
+  title: "Meetup at Franklin Tap in the Chicago Loop"
+  city: "Chicago, IL"
+  date: 2026-02-19
+  url: "https://www.meetup.com/chicago-c-cpp-users-group/events/313287103"
+
+- group: "Chicago C/C++ Users Group"
+  title: "Meetup at Franklin Tap in the Chicago Loop"
+  city: "Chicago, IL"
+  date: 2026-01-20
+  url: "https://www.meetup.com/chicago-c-cpp-users-group/events/312918072/"
+
+- group: "PDXCPP"
+  title: "Meetup at Lucky Labrador Brew Pub"
+  city: "Portland, OR"
+  date: 2026-01-20
+  url: "https://www.meetup.com/pdxcpp/events/312454247/"
