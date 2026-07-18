@@ -264,4 +264,15 @@ DESCRIPTION:Presented by Andrei Alexandrescu. Video for this presentation w
 LOCATION:Online (Zoom / YouTube)
 URL:https://globalcpp.github.io/events/
 END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-18-damir-ljubic@globalcpp.github.io
+DTSTAMP:20260718T160000Z
+DTSTART:20260718T160000Z
+DTEND:20260718T170000Z
+SUMMARY:Global C++: Coroutines (wonder)land
+DESCRIPTION:Presented by Damir Ljubić. Details: https://globalcpp.github.i
+ o/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
 END:VCALENDAR
