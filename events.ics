@@ -275,4 +275,15 @@ DESCRIPTION:Presented by Damir Ljubić. Details: https://globalcpp.github.i
 LOCATION:Online (Zoom / YouTube)
 URL:https://globalcpp.github.io/events/
 END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-25-jody-hagins@globalcpp.github.io
+DTSTAMP:20260725T160000Z
+DTSTART:20260725T160000Z
+DTEND:20260725T170000Z
+SUMMARY:Global C++: C++ and AI Sitting in a Tree...
+DESCRIPTION:Presented by Jody Hagins. Details: https://globalcpp.github.io/
+ events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
 END:VCALENDAR
