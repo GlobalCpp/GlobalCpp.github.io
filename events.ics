@@ -286,4 +286,15 @@ DESCRIPTION:Presented by Jody Hagins. Details: https://globalcpp.github.io/
 LOCATION:Online (Zoom / YouTube)
 URL:https://globalcpp.github.io/events/
 END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-08-alan-talbot@globalcpp.github.io
+DTSTAMP:20260725T160000Z
+DTSTART:20260725T160000Z
+DTEND:20260725T170000Z
+SUMMARY:Global C++: How to Choose and Use the Right Container in C++26 p1
+DESCRIPTION:Presented by Alan Talbot. Details: https://globalcpp.github.io/
+ events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
 END:VCALENDAR
