@@ -13,7 +13,7 @@ header:
       url: "/events/"
 ---
 
-![Global C++ — a std::tuple of member-group city flags](/logos/tuple_banner_dark.png){: .align-center .gcpp-banner}
+{% include gcpp-members-strip.html %}
 
 Welcome to **Global C++**, a collaboration between regional C++ user groups from
 around the world. We run free online tech talks every week and help our member

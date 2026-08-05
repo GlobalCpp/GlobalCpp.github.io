@@ -15,11 +15,6 @@ $link-color: #00599c;
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 @import "minimal-mistakes";
 
-/* Homepage banner — cap width and center (replaces old inline styles). */
-.gcpp-banner {
-  max-width: min(640px, 100%);
-}
-
 /* Member map — Leaflet needs an explicit container height. */
 #members-map {
   height: 440px;
@@ -131,6 +126,226 @@ $link-color: #00599c;
   color: #fff;
 }
 
+/* ── Homepage member-group strip ─────────────────────────────────────────
+   The "spinning std::tuple" under the hero (_includes/gcpp-members-strip.html).
+   The band is full-bleed brand blue so it reads as one box with the hero, while
+   its padding puts `std::tuple<` back on the content grid (exactly the hero
+   title's left edge). The track holds two identical copies of the group list, so
+   translateX(-50%) loops seamlessly. This is the site's only animation — keep
+   the prefers-reduced-motion branch below in sync with it. */
+
+/* The strip continues the hero band, so drop the hero's trailing gap.
+   index.md is the only page with a `header:`, hence the .layout--splash scope. */
+.layout--splash .page__hero--overlay {
+  margin-bottom: 0;
+}
+/* 100vw includes the classic scrollbar, so the bleed below overshoots by the
+   scrollbar width on Windows/Linux. Clip it at the theme's own full-width
+   wrapper — which *excludes* the scrollbar — so no horizontal scrollbar can
+   appear. `clip` (not `hidden`) does not create a scroll container, so nothing
+   sticky or focus-scrolled breaks. Scoped to the splash layout: interior pages
+   have sticky author sidebars and must not be clipped. */
+.layout--splash .initial-content {
+  overflow-x: clip;
+}
+.gcpp-strip {
+  /* Percentage margins resolve against the container width, so this is
+     (containerWidth - viewportWidth) / 2 on each side: a full-bleed band. */
+  margin: 0 calc(50% - 50vw) 2.5em;
+  padding: 1.1em calc(50vw - 50%) 1.25em;
+  background: $primary-color;
+}
+.gcpp-strip__frame {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5em;
+  font-family: $monospace;
+  color: #fff;
+}
+.gcpp-strip__punct {
+  flex: 0 0 auto;
+  font-size: 1.05rem;
+  line-height: 2.9; /* sit on the tile baseline */
+  opacity: 0.9;
+  white-space: nowrap;
+}
+.gcpp-strip__viewport {
+  position: relative; /* anchors the edge fades below */
+  flex: 1 1 auto;
+  min-width: 0;
+  /* Two declarations on purpose. `hidden` is the floor: it always contains the
+     double-width track. `clip visible` (Safari 16+, Chrome 90+, Firefox 81+)
+     clips the same way horizontally but lets the hover tooltip escape upward
+     into the blue. Browsers without `clip` keep `hidden` and simply clip the
+     tooltip — never a layout spill. Order matters; don't reorder them. */
+  overflow: hidden;
+  overflow: clip visible;
+}
+/* Edge fades, so tiles dissolve into the band instead of being guillotined at
+   the clip. These are gradient overlays rather than a `mask-image`: the band is
+   a known solid colour so they look identical, and a mask would clip the hover
+   tooltip away (mask-clip defaults to border-box). Held to the viewport's own
+   height so they never cross the tooltip, which sits above it. */
+.gcpp-strip__viewport::before,
+.gcpp-strip__viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2.5em;
+  z-index: 1;
+  pointer-events: none;
+}
+.gcpp-strip__viewport::before {
+  left: 0;
+  background: linear-gradient(to right, $primary-color, rgba(0, 89, 156, 0));
+}
+.gcpp-strip__viewport::after {
+  right: 0;
+  background: linear-gradient(to left, $primary-color, rgba(0, 89, 156, 0));
+}
+.gcpp-strip__track {
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
+  animation: gcpp-strip-scroll 44s linear infinite;
+}
+/* Pause on hover and while any tile has keyboard focus (WCAG 2.2.2). */
+.gcpp-strip__viewport:hover .gcpp-strip__track,
+.gcpp-strip__track:focus-within {
+  animation-play-state: paused;
+}
+.gcpp-strip__cell {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+}
+/* Lift the hovered cell so its tooltip paints over the tiles that follow it
+   (flex items honour z-index without being positioned). */
+.gcpp-strip__cell:hover,
+.gcpp-strip__cell:focus-within {
+  z-index: 2;
+}
+/* The separator is the tuple's comma, and it *is* the spacing: with no flex
+   `gap`, each cell's outer width is self-contained, which is what makes
+   translateX(-50%) land exactly on the start of copy 2. Do not add a gap here. */
+.gcpp-strip__cell::after {
+  content: ",";
+  margin: 0 0.55em 0 0.3em;
+  line-height: 1;
+  opacity: 0.75;
+}
+.gcpp-strip__item {
+  position: relative; /* anchors the tooltip */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.2rem;
+  min-width: 3.2rem;
+  padding: 0.3em 0.45em;
+  background: #fff;
+  border-radius: 3px;
+  transition: box-shadow 0.15s ease;
+}
+.gcpp-strip__item img {
+  height: 2.4rem;
+  width: auto;
+  max-width: 7.5rem;
+  object-fit: contain; /* letterbox wide wordmarks instead of distorting them */
+}
+/* Flags are rectangles and several contain white (Chicago, Tel Aviv, Vienna),
+   which would dissolve into the white tile — give those a hairline edge.
+   Group logos are transparent marks, so they must NOT get one. */
+.gcpp-strip__item--flag img {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.gcpp-strip__text {
+  font-size: 0.8rem;
+  color: $primary-color;
+  white-space: nowrap;
+}
+/* Tooltip naming the group, above the tile (the band and the hero above it are
+   the same blue, so it floats cleanly). Text comes from data-gcpp-tip. This is
+   presentation only — the link is already named by the image alt, so the
+   tooltip is deliberately not a `title` and is not exposed to assistive tech.
+   The marquee pauses on hover/focus, so the tooltip never chases a moving tile. */
+.gcpp-strip__item::after {
+  content: attr(data-gcpp-tip);
+  position: absolute;
+  bottom: calc(100% + 0.4em);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.1em 0.55em;
+  border-radius: 3px;
+  background: #fff;
+  color: $primary-color;
+  font-family: $monospace;
+  font-size: 0.75rem;
+  line-height: 1.9;
+  white-space: nowrap;
+  pointer-events: none; /* never let the tooltip steal its own hover */
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.gcpp-strip__item:hover::after,
+.gcpp-strip__item:focus-visible::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gcpp-strip__item::after {
+    transition: none;
+  }
+}
+/* The theme's `.page__content a:not(.btn):hover` (underline) and
+   `… :hover img` (dark box-shadow) outspecify a bare `.gcpp-*` hover rule —
+   these selectors tie on specificity and win on source order. */
+.page__content a.gcpp-strip__item:hover,
+.page__content a.gcpp-strip__item:focus {
+  text-decoration: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+.page__content a.gcpp-strip__item:hover img {
+  box-shadow: none;
+}
+.page__content a.gcpp-strip__item--flag:hover img {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2); /* keep the flag's edge on hover */
+}
+@keyframes gcpp-strip-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* No motion: one static, wrapped, centered grid of every group — the no-motion
+   state still has to convey "many groups", so the clone copy is dropped rather
+   than the strip being truncated. */
+@media (prefers-reduced-motion: reduce) {
+  .gcpp-strip__frame {
+    align-items: center; /* centre the punctuation against the wrapped block */
+  }
+  .gcpp-strip__viewport {
+    overflow: visible;
+  }
+  /* Nothing is clipped in the static grid, so there is no edge to dissolve. */
+  .gcpp-strip__viewport::before,
+  .gcpp-strip__viewport::after {
+    content: none;
+  }
+  .gcpp-strip__track {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.4em;
+    animation: none;
+  }
+  .gcpp-strip__cell--clone {
+    display: none;
+  }
+  /* No loop to bridge here, so close the pack properly: `…, winnipeg>`, not
+     `…, winnipeg,>` — a trailing comma is not a valid template argument list. */
+  .gcpp-strip__cell--tail::after {
+    content: none;
+  }
+}
+
 /* "Join on Zoom" CTA button on the event detail page */
 .gcpp-event-join {
   margin: 0.6em 0 0.2em;
@@ -163,5 +378,16 @@ $link-color: #00599c;
   }
   .gcpp-attrs {
     margin-left: 0;
+  }
+  /* Break the tuple across lines like formatted code: `std::tuple<` / strip / `>` */
+  .gcpp-strip__frame {
+    flex-wrap: wrap;
+  }
+  .gcpp-strip__viewport {
+    flex: 1 1 100%;
+  }
+  .gcpp-strip__punct {
+    font-size: 0.95rem;
+    line-height: 1.7;
   }
 }
