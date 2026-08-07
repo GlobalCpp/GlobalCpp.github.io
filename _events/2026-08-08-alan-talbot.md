@@ -1,7 +1,7 @@
 ---
 id: 2026-08-08-alan-talbot
 title: "How to Choose and Use the Right Container in C++26 p1"
-date: 2026-07-25T16:00:00Z
+date: 2026-08-08T16:00:00Z
 duration: PT1H
 venueKey: online
 presenter: alan_talbot
