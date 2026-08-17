@@ -15,6 +15,7 @@ groups:
     url: "https://www.meetup.com/chicago-c-cpp-users-group/events/315324174/"
   - name: "C++ Toronto"
     url: "https://www.meetup.com/cpptoronto/events/315333639/"
+zoom: "https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1"
 ---
 
 {% raw %}

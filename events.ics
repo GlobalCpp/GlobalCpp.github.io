@@ -247,10 +247,10 @@ DTSTAMP:20260704T170000Z
 DTSTART:20260704T170000Z
 DTEND:20260704T183000Z
 SUMMARY:Global C++: HMake: Caching and Correctness
-DESCRIPTION:Presented by Hassan Sajjad. Details: https://globalcpp.github.i
- o/events/
+DESCRIPTION:Presented by Hassan Sajjad. Recording: https://youtu.be/wCyZg6p
+ yOA0 Details: https://globalcpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
-URL:https://globalcpp.github.io/events/
+URL:https://youtu.be/wCyZg6pyOA0
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-07-11-andrei-alexandrescu@globalcpp.github.io
@@ -270,10 +270,10 @@ DTSTAMP:20260718T160000Z
 DTSTART:20260718T160000Z
 DTEND:20260718T170000Z
 SUMMARY:Global C++: Coroutines (wonder)land
-DESCRIPTION:Presented by Damir Ljubić. Details: https://globalcpp.github.i
- o/events/
+DESCRIPTION:Presented by Damir Ljubić. Recording: https://youtu.be/s93itDB
+ RxPc Details: https://globalcpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
-URL:https://globalcpp.github.io/events/
+URL:https://youtu.be/s93itDBRxPc
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-07-25-jody-hagins@globalcpp.github.io
@@ -281,10 +281,10 @@ DTSTAMP:20260725T160000Z
 DTSTART:20260725T160000Z
 DTEND:20260725T170000Z
 SUMMARY:Global C++: C++ and AI Sitting in a Tree...
-DESCRIPTION:Presented by Jody Hagins. Details: https://globalcpp.github.io/
- events/
+DESCRIPTION:Presented by Jody Hagins. Recording: https://youtu.be/hs9CNO_GX
+ -8 Details: https://globalcpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
-URL:https://globalcpp.github.io/events/
+URL:https://youtu.be/hs9CNO_GX-8
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-08-08-alan-talbot@globalcpp.github.io
@@ -292,6 +292,17 @@ DTSTAMP:20260808T160000Z
 DTSTART:20260808T160000Z
 DTEND:20260808T170000Z
 SUMMARY:Global C++: How to Choose and Use the Right Container in C++26 p1
+DESCRIPTION:Presented by Alan Talbot. Recording: https://youtu.be/hjV3HC6b9
+ rs Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/hjV3HC6b9rs
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-15-alan-talbot@globalcpp.github.io
+DTSTAMP:20260815T160000Z
+DTSTART:20260815T160000Z
+DTEND:20260815T170000Z
+SUMMARY:Global C++: How to Choose and Use the Right Container in C++26 p2
 DESCRIPTION:Presented by Alan Talbot. Details: https://globalcpp.github.io/
  events/
 LOCATION:Online (Zoom / YouTube)

@@ -13,6 +13,7 @@ description: "Standard C++ provides std::async for launching asynchronous tasks,
 groups:
   - name: "Chicago C/C++ Users Group"
     url: "https://www.meetup.com/chicago-c-cpp-users-group/events/315428692/"
+zoom: "https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1"
 ---
 
 {% raw %}

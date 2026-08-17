@@ -6,6 +6,7 @@ duration: PT1H
 venueKey: online
 presenter: jody_hagins
 presenter_name: "Jody Hagins"
+video: "https://youtu.be/hs9CNO_GX-8"
 host: "Vincent Mirian"
 groups:
   - name: "Chicago C/C++ Users Group"

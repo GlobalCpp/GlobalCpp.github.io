@@ -6,6 +6,7 @@ duration: PT1H30M
 venueKey: online
 presenter: hassan_sajjad
 presenter_name: "Hassan Sajjad"
+video: "https://youtu.be/wCyZg6pyOA0"
 meetup_url: "https://www.meetup.com/chicago-c-cpp-users-group/events/315530032/"
 host: "Rob Douglas"
 description: "The IPC mechanism that HMake uses to improve the compilation-speeds was proposed multiple times in the…"
@@ -14,6 +15,7 @@ groups:
     url: "https://www.meetup.com/chicago-c-cpp-users-group/events/315530032/"
   - name: "StockholmCpp"
     url: "https://www.meetup.com/stockholmcpp/events/315529758/"
+zoom: "https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1"
 ---
 
 {% raw %}

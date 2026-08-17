@@ -6,6 +6,7 @@ duration: PT1H
 venueKey: online
 presenter: damir_ljubic
 presenter_name: "Damir Ljubić"
+video: "https://youtu.be/s93itDBRxPc"
 host: "Dušan Jovanović"
 groups:
   - name: "C++ Serbia"

@@ -6,6 +6,7 @@ duration: PT1H
 venueKey: online
 presenter: alan_talbot
 presenter_name: "Alan Talbot"
+video: "https://youtu.be/hjV3HC6b9rs"
 host: "Robert Douglas"
 groups:
   - name: "Chicago C/C++ Users Group"
