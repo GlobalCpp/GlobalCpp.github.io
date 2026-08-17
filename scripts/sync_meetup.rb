@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Syncs upcoming events from member groups' Meetup.com calendars into the site.
+# Syncs events from member groups' Meetup.com calendars into the site.
 #
 # Pure Ruby stdlib — no gems (GraphQL is a plain HTTPS POST; RS256 JWT signing
 # uses `openssl`), so it runs the same locally (`ruby scripts/sync_meetup.rb`)
@@ -25,9 +25,21 @@
 #   MEETUP_PRIVATE_KEY_PATH -> path to the RSA private-key PEM   (local runs)
 #   MEETUP_PRIVATE_KEY      -> the PEM contents inline           (CI runs)
 #
+# On startup a `.env` at the repo root is read if present (see load_dotenv), so
+# local runs need no exports; real environment variables always win over it. A
+# relative MEETUP_PRIVATE_KEY_PATH resolves against the repo root, so
+# `./meetup-private-key.pem` works from any working directory.
+#
 # Usage:
-#   ruby scripts/sync_meetup.rb [--dry-run] [urlname ...]
+#   ruby scripts/sync_meetup.rb [--dry-run] [--backfill | --past]
+#                               [--since YYYY-MM-DD] [urlname ...]
 #     --dry-run     print planned changes without writing any files
+#     --backfill    fill descriptions onto existing session pages that have none
+#     --past        catch-up pass: create pages/links for events that already
+#                   happened (a week the sync did not run is otherwise lost,
+#                   since the normal pass only sees upcoming events)
+#     --since DATE  window start for --past (default: 60 days ago); also narrows
+#                   --backfill's discovery scan
 #     urlname ...   restrict the sync to the given Meetup urlname(s)
 
 require "net/http"
@@ -42,6 +54,7 @@ require "date"
 ROOT        = File.expand_path("..", __dir__)
 MEMBERS_DIR = File.join(ROOT, "_data", "members")
 EVENTS_DIR  = File.join(ROOT, "_events")
+PRESENTERS_DIR = File.join(ROOT, "presenters")
 GROUP_EVENTS = File.join(ROOT, "_data", "group_events.yml")
 
 TOKEN_URL = "https://secure.meetup.com/oauth2/access"
@@ -50,12 +63,78 @@ GQL_URL   = "https://api.meetup.com/gql-ext"
 GLOBAL_CPP_RE = /global\s*c(?:\+\+|pp)/i
 DEFAULT_DURATION = "PT1H30M"
 
+# ---------------------------------------------------------------------------
+# Arguments
+# ---------------------------------------------------------------------------
+
+# Pull a `--name VALUE` / `--name=VALUE` option out of ARGV. Must run *before*
+# ONLY_GROUPS is computed, which treats every non-`--` argument as a urlname —
+# otherwise `--since 2026-08-01` leaves the date behind as a bogus group name.
+def take_option(name)
+  if (i = ARGV.index("--#{name}"))
+    ARGV.delete_at(i)
+    return ARGV.delete_at(i)
+  end
+  if (arg = ARGV.find { |a| a.start_with?("--#{name}=") })
+    ARGV.delete(arg)
+    return arg.split("=", 2)[1]
+  end
+  nil
+end
+
 DRY_RUN     = ARGV.delete("--dry-run") ? true : false
 BACKFILL    = ARGV.delete("--backfill") ? true : false
+PAST        = ARGV.delete("--past") ? true : false
+SINCE       = take_option("since")
 ONLY_GROUPS = ARGV.reject { |a| a.start_with?("--") }.map(&:downcase)
 
+abort "Use --past or --backfill, not both — they are separate passes." if PAST && BACKFILL
+abort "--since expects YYYY-MM-DD (got #{SINCE.inspect})." if SINCE && SINCE !~ /\A\d{4}-\d{2}-\d{2}\z/
+
+# How far back --past looks when --since is not given.
+PAST_DEFAULT_DAYS = 60
+PAST_SINCE = "#{SINCE || (Date.today - PAST_DEFAULT_DAYS).strftime('%Y-%m-%d')}T00:00:00Z"
+
 # Earliest date the backfill discovery pass scans a group's PAST events from.
-BACKFILL_SINCE = "2023-01-01T00:00:00Z"
+BACKFILL_SINCE = SINCE ? PAST_SINCE : "2023-01-01T00:00:00Z"
+
+# ---------------------------------------------------------------------------
+# .env (local runs; in CI the credentials come from the real environment)
+# ---------------------------------------------------------------------------
+
+DOTENV = File.join(ROOT, ".env")
+
+# Minimal KEY=VALUE reader: blank lines and `#` comments are skipped, an
+# `export ` prefix and one layer of surrounding quotes are tolerated, and `\n`
+# inside a double-quoted value becomes a real newline (so an inline PEM works).
+#
+# Never overrides a variable that is already set and non-empty, so real
+# environment variables and CI secrets win over a stale .env. The emptiness
+# check matters in CI: GitHub Actions materialises a missing secret as "".
+#
+# Deliberately not supported: variable interpolation, multi-line raw values, and
+# trailing-comment stripping — `#` is legal inside PEMs and Zoom `pwd=` params.
+def load_dotenv(path = DOTENV)
+  return unless File.file?(path)
+
+  File.foreach(path) do |line|
+    line = line.strip.sub(/\Aexport\s+/, "")
+    next if line.empty? || line.start_with?("#")
+
+    key, sep, value = line.partition("=")
+    key = key.strip
+    next if sep.empty? || key !~ /\A[A-Za-z_][A-Za-z0-9_]*\z/
+    next if ENV[key] && !ENV[key].empty?
+
+    value = value.strip
+    quote = value[0] if value.length >= 2 && value[0] == value[-1] && %w[" '].include?(value[0])
+    value = value[1..-2] if quote
+    value = value.gsub('\n', "\n") if quote == '"'
+    ENV[key] = value
+  end
+end
+
+load_dotenv
 
 # ---------------------------------------------------------------------------
 # Small helpers
@@ -112,6 +191,17 @@ end
 def presenter_from_title(title)
   m = title.to_s.match(/\b(?:by|with|feat\.?|featuring)\s+([A-Z][\p{L}.'-]+(?:\s+[A-Z][\p{L}.'-]+){0,3})\s*\z/)
   m && m[1].strip
+end
+
+# "Alan Talbot" -> "alan_talbot", but only when presenters/alan_talbot.md exists,
+# so the `presenter:` link never points at a missing bio page. Diacritics are
+# folded, so "Damir Ljubić" -> damir_ljubic. nil when there is no such bio.
+def presenter_slug(name)
+  slug = name.to_s.unicode_normalize(:nfkd).gsub(/\p{Mn}/, "").downcase
+             .gsub(/[^a-z0-9]+/, "_").gsub(/\A_+|_+\z/, "")
+  return nil if slug.empty?
+
+  File.file?(File.join(PRESENTERS_DIR, "#{slug}.md")) ? slug : nil
 end
 
 def normalize_url(url)
@@ -197,14 +287,29 @@ end
 # Meetup API client (JWT bearer -> OAuth2 access token -> GraphQL)
 # ---------------------------------------------------------------------------
 
+# Resolve MEETUP_PRIVATE_KEY_PATH to a readable file. Relative paths are tried
+# against the repo root (where .env lives) first, then the current directory, so
+# `MEETUP_PRIVATE_KEY_PATH=./meetup-private-key.pem` works from anywhere.
+def resolve_key_path(raw)
+  raw = raw.to_s.strip
+  return nil if raw.empty?
+
+  [File.expand_path(raw, ROOT), File.expand_path(raw, Dir.pwd)].uniq.find { |p| File.file?(p) }
+end
+
 def read_private_key
-  if (path = ENV["MEETUP_PRIVATE_KEY_PATH"]) && !path.empty?
-    return File.read(path)
+  path = ENV["MEETUP_PRIVATE_KEY_PATH"].to_s.strip
+  if !path.empty? && (resolved = resolve_key_path(path))
+    return File.read(resolved)
   end
+
+  # A set-but-unresolvable path falls through to the inline PEM rather than
+  # raising a bare Errno::ENOENT.
   pem = ENV["MEETUP_PRIVATE_KEY"]
   return pem if pem && !pem.empty?
 
-  abort "Missing private key: set MEETUP_PRIVATE_KEY_PATH or MEETUP_PRIVATE_KEY."
+  abort "Missing private key: set MEETUP_PRIVATE_KEY_PATH" \
+        "#{path.empty? ? '' : " (#{path} not found under #{ROOT} or #{Dir.pwd})"} or MEETUP_PRIVATE_KEY."
 end
 
 def require_env(name)
@@ -337,11 +442,40 @@ PAST_QUERY = <<~GQL
         pageInfo { hasNextPage endCursor }
         edges { node {
           id title eventUrl dateTime duration eventType description howToFindUs eventHosts { name }
+          venue { name city state country }
         } }
       }
     }
   }
 GQL
+
+# Events that already happened, within [since, now], newest first. Mirrors
+# fetch_upcoming_events' pagination. The window is re-checked client-side so
+# --since stays authoritative regardless of how the API's afterDateTime filter
+# rounds. Returns [] if the group has no matches or cannot be read.
+def fetch_past_events(token, urlname, since = PAST_SINCE)
+  events = []
+  after = nil
+  pages = 0
+  loop do
+    data = graphql(token, PAST_QUERY, urlname: urlname, first: 20, after: after, afterDate: since)
+    group = data["groupByUrlname"]
+    break if group.nil?
+
+    conn = group["events"] || {}
+    (conn["edges"] || []).each { |edge| events << edge["node"] if edge["node"] }
+
+    page = conn["pageInfo"] || {}
+    pages += 1
+    break unless page["hasNextPage"] && page["endCursor"] && pages < 20
+
+    after = page["endCursor"]
+  end
+
+  from = Time.parse(since)
+  now  = Time.now
+  events.select { |n| (t = Time.parse(n["dateTime"])) >= from && t <= now }
+end
 
 # Scan groups' PAST Global C++ events (since BACKFILL_SINCE) → date => [{group, node}].
 # Used to discover Meetup postings for existing session pages that lack a meetup_url.
@@ -431,6 +565,11 @@ EVENT_FIELD_ORDER = %w[
   video slides code note host groups meetup_url zoom description
 ].freeze
 
+# Fields written as bare YAML scalars rather than quoted strings, so generated
+# pages are indistinguishable from the hand-authored ones. All four are always
+# simple tokens: a slug, an ISO timestamp, an ISO-8601 duration, and a key.
+PLAIN_EVENT_FIELDS = %w[id date duration venueKey].freeze
+
 # Wrap a description body in a Liquid raw block so arbitrary Meetup text
 # (which may contain `{{` / `{%`) can't break the Jekyll build; Kramdown still
 # formats the Markdown inside.
@@ -456,8 +595,8 @@ def render_event_fm(fields, body = nil)
     next unless fields.key?(k)
 
     v = fields[k]
-    if k == "date"
-      lines << "#{k}: #{v}"          # unquoted ISO scalar
+    if PLAIN_EVENT_FIELDS.include?(k)
+      lines << "#{k}: #{v}"          # unquoted scalar, matching hand-authored files
     elsif k == "groups"
       lines.concat(render_groups_block(v))
     else
@@ -562,6 +701,11 @@ def sync_global_cpp_session(store, date_key, postings)
     "venueKey" => "online"
   }
   fields["presenter_name"] = presenter_name if presenter_name
+  # Only linked when the bio page already exists; render_event_fm orders fields
+  # by EVENT_FIELD_ORDER, so insertion order here does not matter.
+  if presenter_name && (pslug = presenter_slug(presenter_name))
+    fields["presenter"] = pslug
+  end
   fields["host"] = host if host
   fields["groups"] = groups unless groups.empty?
   fields["meetup_url"] = primary_url if primary_url
@@ -569,6 +713,10 @@ def sync_global_cpp_session(store, date_key, postings)
   fields["description"] = desc_short unless desc_short.empty?
 
   log("  + #{File.basename(path)} (new#{desc_body.empty? ? '' : ' +description'}, #{groups.size} group(s))")
+  unless presenter_name
+    log("    ! no presenter parsed from the title — set presenter:/presenter_name: " \
+        "and rename this file by hand")
+  end
   return if DRY_RUN
 
   content = render_event_fm(fields, desc_body)
@@ -659,9 +807,21 @@ GROUP_EVENTS_HEADER = <<~HEADER
   # Fields: group, title, city, date (YYYY-MM-DD), url
 HEADER
 
+# Meetup sometimes stores a city as "City-District" with the city repeated
+# (Prague's venue comes back as "Praha-Praha 11"), which reads badly in a list
+# of world cities. Collapse that back to the city.
+def normalize_city(city)
+  city = city.to_s.strip
+  head, sep, tail = city.partition("-")
+  return city if sep.empty?
+
+  head = head.strip
+  tail.strip.start_with?(head) && !head.empty? ? head : city
+end
+
 def venue_city(node, fallback)
   v = node["venue"] || {}
-  parts = [v["city"], v["state"]].map(&:to_s).reject(&:empty?)
+  parts = [normalize_city(v["city"]), v["state"]].map(&:to_s).map(&:strip).reject(&:empty?)
   parts.empty? ? fallback : parts.join(", ")
 end
 
@@ -701,7 +861,9 @@ if BACKFILL
   return
 end
 
-log("Syncing #{groups.size} member group(s)#{DRY_RUN ? ' [dry run]' : ''}...")
+log("Syncing #{groups.size} member group(s)" \
+    "#{PAST ? " — catching up on past events since #{PAST_SINCE[0, 10]}" : ''}" \
+    "#{DRY_RUN ? ' [dry run]' : ''}...")
 
 # Existing group_events entries. Dedup is by (group + date) OR by normalized URL:
 # Meetup event ids are unstable (recurring events get fresh ids each occurrence),
@@ -718,7 +880,7 @@ gcpp_by_date = Hash.new { |h, k| h[k] = [] }
 groups.each do |urlname, info|
   log("\n#{info[:name]} (#{urlname})")
   begin
-    nodes = fetch_upcoming_events(token, urlname)
+    nodes = PAST ? fetch_past_events(token, urlname) : fetch_upcoming_events(token, urlname)
   rescue StandardError => e
     log("  ! skipped — #{e.message}")
     stats[:errors] += 1
@@ -726,7 +888,7 @@ groups.each do |urlname, info|
   end
 
   if nodes.empty?
-    log("  (no upcoming events)")
+    log(PAST ? "  (no past events in window)" : "  (no upcoming events)")
     next
   end
 
@@ -746,16 +908,29 @@ groups.each do |urlname, info|
   end
 
   # Generic/recurring placeholder meetups (no specific topic) collapse to just
-  # the next occurrence; topical events are all kept.
-  generic, specific = in_person.partition { |n| generic_title?(n["title"], info[:name]) }
-  next_generic = generic.min_by { |n| Time.parse(n["dateTime"]).utc }
-  dropped = generic.size - (next_generic ? 1 : 0)
-  log("  (collapsed #{generic.size} recurring '#{next_generic && next_generic['title']}' → next only)") if dropped.positive?
+  # the next occurrence; topical events are all kept. In --past mode the window
+  # is already bounded by --since, so every occurrence in it is a real event we
+  # want listed — collapsing would silently drop the ones we came here to add.
+  keep =
+    if PAST
+      in_person
+    else
+      generic, specific = in_person.partition { |n| generic_title?(n["title"], info[:name]) }
+      next_generic = generic.min_by { |n| Time.parse(n["dateTime"]) }
+      dropped = generic.size - (next_generic ? 1 : 0)
+      log("  (collapsed #{generic.size} recurring '#{next_generic && next_generic['title']}' → next only)") if dropped.positive?
+      [next_generic].compact + specific
+    end
 
-  ([next_generic].compact + specific).each do |node|
+  keep.each do |node|
     url  = node["eventUrl"]
     key  = normalize_url(url)
-    date = Time.parse(node["dateTime"]).utc.to_date
+    # The *local* date, not the UTC one: an in-person meetup belongs on the day
+    # it happens in its own city. Meetup returns dateTime with the venue's
+    # offset, so a 7pm PDT event is 02:00Z the next day — using UTC would list
+    # PDXCPP's Tuesday meetups on Wednesdays and would also miss the (group +
+    # date) dedupe against the hand-authored rows already in the file.
+    date = Time.parse(node["dateTime"]).to_date
     entry = {
       "group" => info[:name],
       "title" => node["title"],
@@ -768,9 +943,16 @@ groups.each do |urlname, info|
         (e["group"].to_s == entry["group"].to_s && e["date"].to_s == date.to_s)
     end
     if existing
-      changed = %w[group title city date url].any? { |k| existing[k].to_s != entry[k].to_s }
-      log("  #{changed ? '~ (update)' : '='} group_events: #{node['title']} (#{date})")
-      existing.merge!(entry) if changed
+      # Refreshing from Meetup is right for an upcoming event (organizers edit
+      # titles and venues up to the last minute), but in a --past catch-up pass
+      # it would let Meetup overwrite hand-curated history, so leave it alone.
+      if PAST
+        log("  = group_events: #{node['title']} (#{date}) [already listed]")
+      else
+        changed = %w[group title city date url].any? { |k| existing[k].to_s != entry[k].to_s }
+        log("  #{changed ? '~ (update)' : '='} group_events: #{node['title']} (#{date})")
+        existing.merge!(entry) if changed
+      end
     else
       log("  + group_events: #{node['title']} (#{date})")
       group_events << entry

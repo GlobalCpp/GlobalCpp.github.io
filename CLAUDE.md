@@ -38,7 +38,7 @@ bundle exec jekyll serve --livereload   # serves http://127.0.0.1:4000
 - `presenters/` — one Markdown bio file per speaker plus that speaker's headshot image. Rendered as pages (see below).
 - `logos/` — brand/banner images. Root: favicon/PWA assets and `site.webmanifest`.
 - `events.ics` — generated iCal feed (see "iCal calendar feed"). `scripts/generate_ics.rb` builds it; `.github/workflows/generate-ics.yml` regenerates it in CI.
-- `scripts/sync_meetup.rb` — pulls upcoming events from member groups' Meetup.com calendars into `_events/` and `_data/group_events.yml` (see "Meetup event sync"); `.github/workflows/sync-meetup.yml` runs it in CI.
+- `scripts/sync_meetup.rb` — pulls events from member groups' Meetup.com calendars into `_events/` and `_data/group_events.yml` (see "Meetup event sync"). `scripts/sync_youtube.rb` — fills `video:` links from the GlobalCpp YouTube channel (see "YouTube video sync"). `.github/workflows/sync-meetup.yml` runs both in CI. `.env`/`*.pem` hold the Meetup credentials locally and are gitignored; `.env.example` is the committed template.
 - `README.md` is **excluded from the build** (`_config.yml` `exclude`); it is repo-facing only.
 
 ## Recurring weekly content workflow
@@ -61,11 +61,14 @@ Almost every weekly change is adding one event file or editing one data file. No
   # video: "https://youtu.be/…"            # add after the talk airs
   # slides: "https://…"
   # code: "https://…"
-  # note: "Video delayed until the fall"   # optional freeform note
+  # note: "Video delayed until the fall"   # optional freeform note. NB: a note
+  #                                        # mentioning "video"/"recording" tells
+  #                                        # sync_youtube.rb to leave this event
+  #                                        # alone — fill `video:` by hand later.
   ---
   ```
 
-- **After a talk airs** → add `video:` (and `slides:`/`code:`) to that same file. No moving between lists.
+- **After a talk airs** → `video:` fills itself from YouTube (weekly in CI, or `ruby scripts/sync_youtube.rb`); add `slides:`/`code:` to that same file by hand. No moving between lists.
 - **New presenter** → create `presenters/<first>_<last>.md` (lowercase, **underscore-separated**) and drop the headshot alongside it (see "Adding a new presenter"). A bio may exist before any event references it.
 - **Member-group in-person event** → add an entry to `_data/group_events.yml` (`group, title, city, date, url`).
 - **New member group** → add `_data/members/<slug>.yml` with `name, city, country, lat, lng` and a `meetup` and/or `website` URL. Coordinates are required for the map.
@@ -104,7 +107,7 @@ Reference the image by bare relative filename. Use the theme's `class="align-lef
 
 ## Meetup event sync
 
-`scripts/sync_meetup.rb` pulls **upcoming** events from each member group's Meetup.com calendar and folds them into the site. Pure Ruby stdlib (no gems) like `generate_ics.rb` — GraphQL is a plain HTTPS POST and RS256 JWT signing uses `openssl`. It **only pulls**; it never writes to Meetup (unlike the sibling `cppserbia/coopkit` / `cppserbia-org-website` tooling, which pushes drafts).
+`scripts/sync_meetup.rb` pulls events from each member group's Meetup.com calendar and folds them into the site (**upcoming** events by default; `--past` catches up on ones that already happened). Pure Ruby stdlib (no gems) like `generate_ics.rb` — GraphQL is a plain HTTPS POST and RS256 JWT signing uses `openssl`. It **only pulls**; it never writes to Meetup (unlike the sibling `cppserbia/coopkit` / `cppserbia-org-website` tooling, which pushes drafts).
 
 - **What it reads:** every `_data/members/*.yml` whose `meetup:` URL is on `meetup.com`; the last URL path segment (lowercased) is the group urlname. Groups with a non-Meetup URL (LinkedIn, own site) are skipped.
 - **Classification per event:**
@@ -114,11 +117,24 @@ Reference the image by bare relative filename. Use the theme's `class="align-lef
 - **One page per session, with details.** A session is cross-posted to several groups' calendars; the sync **aggregates by UTC date** and writes a single `_events` page. It fills `presenter_name` (parsed from the title), `host` (Meetup organizer), a `groups:` list (`{name, url}` per hosting group — rendered as the RSVP links on the page), a short `description:` (SEO summary), and the **Meetup event description as the Markdown body** (the page content). `meetup_url:` = the first group's URL, for the row's rsvp chip.
 - **Descriptions are filtered.** `clean_description`/`meaningful_description?` strip the "**Description**" template header and drop placeholder/too-short text, so pages never get junk bodies.
 - **`howToFindUs` → `zoom`.** When it's a URL, the event's `howToFindUs` (the Zoom join link for online sessions) is synced into the `zoom:` field, which drives the "Join on Zoom" CTA. Fill-missing only, like every other field.
-- **Recurring/placeholder in-person meetups collapse to the next occurrence only** (`generic_title?` — "Monthly Meetup", "November Meeting", etc.); events with a real topic title are all kept. This stops a recurring series (e.g. PDXCPP's monthly) from flooding the list.
+- **Recurring/placeholder in-person meetups collapse to the next occurrence only** (`generic_title?` — "Monthly Meetup", "November Meeting", etc.); events with a real topic title are all kept. This stops a recurring series (e.g. PDXCPP's monthly) from flooding the list. `--past` skips the collapse: its window is already bounded by `--since`, so every occurrence in it is wanted.
+- **`group_events.yml` dates are the event's *local* date**, not its UTC date. Meetup returns `dateTime` with the venue's offset, so a 7pm PDT meetup is 02:00Z the *next* day — using UTC would list PDXCPP's Tuesday meetups on Wednesdays and would break the `group` + `date` dedupe against existing rows. Session pages (`_events/*.md`) do use UTC, since those store a real instant.
 - **Additive & idempotent.** Never deletes existing or hand-authored content. `_events` entries are matched by `meetup_url` then by UTC date, and only *missing* fields are filled (hand-authored `presenter`/`video`/etc. and an existing body are never overwritten). `group_events.yml` entries dedupe by **`group` + `date`** OR normalized URL — Meetup event ids are unstable across recurrences, so date is the reliable key.
 - **Backfill:** `--backfill` fills descriptions onto existing session pages that have no body — via `event(id:)` when a `meetup_url` is present, else best-effort discovery scanning groups' PAST Global C++ events (since `BACKFILL_SINCE`) matched by UTC date. Runs as its own pass (skips the normal upcoming sync).
-- **Run locally:** set `MEETUP_CLIENT_KEY`, `MEETUP_MEMBER_ID`, `MEETUP_SIGNING_KEY_ID`, and either `MEETUP_PRIVATE_KEY_PATH` (path to the RSA PEM) or `MEETUP_PRIVATE_KEY` (PEM contents) — via a gitignored `.env` (`.env`/`*.pem` are in `.gitignore`) or the environment. Then `ruby scripts/sync_meetup.rb [--dry-run] [--backfill] [urlname ...]`. `--dry-run` prints planned changes without writing; passing urlnames restricts the sync to those groups. The sibling repo's `meetup-private-key.pem` can be reused for local runs.
-- **In CI:** `.github/workflows/sync-meetup.yml` runs weekly (Mon 06:00 UTC) + `workflow_dispatch`, then commits changed `_events/**` and `_data/group_events.yml` back to `main` as `github-actions[bot]` with `[skip ci]`. That commit to `_events/**` triggers `generate-ics.yml` to refresh `events.ics`; the sync workflow itself runs only on schedule/dispatch, so there is no loop. Needs repo secrets `MEETUP_CLIENT_KEY`, `MEETUP_MEMBER_ID`, `MEETUP_SIGNING_KEY_ID`, `MEETUP_PRIVATE_KEY` (PEM contents) and Actions write permission.
+- **Catch-up:** `--past [--since YYYY-MM-DD]` (default window: 60 days) **creates** pages and `group_events.yml` rows for events that already happened. This is the counterpart to `--backfill`, which only fills bodies onto pages that already exist — without `--past`, a week the sync did not run is lost permanently, since the normal pass sees only upcoming events. Mutually exclusive with `--backfill` (the script aborts if both are given). In this mode existing `group_events.yml` rows are **never** rewritten, so a catch-up pass cannot let Meetup clobber hand-curated history.
+- **Run locally:** set `MEETUP_CLIENT_KEY`, `MEETUP_MEMBER_ID`, `MEETUP_SIGNING_KEY_ID`, and either `MEETUP_PRIVATE_KEY_PATH` (path to the RSA PEM) or `MEETUP_PRIVATE_KEY` (PEM contents). A gitignored `.env` at the repo root **is read automatically** (`load_dotenv`; `.env`/`*.pem` are in `.gitignore`, and `.env.example` is the committed template) — real environment variables always win over it, and a relative `MEETUP_PRIVATE_KEY_PATH` resolves against the repo root so `./meetup-private-key.pem` works from any directory. Then `ruby scripts/sync_meetup.rb [--dry-run] [--backfill | --past] [--since YYYY-MM-DD] [urlname ...]`. `--dry-run` prints planned changes without writing; passing urlnames restricts the sync to those groups. The sibling repo's `meetup-private-key.pem` can be reused for local runs.
+- **Watch the filename on new session pages.** `presenter_from_title` only finds a presenter in a title ending `"… by/with <Name>"`, which Meetup titles usually don't, so a created page is named after the *talk* (`2026-08-15-how-to-choose-…-p2.md`) instead of the presenter. The script logs a warning when this happens: rename the file to `YYYY-MM-DD-<presenter-slug>.md`, fix `id:`, and add `presenter:`/`presenter_name:` by hand. Renaming is safe — the page is re-matched by `meetup_url`/date, not by filename. `presenter:` is emitted automatically only when `presenters/<slug>.md` already exists.
+- **In CI:** `.github/workflows/sync-meetup.yml` runs weekly (Mon 06:00 UTC) + `workflow_dispatch`: the normal pass, then `--past`, then `scripts/sync_youtube.rb`, then commits changed `_events/**` and `_data/group_events.yml` back to `main` as `github-actions[bot]` with `[skip ci]`. That commit to `_events/**` triggers `generate-ics.yml` to refresh `events.ics`; the sync workflow itself runs only on schedule/dispatch, so there is no loop. Needs repo secrets `MEETUP_CLIENT_KEY`, `MEETUP_MEMBER_ID`, `MEETUP_SIGNING_KEY_ID`, `MEETUP_PRIVATE_KEY` (PEM contents) and Actions write permission.
+
+## YouTube video sync
+
+`scripts/sync_youtube.rb` fills in the `video:` field on `_events/*.md` from the [GlobalCpp channel](https://www.youtube.com/@GlobalCpp)'s public uploads RSS feed (`channel_id=UCleT6exmjkpuH2do_NNG3Nw`). Pure Ruby stdlib and **no auth** — no API key, no gems, `rexml` parses the feed.
+
+- **Run:** `ruby scripts/sync_youtube.rb [--dry-run] [event-id ...]`. Runs weekly in CI as part of `sync-meetup.yml` (it needs no secrets, so it runs even when the Meetup steps fail).
+- **Fill-missing only.** An event that already has a `video:` key is never touched, and the insertion is a targeted line splice — the rest of the front matter and the body are left byte-for-byte alone. (Do **not** reuse `sync_meetup.rb`'s `render_event_fm` here: it reserializes by `EVENT_FIELD_ORDER`, which would drop `kind`/`external_url`.)
+- **A match needs both a title match and a plausible date.** Titles drift between the site and YouTube ("Caching and" vs "Caching And", "Let's" vs "Lets", "Contracts for C++26" vs "Contracts in C++26"), so comparison is normalized and fuzzy — but a fuzzy title alone would pair up two parts of a series, so the video must also be published within `[date - 1d, date + 45d]`, and a `p1`/`p2`/`part N` marker mismatch is a hard reject. Ambiguous matches are reported, not guessed.
+- **Skips**, each logged: an existing `video:`; `kind`/`venueKey: external`; and a `note:` mentioning "video"/"recording" — which is how this repo records "the recording isn't out yet" (see `_events/2026-07-11-andrei-alexandrescu.md`). That last rule means such an event needs its `video:` filled **by hand** once the video does appear.
+- **Only the ~15 most recent uploads are in the feed**, so it self-heals recent gaps only — run it weekly. Older gaps need a manual fill; paging further back would require the YouTube Data API, a key, and a gem.
 
 ## Coopkit automation (deferred)
 
