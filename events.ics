@@ -308,4 +308,15 @@ DESCRIPTION:Presented by Alan Talbot. Details: https://globalcpp.github.io/
 LOCATION:Online (Zoom / YouTube)
 URL:https://globalcpp.github.io/events/
 END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-22-andy-soffer@globalcpp.github.io
+DTSTAMP:20260822T160000Z
+DTSTART:20260822T160000Z
+DTEND:20260822T170000Z
+SUMMARY:Global C++: Refactoring C++ Today
+DESCRIPTION:Presented by Andy Soffer. Details: https://globalcpp.github.io/
+ events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
 END:VCALENDAR
