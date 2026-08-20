@@ -1,0 +1,57 @@
+{% comment %}
+  Homepage member-group strip — the "spinning std::tuple" that replaced the flat
+  logos/tuple_banner_dark.png. Params: (none).
+
+  Data:   every _data/members/<slug>.yml, in slug order (same order as /members/).
+  Assets: /logos/members/<slug>.* (the group's own logo) wins; /logos/flags/<slug>.*
+          (city or national flag) is the fallback; a group with neither renders a
+          monospace city tile. Existence is tested against site.static_files,
+          because GitHub Pages' Jekyll has no file-exists filter — so a missing or
+          misnamed asset can never emit a broken <img>. An optional `logo:` key on
+          the member file overrides both directories.
+  Hover:  data-gcpp-tip is the tooltip text, rendered by CSS ::after. It is NOT a
+          JS hook and must not be a `title` attribute — the link's accessible name
+          already comes from the image alt, and a title would double-announce it.
+  Motion: pure CSS marquee (assets/css/main.scss); no JavaScript. The track holds
+          exactly TWO identical copies of the list so translateX(-50%) loops
+          seamlessly; copy 2 is decorative (aria-hidden + tabindex="-1") and is
+          display:none under prefers-reduced-motion, where the strip becomes a
+          static wrapped grid. If the group list ever shrinks below the viewport
+          width, go to three copies and -33.3333%. The last cell of copy 1 is
+          tagged --tail so the static view can drop its trailing comma (the
+          marquee needs it: it is the gap before the loop wraps).
+{% endcomment %}
+{%- assign member_logos = site.static_files | where_exp: "f", "f.path contains '/logos/members/'" -%}
+{%- assign member_flags = site.static_files | where_exp: "f", "f.path contains '/logos/flags/'" -%}
+{%- assign groups = site.data.members | sort -%}
+<nav class="gcpp-strip" aria-label="Member user groups">
+  <div class="gcpp-strip__frame">
+    <span class="gcpp-strip__punct" aria-hidden="true">std::tuple&lt;</span>
+    <div class="gcpp-strip__viewport">
+      <ul class="gcpp-strip__track">
+        {%- for copy in (1..2) -%}
+        {%- for pair in groups -%}
+        {%- assign slug = pair[0] -%}
+        {%- assign m = pair[1] -%}
+        {%- comment %} Resolve the tile art: own logo, else flag, else a text tile. {% endcomment -%}
+        {%- assign img = m.logo -%}
+        {%- assign is_flag = false -%}
+        {%- unless img -%}{%- assign hit = member_logos | where: "basename", slug | first -%}{%- assign img = hit.path -%}{%- endunless -%}
+        {%- unless img -%}{%- assign hit = member_flags | where: "basename", slug | first -%}{%- assign img = hit.path -%}{%- if img %}{% assign is_flag = true %}{% endif -%}{%- endunless -%}
+        {%- comment %} Tooltip text: the group name, plus the city when the name doesn't
+            already carry it ("PDXCPP · Portland", but not "Warsaw … · Warsaw"). {% endcomment -%}
+        {%- assign tip = m.name -%}
+        {%- unless m.name contains m.city -%}{%- assign tip = m.name | append: " · " | append: m.city -%}{%- endunless -%}
+        <li class="gcpp-strip__cell{% if copy == 2 %} gcpp-strip__cell--clone{% elsif forloop.last %} gcpp-strip__cell--tail{% endif %}">
+          <a class="gcpp-strip__item{% if is_flag %} gcpp-strip__item--flag{% endif %}" href="{{ m.website | default: m.meetup }}" target="_blank" rel="noopener" data-gcpp-tip="{{ tip | escape }}"{% if copy == 2 %} tabindex="-1" aria-hidden="true"{% endif %}>
+            {%- if img %}<img src="{{ img }}" alt="{{ m.name }}" decoding="async">
+            {%- else %}<span class="gcpp-strip__text">{{ m.city }}</span>{% endif -%}
+          </a>
+        </li>
+        {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+    <span class="gcpp-strip__punct gcpp-strip__punct--close" aria-hidden="true">&gt;</span>
+  </div>
+</nav>
