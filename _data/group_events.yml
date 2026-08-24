@@ -1,6 +1,12 @@
 # In-person events hosted by individual member groups.
 # Past vs upcoming is derived from `date` at build time — no manual moving.
 # Fields: group, title, city, date (YYYY-MM-DD), url
+- group: "PDXCPP"
+  title: "PDXCPP - Monthly Meetup"
+  city: "Portland, OR"
+  date: 2026-09-15
+  url: "https://www.meetup.com/pdxcpp/events/fvprbtyjcmbtb/"
+
 - group: "StockholmCpp"
   title: "0x3F: Closing the Agentic Loop, every byte counts"
   city: "Kista"
