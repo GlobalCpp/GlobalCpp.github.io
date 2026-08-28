@@ -308,4 +308,26 @@ DESCRIPTION:Presented by Alan Talbot. Details: https://globalcpp.github.io/
 LOCATION:Online (Zoom / YouTube)
 URL:https://globalcpp.github.io/events/
 END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-22-refactoring-c-today@globalcpp.github.io
+DTSTAMP:20260822T160000Z
+DTSTART:20260822T160000Z
+DTEND:20260822T170000Z
+SUMMARY:Global C++: Refactoring C++ Today
+DESCRIPTION:Details: https://globalcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-29-jody-hagins@globalcpp.github.io
+DTSTAMP:20260829T160000Z
+DTSTART:20260829T160000Z
+DTEND:20260829T170000Z
+SUMMARY:Global C++: Umpire’s C++ Journey: Modernizing Without Breaking a 
+ Decade of Production Code
+DESCRIPTION:Presented by Kristi Belcher. Recording:  Details: https://globa
+ lcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:
+END:VEVENT
 END:VCALENDAR
