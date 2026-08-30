@@ -319,13 +319,25 @@ LOCATION:Online (Zoom / YouTube)
 URL:https://globalcpp.github.io/events/
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-08-29-jody-hagins@globalcpp.github.io
+UID:2026-08-29-kristi-belcher@globalcpp.github.io
 DTSTAMP:20260829T160000Z
 DTSTART:20260829T160000Z
 DTEND:20260829T170000Z
 SUMMARY:Global C++: Umpire’s C++ Journey: Modernizing Without Breaking a 
  Decade of Production Code
 DESCRIPTION:Presented by Kristi Belcher. Recording:  Details: https://globa
+ lcpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-05-andreas-fertig@globalcpp.github.io
+DTSTAMP:20260905T160000Z
+DTSTART:20260905T160000Z
+DTEND:20260905T170000Z
+SUMMARY:Global C++: Embedded-Friendly C++: Modern Features That Make a Diff
+ erence
+DESCRIPTION:Presented by Andreas Fertig. Recording:  Details: https://globa
  lcpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
 URL:
