@@ -1,5 +1,5 @@
 ---
-id: 2026-08-29-jody-hagins
+id: 2026-08-29-kristi-belcher
 title: "Umpire’s C++ Journey: Modernizing Without Breaking a Decade of Production Code"
 date: 2026-08-29T16:00:00Z
 duration: PT1H
