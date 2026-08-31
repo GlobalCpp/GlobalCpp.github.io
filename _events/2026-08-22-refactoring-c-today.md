@@ -4,6 +4,7 @@ title: "Refactoring C++ Today"
 date: 2026-08-22T16:00:00Z
 duration: PT1H
 venueKey: online
+video: "https://youtu.be/LRgroCfNc9U"
 host: "Rob Douglas"
 groups:
   - name: "Chicago C/C++ Users Group"

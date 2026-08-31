@@ -5,7 +5,13 @@
   title: "PDXCPP - Monthly Meetup"
   city: "Portland, OR"
   date: 2026-09-15
-  url: "https://www.meetup.com/pdxcpp/events/fvprbtyjcmbtb/"
+  url: "https://www.meetup.com/pdxcpp/events/316291641/"
+
+- group: "C++ Bay Area"
+  title: "Cpp Bay Area: Saturday Social at San Pedro Square"
+  city: "San Jose, CA"
+  date: 2026-08-29
+  url: "https://www.meetup.com/cpp-bay-area/events/316290788/"
 
 - group: "StockholmCpp"
   title: "0x3F: Closing the Agentic Loop, every byte counts"
