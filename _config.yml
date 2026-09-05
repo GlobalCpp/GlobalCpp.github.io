@@ -17,7 +17,7 @@ future: true                          # publish upcoming (future-dated) session 
 url: "https://globalcpp.github.io"
 locale: "en-US"
 repository: "GlobalCpp/GlobalCpp.github.io"
-logo: "/logos/global_c++.png"        # masthead logo
+logo: "/logos/globalcpp-logo/globalcpp-logo-color.svg"        # masthead logo
 
 # NOTE: masthead search is intentionally OFF (off by omission — no `search:` key).
 # Event docs now have real pages (`collections.events.output: true`), so the old
@@ -27,7 +27,7 @@ logo: "/logos/global_c++.png"        # masthead logo
 # Identity shown in the theme's author-profile sidebar on interior pages.
 author:
   name: "Global C++"
-  avatar: "/logos/global_c++.png"
+  avatar: "/logos/globalcpp-logo/globalcpp-logo-color.svg"
   bio: "Free weekly C++ talks from user groups around the world."
   links:
     - label: "Discord"

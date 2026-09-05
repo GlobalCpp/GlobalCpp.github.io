@@ -46,3 +46,16 @@ If you run a C++ user group and would like to collaborate — share talks, cross
 events, and appear on the map — reach out on the
 [Global C++ Discord](https://discord.gg/HVv7Jya37T){:target="_blank" rel="noopener"}.
 We're very much a growing effort and would love to have you.
+
+## Logo
+
+| Variation | Vector |
+|:---------------------:|:-:|
+| **Color, Any Background** | [![Color, Any Background](/logos/globalcpp-logo/globalcpp-logo-color.svg){:style="background: lightslategrey; border-radius: 1rem; width: 8rem; padding: 0.5rem;"}](/logos/globalcpp-logo/globalcpp-logo-color.svg){:target="_blank" rel="noopener"} |
+| **B&W, Light Background** | [![B&W, Light Background](/logos/globalcpp-logo/globalcpp-logo-lightbg.svg){:style="background: lightgrey; border-radius: 1rem; 1rem; width: 8rem; padding: 0.5rem;"}](/logos/globalcpp-logo/globalcpp-logo-lightng.svg){:target="_blank" rel="noopener"} |
+| **B&W, Dark Background** | [![B&W, Dark Background](/logos/globalcpp-logo/globalcpp-logo-darkbg.svg){:style="background: darkgrey; border-radius: 1rem; 1rem; width: 8rem; padding: 0.5rem;"}](/logos/globalcpp-logo/globalcpp-logo-darkbg.svg){:target="_blank" rel="noopener"} |
+
+PNG renders at various sizes are [available](/logos/globalcpp-logo/).
+
+Logo copyright René Ferdinand Rivera Morell, and licensed as [CC BY-NC
+4.0](https://creativecommons.org/licenses/by-nc/4.0/){:target="_blank" rel="noopener"}.
