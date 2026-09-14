@@ -1,6 +1,18 @@
 # In-person events hosted by individual member groups.
 # Past vs upcoming is derived from `date` at build time — no manual moving.
 # Fields: group, title, city, date (YYYY-MM-DD), url
+- group: "Chicago C/C++ Users Group"
+  title: "AI‑Accelerated Model‑Driven Development"
+  city: "Chicago, IL"
+  date: 2026-10-22
+  url: "https://www.meetup.com/chicago-c-cpp-users-group/events/316547637/"
+
+- group: "StockholmCpp"
+  title: "0x40: Linux Libraries, and C++ Memory safety"
+  city: "Sundbyberg"
+  date: 2026-09-24
+  url: "https://www.meetup.com/stockholmcpp/events/316498731/"
+
 - group: "PDXCPP"
   title: "PDXCPP - Monthly Meetup"
   city: "Portland, OR"
