@@ -7,6 +7,18 @@
   date: 2026-10-22
   url: "https://www.meetup.com/chicago-c-cpp-users-group/events/316547637/"
 
+- group: "PDXCPP"
+  title: "PDXCPP - Monthly Meetup"
+  city: "Portland, OR"
+  date: 2026-10-20
+  url: "https://www.meetup.com/pdxcpp/events/fvprbtyjcnbbc/"
+
+- group: "C++ Serbia"
+  title: "Data Structures and Algorithms in Clinical Practice"
+  city: "Beograd"
+  date: 2026-09-30
+  url: "https://www.meetup.com/cpp-serbia/events/316549406/"
+
 - group: "StockholmCpp"
   title: "0x40: Linux Libraries, and C++ Memory safety"
   city: "Sundbyberg"
