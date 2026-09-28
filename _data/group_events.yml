@@ -19,6 +19,12 @@
   date: 2026-09-30
   url: "https://www.meetup.com/cpp-serbia/events/316549406/"
 
+- group: "C++ Bay Area"
+  title: "Cpp Bay Area: Saturday Social at San Pedro Square"
+  city: "San Jose, CA"
+  date: 2026-09-26
+  url: "https://www.meetup.com/cpp-bay-area/events/316666851/"
+
 - group: "StockholmCpp"
   title: "0x40: Linux Libraries, and C++ Memory safety"
   city: "Sundbyberg"
