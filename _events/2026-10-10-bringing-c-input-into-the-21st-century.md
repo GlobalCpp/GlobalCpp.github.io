@@ -4,6 +4,7 @@ title: "Bringing C++ Input into the 21st Century"
 date: 2026-10-10T16:00:00Z
 duration: PT1H
 venueKey: online
+video: "https://youtu.be/7fO3TEX9eU4"
 host: "Rob Douglas"
 groups:
   - name: "Chicago C/C++ Users Group"
