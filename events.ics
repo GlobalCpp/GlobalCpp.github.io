@@ -303,10 +303,10 @@ DTSTAMP:20260815T160000Z
 DTSTART:20260815T160000Z
 DTEND:20260815T170000Z
 SUMMARY:Global C++: How to Choose and Use the Right Container in C++26 p2
-DESCRIPTION:Presented by Alan Talbot. Details: https://globalcpp.github.io/
- events/
+DESCRIPTION:Presented by Alan Talbot. Recording: https://youtu.be/oC7Ey3yEL
+ V4 Details: https://globalcpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
-URL:https://globalcpp.github.io/events/
+URL:https://youtu.be/oC7Ey3yELV4
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-08-22-refactoring-c-today@globalcpp.github.io
@@ -314,9 +314,10 @@ DTSTAMP:20260822T160000Z
 DTSTART:20260822T160000Z
 DTEND:20260822T170000Z
 SUMMARY:Global C++: Refactoring C++ Today
-DESCRIPTION:Details: https://globalcpp.github.io/events/
+DESCRIPTION:Recording: https://youtu.be/LRgroCfNc9U Details: https://global
+ cpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
-URL:https://globalcpp.github.io/events/
+URL:https://youtu.be/LRgroCfNc9U
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-08-29-kristi-belcher@globalcpp.github.io
@@ -341,5 +342,60 @@ DESCRIPTION:Presented by Andreas Fertig. Recording:  Details: https://globa
  lcpp.github.io/events/
 LOCATION:Online (Zoom / YouTube)
 URL:
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-26-what-are-we-synchronizing@globalcpp.github.io
+DTSTAMP:20260926T160000Z
+DTSTART:20260926T160000Z
+DTEND:20260926T170000Z
+SUMMARY:Global C++: What Are We Synchronizing?
+DESCRIPTION:Recording: https://youtu.be/5vA5gH6ASL0 Details: https://global
+ cpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/5vA5gH6ASL0
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-03-implementing-async-raii@globalcpp.github.io
+DTSTAMP:20261003T160000Z
+DTSTART:20261003T160000Z
+DTEND:20261003T170000Z
+SUMMARY:Global C++: Implementing Async RAII
+DESCRIPTION:Recording: https://youtu.be/1JY6LLmbpuY Details: https://global
+ cpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/1JY6LLmbpuY
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-10-bringing-c-input-into-the-21st-century@globalcpp.github.io
+DTSTAMP:20261010T160000Z
+DTSTART:20261010T160000Z
+DTEND:20261010T170000Z
+SUMMARY:Global C++: Bringing C++ Input into the 21st Century
+DESCRIPTION:Recording: https://youtu.be/7fO3TEX9eU4 Details: https://global
+ cpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/7fO3TEX9eU4
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-17-back-to-basics-computer-systems@globalcpp.github.io
+DTSTAMP:20261017T160000Z
+DTSTART:20261017T160000Z
+DTEND:20261017T170000Z
+SUMMARY:Global C++: Back to Basics: Computer Systems
+DESCRIPTION:Recording: https://youtu.be/Mujy0gUZ5aI Details: https://global
+ cpp.github.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://youtu.be/Mujy0gUZ5aI
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-31-milos-andjelkovic@globalcpp.github.io
+DTSTAMP:20261031T160000Z
+DTSTART:20261031T160000Z
+DTEND:20261031T170000Z
+SUMMARY:Global C++: Building the tiniest Pomodoro timer
+DESCRIPTION:Presented by Miloš Anđelković. Details: https://globalcpp.gi
+ thub.io/events/
+LOCATION:Online (Zoom / YouTube)
+URL:https://globalcpp.github.io/events/
 END:VEVENT
 END:VCALENDAR
