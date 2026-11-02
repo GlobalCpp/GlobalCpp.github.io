@@ -7,6 +7,12 @@ venueKey: online
 presenter: milos_andjelkovic
 presenter_name: "Miloš Anđelković"
 description: "How a simple Pomodoro timer can take way more memory than necessary — and how a small C++ implementation (FLTK, X11, plain std) plus compiler/linker flags shrinks the binary."
+meetup_url: "https://www.meetup.com/chicago-c-cpp-users-group/events/317170216/"
+host: "Rob Douglas"
+zoom: "https://zoom.us/j/92959855550?pwd=ezV5fKWy9I29Fb8ag1DhabvJmS92I5.1"
+groups:
+  - name: "Chicago C/C++ Users Group"
+    url: "https://www.meetup.com/chicago-c-cpp-users-group/events/317170216/"
 ---
 
 {% raw %}

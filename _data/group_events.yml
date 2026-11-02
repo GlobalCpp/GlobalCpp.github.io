@@ -5,7 +5,19 @@
   title: "PDXCPP - Monthly Meetup"
   city: "Portland, OR"
   date: 2026-11-17
-  url: "https://www.meetup.com/pdxcpp/events/fvprbtyjcpbwb/"
+  url: "https://www.meetup.com/pdxcpp/events/317185180/"
+
+- group: "C++ Bay Area"
+  title: "Cpp Bay Area: How to Argue(ment)"
+  city: "Santa Clara, CA"
+  date: 2026-11-12
+  url: "https://www.meetup.com/cpp-bay-area/events/317223313/"
+
+- group: "C++ Serbia"
+  title: "C++ Serbia: The Votes Are In"
+  city: "Beograd"
+  date: 2026-10-28
+  url: "https://www.meetup.com/cpp-serbia/events/317144860/"
 
 - group: "Chicago C/C++ Users Group"
   title: "AI‑Accelerated Model‑Driven Development"
