@@ -4,6 +4,18 @@
 - group: "PDXCPP"
   title: "PDXCPP - Monthly Meetup"
   city: "Portland, OR"
+  date: 2026-12-15
+  url: "https://www.meetup.com/pdxcpp/events/317310084/"
+
+- group: "C++ Serbia"
+  title: "The Algebra Behind Great C++ APIs"
+  city: "Novi Sad"
+  date: 2026-11-24
+  url: "https://www.meetup.com/cpp-serbia/events/317471620/"
+
+- group: "PDXCPP"
+  title: "PDXCPP - Monthly Meetup"
+  city: "Portland, OR"
   date: 2026-11-17
   url: "https://www.meetup.com/pdxcpp/events/317185180/"
 
